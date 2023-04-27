@@ -5,6 +5,7 @@ CREATE TABLE [{{$.Schema}}].[{{$.Name}}](
 	{{- $length := minus $length 1 }} 
 	{{- range $index,$attribute := $.Attributes }}
 		{{ $attribute.Name }} {{ getDataType $attribute.DataType }}
+		{{- if hasSize $attribute}}({{getSize $attribute}}){{- end}}
 		{{- if $attribute.AutoId}} IDENTITY(1,1){{- end}}
 		{{- if $attribute.AllowNull}} NULL{{- else}} NOT NULL{{- end}}
 		{{- if $attribute.DefaultValue}} DEFAULT ({{$attribute.DefaultValue}}){{- end}}

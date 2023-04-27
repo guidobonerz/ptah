@@ -11,6 +11,12 @@
             "allowBundledFile": true,
             "dataTypes": [
                 {
+                    "genericType": "char",
+                    "realType": "char",
+                    "hasSize": true,
+                    "maxSize": "MAX"
+                },
+                {
                     "genericType": "string",
                     "realType": "nvarchar2",
                     "hasSize": true,
@@ -68,13 +74,20 @@
                 },
                 {
                     "name": "column3",
+                    "dataType": "char",
+                    "primaryKey": false,
+                    "allowNull": true,
+                    "size": "42"
+                },
+                {
+                    "name": "column4",
                     "dataType": "date",
                     "primaryKey": false,
                     "defaultValue": "date()",
                     "allowNull": false
                 },
                 {
-                    "name": "column4",
+                    "name": "column5",
                     "dataType": "boolean",
                     "primaryKey": false,
                     "defaultValue": "0",

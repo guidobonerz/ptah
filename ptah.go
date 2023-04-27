@@ -78,6 +78,28 @@ func parseTemplate(file string) error {
 					}
 					pk = pk[:len(pk)-1]
 					return pk
+				}, "hasSize": func(attribute structure.Attribute) bool {
+					var result bool
+					for i := 0; i < len(target.DataTypes); i++ {
+						if attribute.DataType == target.DataTypes[i].GenericType {
+							result = target.DataTypes[i].HasSize
+						}
+					}
+					return result
+				}, "getSize": func(attribute structure.Attribute) string {
+					var result string
+					for i := 0; i < len(target.DataTypes); i++ {
+						if attribute.DataType == target.DataTypes[i].GenericType {
+							if target.DataTypes[i].HasSize {
+								if len(attribute.Size) == 0 {
+									result = target.DataTypes[i].MaxSize
+								} else {
+									result = attribute.Size
+								}
+							}
+						}
+					}
+					return result
 				}}).ParseFiles(templatePathName)
 
 			if err != nil {
