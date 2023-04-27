@@ -6,14 +6,16 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
+	"text/template"
 )
 
 func main() {
 	var inputfile string
 	var verbose bool = false
 
-	flag.StringVar(&inputfile, "in", "project.json", "project file")
+	flag.StringVar(&inputfile, "in", "test.json", "project file")
 	flag.BoolVar(&verbose, "v", true, "verbose mode")
 
 	flag.Usage = func() {
@@ -30,21 +32,67 @@ func main() {
 		flag.Usage()
 		os.Exit(1)
 	}
+	parseTemplate(inputfile)
 }
 
-func readJson(file string) error {
-	controfile, err := os.Open(file)
+func parseTemplate(file string) error {
+	controlFile, err := os.Open(file)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatalln(err)
 	}
 
 	fmt.Println("successfully opened project file")
-	defer controfile.Close()
+	defer controlFile.Close()
 
-	byteValue, _ := ioutil.ReadAll(controfile)
+	byteValue, _ := ioutil.ReadAll(controlFile)
 
 	var project structure.Project
 	json.Unmarshal(byteValue, &project)
+
+	for _, target := range project.Targets {
+		for _, entity := range project.Entities {
+			var outputFileName = "results/" + entity.Name + "." + target.Suffix
+			var templateFileName = entity.Type + ".go.tpl"
+			var templatePathName = "templates/" + target.Name + "/" + target.Type + "/" + templateFileName
+
+			t, err := template.New(templateFileName).Funcs(template.FuncMap{
+				"minus": func(a, b int) int {
+					return a - b
+				}, "getDataType": func(key string) string {
+					var result structure.DataType
+					var list []structure.DataType = target.DataTypes
+					for i := 0; i < len(list); i++ {
+						if list[i].GenericType == key {
+							result = list[i]
+							break
+						}
+					}
+					return result.RealType
+				}, "getPrimaryKeyString": func() string {
+					var pk string
+					var list []structure.Attribute = entity.Attributes
+					for i := 0; i < len(list); i++ {
+						if list[i].PrimaryKey {
+							pk += list[i].Name + ","
+						}
+					}
+					pk = pk[:len(pk)-1]
+					return pk
+				}}).ParseFiles(templatePathName)
+
+			if err != nil {
+				log.Fatalln(err)
+			}
+			generatedFile, err := os.Create(outputFileName)
+			if err != nil {
+				log.Fatalln(err)
+			}
+
+			if err := t.Execute(generatedFile, entity); err != nil {
+				log.Fatalln(err)
+			}
+		}
+	}
 
 	return nil
 }
