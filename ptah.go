@@ -12,11 +12,12 @@ import (
 	"text/template"
 )
 
+var verbose bool = false
+
 func main() {
 	var inputfile string
-	var verbose bool = false
 
-	flag.StringVar(&inputfile, "in", "test.json", "project file")
+	flag.StringVar(&inputfile, "in", "", "project file")
 	flag.BoolVar(&verbose, "v", true, "verbose mode")
 
 	flag.Usage = func() {
@@ -58,19 +59,21 @@ func parseTemplate(file string) error {
 		for _, tmpl := range templateConfig.Templates {
 			if tmpl.Enabled {
 				for _, entity := range project.Entities {
-					var nameSpacePath = "results/" + strings.Replace(project.BaseNameSpace+"."+tmpl.NameSpace, ".", "/", -1)
-					var outputFileName = nameSpacePath + "/" + fmt.Sprintf(tmpl.NamePattern, strings.Title(entity.Name)) + "." + templateConfig.Suffix
+					var nameSpace = project.BaseNameSpace + "." + tmpl.NameSpace
+					var nameSpacePath = "results/" + strings.Replace(nameSpace, ".", "/", -1)
+					var objectName = fmt.Sprintf(tmpl.NamePattern, strings.Title(entity.Name))
+					var outputFileName = nameSpacePath + "/" + objectName + "." + templateConfig.Suffix
 					var templateFileName = tmpl.Name + ".go.tpl"
 					var templatePathName = "templates/" + templateConfig.TemplateBasePath + templateFileName
 					t, err := template.New(templateFileName).Funcs(template.FuncMap{
 						"getNameSpace": func() string {
-							return project.BaseNameSpace + "." + tmpl.NameSpace
+							return nameSpace
 						},
 						"getTemplateName": func() string {
 							return tmpl.Name
 						},
 						"getObjectName": func() string {
-							return fmt.Sprintf(tmpl.NamePattern, strings.Title(entity.Name))
+							return objectName
 						},
 						"isNotLastAttribute": func(index int) bool {
 							return len(entity.Attributes)-1 != index
@@ -118,31 +121,15 @@ func parseTemplate(file string) error {
 
 					if err := t.Execute(generatedFile, entity); err != nil {
 						log.Fatalln(err)
+					} else {
+						if verbose {
+							log.Printf("%s successfully written", outputFileName)
+						}
 					}
 				}
 			}
 		}
 	}
+	log.Printf("finished.")
 	return nil
 }
-
-/*
-
-,
-                {
-                    "name": "view",
-                    "outputPath": "",
-                    "fileNamePattern": ""
-                },
-                {
-                    "name": "procedure",
-                    "outputPath": "",
-                    "fileNamePattern": ""
-                }
-
-
-
-
-
-
-*/

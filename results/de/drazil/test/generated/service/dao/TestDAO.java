@@ -34,102 +34,102 @@ public class TestDAO {
     }
 
     public java.util.List<TestDTO> getTestList(java.lang.String searchText){
-        return dao.getTestList(searchText);
+        return getTestList(searchText, null, null);
     }
     
     public java.util.List<TestDTO> getTestList(java.util.Set<Sorter> sorterList){
-        return dao.getTestList(sorterList);
+        return getTestList(null, sorterList, null);
     }
 
     public java.util.List<TestDTO> getTestList(java.lang.String searchText, java.util.Set<Sorter> sorterList){
-        return dao.getTestList(searchText, sorterList);
+        return getTestList(searchText, sorterList, null);
     }
 
     public java.util.List<TestDTO> getTestList(java.util.Set<Filter> filterList){
-        return dao.getTestList(filterList);
+        return getTestList(null, null, filterList);
     }
 
     public java.util.List<TestDTO> getTestList(java.lang.String searchText, java.util.Set<Filter> filterList){
-        return dao.getTestList(searchText, filterList);
+        return getTestList(searchText, null, filterList);
     }
 
     public java.util.List<TestDTO> getTestList(java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
-        return dao.getTestList(sorterList, filterList);
+        return getTestList(null, sorterList, filterList);
     }
 
     public java.util.List<TestDTO> getTestList(java.lang.String searchText, java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
-        return dao.getTestList(searchText, sorterList, filterList)
+        return null;
     }
         
     public java.util.List<TestDTO> getTestList(int start, int limit){
-        return dao.getTestList(start, limit);
+        return getTestList(start, limit, null, null, null);
     }
     
     public java.util.List<TestDTO> getTestList(int start, int limit, java.lang.String searchText){
-        return dao.getTestList(start, limit, searchText);
+        return getTestList(start, limit, searchText, null, null)
     }
     
     public java.util.List<TestDTO> getTestList(int start, int limit, java.util.Set<Sorter> sorterList){
-        return dao.getTestList(start, limit, sorterList);
+        return getTestList(start, limit, null, sorterList, null)
     }
 
     public java.util.List<TestDTO> getTestList(int start, int limit, java.lang.String searchText, java.util.Set<Sorter> sorterList){
-        return dao.getTestList(start, limit, searchText, sorterList);
+        return getTestList(start, limit, searchText, sorterList, null)
     }
 
     public java.util.List<TestDTO> getTestList(int start, int limit, java.util.Set<Filter> filterList){
-        return dao.getTestList(start, limit, filterList);
+        return getTestList(start, limit, null, null, filterList)
     }
 
     public java.util.List<TestDTO> getTestList(int start, int limit, java.lang.String searchText, java.util.Set<Filter> filterList){
-        return dao.getTestList(start, limit, searchText, filterList);
+        return getTestList(start, limit, searchText, null, filterList)
     }
 
     public java.util.List<TestDTO> getTestList(int start, int limit, java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
-        return dao.getTestList(start, limit, sorterList, filterList);
+        return getTestList(start, limit, null, sorterList, filterList)
     }
 
     public java.util.List<TestDTO> getTestList(int start, int limit, java.lang.String searchText, java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
-        return dao.getTestList(start, limit, searchText, sorterList, filterList);
+        return null;
     }
 
     public long getTestListCount(){
-        return dao.getTestListCount();
+        return 0;
     }
 
     public long getTestListCount(java.lang.String searchText){
-        return dao.getTestListCount(searchText);
+        return 0;
     }
 
     public long getTestListCount(java.util.Set<Filter> filterList){
-        return dao.getTestListCount(filterList);
+        return 0;
     }
 
     public long getTestListCount(java.lang.String searchText, java.util.Set<Filter> filterList){
-        return dao.getTestListCount(searchText, filterList);
+        return 0;
     }
 
     public TestDTO addTest(TestDTO test){
-        return dao.addTest(test);
+        return null;
     }
 
     public TestDTO addTest(List<TestDTO> testList){
-        return dao.addTest(testList);
+        return null;
     }
     
     public TestDTO updateTest(TestDTO test){
-        return dao.updateTest(test);
+        return null;
     }
 
     public TestDTO updateTest(List<TestDTO> testList){
-        return dao.updateTest(testList);
+        return null;
     }
 
     public void deleteTest(TestDTO test){
-        return dao.deleteTest(test);
+        return null;
     }
 
     public void deleteTestById(java.lang.Long id){
-        return dao.deleteTestById(id);
+        return null;
     }
 }

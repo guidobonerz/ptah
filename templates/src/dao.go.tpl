@@ -36,102 +36,102 @@ public class {{getObjectName}} {
     }
 
     public java.util.List<{{$caseName}}DTO> get{{$caseName}}List(java.lang.String searchText){
-        return dao.get{{$caseName}}List(searchText);
+        return get{{$caseName}}List(searchText, null, null);
     }
     
     public java.util.List<{{$caseName}}DTO> get{{$caseName}}List(java.util.Set<Sorter> sorterList){
-        return dao.get{{$caseName}}List(sorterList);
+        return get{{$caseName}}List(null, sorterList, null);
     }
 
     public java.util.List<{{$caseName}}DTO> get{{$caseName}}List(java.lang.String searchText, java.util.Set<Sorter> sorterList){
-        return dao.get{{$caseName}}List(searchText, sorterList);
+        return get{{$caseName}}List(searchText, sorterList, null);
     }
 
     public java.util.List<{{$caseName}}DTO> get{{$caseName}}List(java.util.Set<Filter> filterList){
-        return dao.get{{$caseName}}List(filterList);
+        return get{{$caseName}}List(null, null, filterList);
     }
 
     public java.util.List<{{$caseName}}DTO> get{{$caseName}}List(java.lang.String searchText, java.util.Set<Filter> filterList){
-        return dao.get{{$caseName}}List(searchText, filterList);
+        return get{{$caseName}}List(searchText, null, filterList);
     }
 
     public java.util.List<{{$caseName}}DTO> get{{$caseName}}List(java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
-        return dao.get{{$caseName}}List(sorterList, filterList);
+        return get{{$caseName}}List(null, sorterList, filterList);
     }
 
     public java.util.List<{{$caseName}}DTO> get{{$caseName}}List(java.lang.String searchText, java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
-        return dao.get{{$caseName}}List(searchText, sorterList, filterList)
+        return null;
     }
         
     public java.util.List<{{$caseName}}DTO> get{{$caseName}}List(int start, int limit){
-        return dao.get{{$caseName}}List(start, limit);
+        return get{{$caseName}}List(start, limit, null, null, null);
     }
     
     public java.util.List<{{$caseName}}DTO> get{{$caseName}}List(int start, int limit, java.lang.String searchText){
-        return dao.get{{$caseName}}List(start, limit, searchText);
+        return get{{$caseName}}List(start, limit, searchText, null, null)
     }
     
     public java.util.List<{{$caseName}}DTO> get{{$caseName}}List(int start, int limit, java.util.Set<Sorter> sorterList){
-        return dao.get{{$caseName}}List(start, limit, sorterList);
+        return get{{$caseName}}List(start, limit, null, sorterList, null)
     }
 
     public java.util.List<{{$caseName}}DTO> get{{$caseName}}List(int start, int limit, java.lang.String searchText, java.util.Set<Sorter> sorterList){
-        return dao.get{{$caseName}}List(start, limit, searchText, sorterList);
+        return get{{$caseName}}List(start, limit, searchText, sorterList, null)
     }
 
     public java.util.List<{{$caseName}}DTO> get{{$caseName}}List(int start, int limit, java.util.Set<Filter> filterList){
-        return dao.get{{$caseName}}List(start, limit, filterList);
+        return get{{$caseName}}List(start, limit, null, null, filterList)
     }
 
     public java.util.List<{{$caseName}}DTO> get{{$caseName}}List(int start, int limit, java.lang.String searchText, java.util.Set<Filter> filterList){
-        return dao.get{{$caseName}}List(start, limit, searchText, filterList);
+        return get{{$caseName}}List(start, limit, searchText, null, filterList)
     }
 
     public java.util.List<{{$caseName}}DTO> get{{$caseName}}List(int start, int limit, java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
-        return dao.get{{$caseName}}List(start, limit, sorterList, filterList);
+        return get{{$caseName}}List(start, limit, null, sorterList, filterList)
     }
 
     public java.util.List<{{$caseName}}DTO> get{{$caseName}}List(int start, int limit, java.lang.String searchText, java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
-        return dao.get{{$caseName}}List(start, limit, searchText, sorterList, filterList);
+        return null;
     }
 
     public long get{{$caseName}}ListCount(){
-        return dao.get{{$caseName}}ListCount();
+        return 0;
     }
 
     public long get{{$caseName}}ListCount(java.lang.String searchText){
-        return dao.get{{$caseName}}ListCount(searchText);
+        return 0;
     }
 
     public long get{{$caseName}}ListCount(java.util.Set<Filter> filterList){
-        return dao.get{{$caseName}}ListCount(filterList);
+        return 0;
     }
 
     public long get{{$caseName}}ListCount(java.lang.String searchText, java.util.Set<Filter> filterList){
-        return dao.get{{$caseName}}ListCount(searchText, filterList);
+        return 0;
     }
 
     public {{$caseName}}DTO add{{$caseName}}({{$caseName}}DTO {{$.Name}}){
-        return dao.add{{$caseName}}({{$.Name}});
+        return null;
     }
 
     public {{$caseName}}DTO add{{$caseName}}(List<{{$caseName}}DTO> {{$.Name}}List){
-        return dao.add{{$caseName}}({{$.Name}}List);
+        return null;
     }
     
     public {{$caseName}}DTO update{{$caseName}}({{$caseName}}DTO {{$.Name}}){
-        return dao.update{{$caseName}}({{$.Name}});
+        return null;
     }
 
     public {{$caseName}}DTO update{{$caseName}}(List<{{$caseName}}DTO> {{$.Name}}List){
-        return dao.update{{$caseName}}({{$.Name}}List);
+        return null;
     }
 
     public void delete{{$caseName}}({{$caseName}}DTO {{$.Name}}){
-        return dao.delete{{$caseName}}({{$.Name}});
+        return null;
     }
 
     public void delete{{$caseName}}ById({{- $primaryType }} {{$attribute.Name}}){
-        return dao.delete{{$caseName}}ById({{$attribute.Name}});
+        return null;
     }
 }
