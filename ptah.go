@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 	"text/template"
 )
 
@@ -49,72 +50,98 @@ func parseTemplate(file string) error {
 	var project structure.Project
 	json.Unmarshal(byteValue, &project)
 
-	for _, target := range project.Targets {
-		for _, entity := range project.Entities {
-			var outputFileName = "results/" + entity.Name + "." + target.Suffix
-			var templateFileName = entity.Type + ".go.tpl"
-			var templatePathName = "templates/" + target.Name + "/" + target.Type + "/" + templateFileName
-
-			t, err := template.New(templateFileName).Funcs(template.FuncMap{
-				"minus": func(a, b int) int {
-					return a - b
-				}, "getDataType": func(key string) string {
-					var result structure.DataType
-					var list []structure.DataType = target.DataTypes
-					for i := 0; i < len(list); i++ {
-						if list[i].GenericType == key {
-							result = list[i]
-							break
-						}
-					}
-					return result.RealType
-				}, "getPrimaryKeyString": func() string {
-					var pk string
-					var list []structure.Attribute = entity.Attributes
-					for i := 0; i < len(list); i++ {
-						if list[i].PrimaryKey {
-							pk += list[i].Name + ","
-						}
-					}
-					pk = pk[:len(pk)-1]
-					return pk
-				}, "hasSize": func(attribute structure.Attribute) bool {
-					var result bool
-					for i := 0; i < len(target.DataTypes); i++ {
-						if attribute.DataType == target.DataTypes[i].GenericType {
-							result = target.DataTypes[i].HasSize
-						}
-					}
-					return result
-				}, "getSize": func(attribute structure.Attribute) string {
-					var result string
-					for i := 0; i < len(target.DataTypes); i++ {
-						if attribute.DataType == target.DataTypes[i].GenericType {
-							if target.DataTypes[i].HasSize {
-								if len(attribute.Size) == 0 {
-									result = target.DataTypes[i].MaxSize
-								} else {
-									result = attribute.Size
+	for _, templateConfig := range project.TemplateConfigurations {
+		for _, tmpl := range templateConfig.Templates {
+			if tmpl.Enabled {
+				for _, entity := range project.Entities {
+					var nameSpacePath = "results/" + strings.Replace(project.BaseNameSpace+"."+tmpl.NameSpace, ".", "/", -1)
+					var outputFileName = nameSpacePath + "/" + fmt.Sprintf(tmpl.NamePattern, strings.Title(entity.Name)) + "." + templateConfig.Suffix
+					var templateFileName = tmpl.Name + ".go.tpl"
+					var templatePathName = "templates/" + templateConfig.TemplateBasePath + templateFileName
+					t, err := template.New(templateFileName).Funcs(template.FuncMap{
+						"getNameSpace": func() string {
+							return project.BaseNameSpace + "." + tmpl.NameSpace
+						},
+						"getTemplateName": func() string {
+							return tmpl.Name
+						},
+						"getObjectName": func() string {
+							return fmt.Sprintf(tmpl.NamePattern, strings.Title(entity.Name))
+						},
+						"isNotLastAttribute": func(index int) bool {
+							return len(entity.Attributes)-1 != index
+						},
+						"getDataType": func(key string) string {
+							return templateConfig.DataTypes[key].DataType
+						},
+						"getUpperCaseName": func(name string) string {
+							return strings.ToUpper(name)
+						},
+						"getTitleCaseName": func(name string) string {
+							return strings.Title(name)
+						},
+						"getCamelCaseName": func(name string) string {
+							return strings.ToTitle(name)
+						},
+						"getPrimaryKeyString": func() string {
+							var pk string
+							var list []structure.Attribute = entity.Attributes
+							for i := 0; i < len(list); i++ {
+								if list[i].PrimaryKey {
+									pk += list[i].Name + ","
 								}
 							}
-						}
+							pk = pk[:len(pk)-1]
+							return pk
+						}, "getPrimaryKeyAttribute": func() structure.Attribute {
+							var attribute structure.Attribute
+							var list []structure.Attribute = entity.Attributes
+							for i := 0; i < len(list); i++ {
+								if list[i].PrimaryKey {
+									attribute = list[i]
+								}
+							}
+							return attribute
+						}}).ParseFiles(templatePathName)
+
+					if err != nil {
+						log.Fatalln(err)
 					}
-					return result
-				}}).ParseFiles(templatePathName)
+					if err := os.MkdirAll(nameSpacePath, os.ModePerm); err != nil {
+						log.Fatalln(err)
+					}
+					generatedFile, err := os.Create(outputFileName)
+					if err != nil {
+						log.Fatalln(err)
+					}
 
-			if err != nil {
-				log.Fatalln(err)
-			}
-			generatedFile, err := os.Create(outputFileName)
-			if err != nil {
-				log.Fatalln(err)
-			}
-
-			if err := t.Execute(generatedFile, entity); err != nil {
-				log.Fatalln(err)
+					if err := t.Execute(generatedFile, entity); err != nil {
+						log.Fatalln(err)
+					}
+				}
 			}
 		}
 	}
-
 	return nil
 }
+
+/*
+
+,
+                {
+                    "name": "view",
+                    "outputPath": "",
+                    "fileNamePattern": ""
+                },
+                {
+                    "name": "procedure",
+                    "outputPath": "",
+                    "fileNamePattern": ""
+                }
+
+
+
+
+
+
+*/

@@ -1,41 +1,92 @@
 {
-    "nameSpace": "de.drazil.test",
+    "baseNameSpace": "de.drazil.test.generated",
     "childProjectNames": [
         "path-to-project-json-files"
     ],
-    "targets": [
+    "templateConfigurations": [
         {
-            "name": "database",
-            "type": "mssql",
+            "templateBasePath": "database/mssql/",
             "suffix": "sql",
             "allowBundledFile": true,
-            "dataTypes": [
-                {
-                    "genericType": "char",
-                    "realType": "char",
+            "dataTypes": {
+                "string": {
+                    "dataType": "nvarchar",
                     "hasSize": true,
                     "maxSize": "MAX"
                 },
-                {
-                    "genericType": "string",
-                    "realType": "nvarchar2",
-                    "hasSize": true,
-                    "maxSize": "MAX"
-                },
-                {
-                    "genericType": "integer",
-                    "realType": "bigint",
+                "integer": {
+                    "dataType": "bigint",
                     "hasSize": false
                 },
-                {
-                    "genericType": "date",
-                    "realType": "date",
+                "date": {
+                    "dataType": "date",
                     "hasSize": false
                 },
-                {
-                    "genericType": "boolean",
-                    "realType": "bit",
+                "boolean": {
+                    "dataType": "bit",
                     "hasSize": false
+                }
+            },
+            "templates": [
+                {
+                    "name": "table",
+                    "nameSpace": "",
+                    "namePattern": "%s",
+                    "enabled": false
+                },
+                {
+                    "name": "view",
+                    "nameSpace": "",
+                    "namePattern": "%sView"
+                },
+                {
+                    "name": "procedure",
+                    "namePattern": "%s",
+                    "nameSpace": ""
+                }
+            ]
+        },
+        {
+            "templateBasePath": "src/",
+            "suffix": "java",
+            "allowBundledFile": false,
+            "dataTypes": {
+                "string": {
+                    "dataType": "java.lang.String"
+                },
+                "integer": {
+                    "dataType": "java.lang.Long"
+                },
+                "date": {
+                    "dataType": "java.util.Date"
+                },
+                "boolean": {
+                    "dataType": "java.lang.Boolean"
+                }
+            },
+            "templates": [
+                {
+                    "name": "dto",
+                    "nameSpace": "dto",
+                    "namePattern": "%sDTO",
+                    "enabled": true
+                },
+                {
+                    "name": "service",
+                    "nameSpace": "service",
+                    "namePattern": "I%sService",
+                    "enabled": true
+                },
+                {
+                    "name": "impl",
+                    "nameSpace": "service.impl",
+                    "namePattern": "%sServiceImpl",
+                    "enabled": true
+                },
+                {
+                    "name": "dao",
+                    "nameSpace": "service.dao",
+                    "namePattern": "%sDAO"
                 }
             ]
         }
@@ -44,52 +95,41 @@
         {
             "name": "test",
             "schema": "dbo",
-            "type": "Table",
             "enableCreate": true,
             "enableRead": true,
             "enableUpdate": true,
             "enableDelete": true,
-            "generateHistoryEntity": true,
+            "generateHistoryObject": true,
             "addDefaultAttributes": true,
             "attributes": [
                 {
-                    "primaryKey": true,
                     "name": "id",
+                    "primaryKey": true,
                     "dataType": "integer",
-                    "allowNull": true,
+                    "allowNull": false,
                     "autoId": true
                 },
                 {
                     "name": "column1",
+                    "primaryKey": false,
                     "dataType": "integer",
-                    "primaryKey": true,
                     "defaultValue": "0",
                     "allowNull": true
                 },
                 {
                     "name": "column2",
                     "dataType": "string",
-                    "primaryKey": false,
                     "allowNull": true
                 },
                 {
                     "name": "column3",
-                    "dataType": "char",
-                    "primaryKey": false,
-                    "allowNull": true,
-                    "size": "42"
-                },
-                {
-                    "name": "column4",
                     "dataType": "date",
-                    "primaryKey": false,
                     "defaultValue": "date()",
                     "allowNull": false
                 },
                 {
-                    "name": "column5",
+                    "name": "column4",
                     "dataType": "boolean",
-                    "primaryKey": false,
                     "defaultValue": "0",
                     "allowNull": false
                 }
