@@ -86,7 +86,8 @@
                 {
                     "name": "dao",
                     "nameSpace": "service.dao",
-                    "namePattern": "%sDAO"
+                    "namePattern": "%sDAO",
+                    "enabled": true
                 }
             ]
         }

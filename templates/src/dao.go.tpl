@@ -18,7 +18,16 @@ public class {{getObjectName}} {
     @Autowired
     private EntityManager entityManager;
 
-     public {{$caseName}}DTO get{{$caseName}}ById({{- $primaryType }} {{$attribute.Name}}){
+    private final static String SELECT_ALL = "SELECT o from {{$caseName}}DTO o";
+    private final static String SELECT_BY_ID = "SELECT o from {{$caseName}}DTO o where {{$attribute.Name}}=:{{$attribute.Name}}";
+    private final static String COUNT_ALL = "SELECT count(o) from {{$caseName}}DTO o";
+    private final static String CREATE_{{ getUpperCaseName $.Name}} = "EXEC CREATE_{{ getUpperCaseName $.Name}}{{- range $index,$attribute := $.Attributes }} :{{ $attribute.Name }}{{- if isNotLastAttribute $index}},{{- end}}{{- end}}";
+    private final static String UPDATE_{{ getUpperCaseName $.Name}} = "EXEC UPDATE_{{ getUpperCaseName $.Name}}{{- range $index,$attribute := $.Attributes }} :{{ $attribute.Name }}{{- if isNotLastAttribute $index}},{{- end}}{{- end}}";
+    private final static String DELETE_{{ getUpperCaseName $.Name}} = "EXEC DELETE_{{ getUpperCaseName $.Name}}_BY_ID :{{$attribute.Name}}";
+    
+    
+
+    public {{$caseName}}DTO get{{$caseName}}ById({{- $primaryType }} {{$attribute.Name}}){
         return dao.get{{$caseName}}ById({{$attribute.Name}});
     }
 
