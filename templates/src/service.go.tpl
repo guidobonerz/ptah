@@ -50,19 +50,23 @@ public interface {{getObjectName}} {
 
     public long getCount(java.lang.String searchText, java.util.Set<Filter> filterList);   
 
-    public {{$caseName}}DTO add({{$caseName}}DTO {{$.Name}}) ;
-    
-    public {{$caseName}}DTO add(List<{{$caseName}}DTO> {{$.Name}}List) ;
-    
-    public {{$caseName}}DTO update({{$caseName}}DTO {{$.Name}});
+    public void add(List<{{$caseName}}DTO> list) ;
 
-    public {{$caseName}}DTO update(List<{{$caseName}}DTO> {{$.Name}}List);
+    public int add({{$caseName}}DTO item) ;
 
-    public void delete{{$caseName}}({{$caseName}}DTO {{$.Name}});
+    public int add({{- range $index,$attribute := $.Attributes }}{{ getDataType $attribute.DataType }} {{ $attribute.Name }}{{- if isNotLastAttribute $index}},{{- end}}{{- end}}) ;
+            
+    public int update(List<{{$caseName}}DTO> list);
 
-    public void delete{{$caseName}}(List<{{$caseName}}DTO> {{$.Name}}List);
+    public int update({{$caseName}}DTO item);
 
-    public void delete{{$caseName}}ById({{$primaryType}} {{$attribute.Name}});
+    public int update({{- range $index,$attribute := $.Attributes }}{{ getDataType $attribute.DataType }} {{ $attribute.Name }}{{- if isNotLastAttribute $index}},{{- end}}{{- end}});
 
-    public void delete{{$caseName}}ById(List<{{$primaryType}}> {{$attribute.Name}}List);
+    public void delete({{$caseName}}DTO item);
+
+    public void delete(List<{{$caseName}}DTO> list);
+
+    public void deleteById({{$primaryType}} {{$attribute.Name}});
+
+    public void deleteById(List<{{$primaryType}}> list);
 }
