@@ -176,4 +176,12 @@ public class TestDAO {
     public void deleteById(java.lang.Long id){
         query.setParameter("id",id);
     }
+
+    public java.util.List<TestDTO> copy(TestDTO item, int copies){
+        query.setParameter("id",item.getId());
+        query.setParameter("column1",item.getColumn1());
+        query.setParameter("column2",item.getColumn2());
+        query.setParameter("column3",item.getColumn3());
+        query.setParameter("column4",item.getColumn4());
+    }
 }

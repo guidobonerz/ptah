@@ -73,4 +73,8 @@ public interface ITestService {
     public void deleteById(java.lang.Long id);
 
     public void deleteById(List<java.lang.Long> list);
+
+    public TestDTO copy(TestDTO item);
+
+    public java.util.List<TestDTO> copy(TestDTO item, int copies);
 }

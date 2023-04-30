@@ -174,4 +174,10 @@ public class {{getObjectName}} {
     public void deleteById({{- $primaryType }} {{$attribute.Name}}){
         query.setParameter("{{ $attribute.Name }}",{{$attribute.Name}});
     }
+
+    public java.util.List<{{$caseName}}DTO> copy({{$caseName}}DTO item, int copies){
+        {{- range $index,$attribute := $.Attributes }}
+        query.setParameter("{{ $attribute.Name }}",item.get{{getTitleCaseName $attribute.Name}}());
+        {{- end}}
+    }
 }

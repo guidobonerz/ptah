@@ -142,4 +142,12 @@ public class TestServiceImpl  implements ITestService{
     public void deleteById(java.lang.Long id){
         dao.deleteById(id);
     }
+
+    public TestDTO copy(TestDTO item){
+        dao.copy(item, 1);
+    }
+
+    public java.util.List<TestDTO> copy(TestDTO item, int copies){
+        dao.copy(item, copies);
+    }
 }

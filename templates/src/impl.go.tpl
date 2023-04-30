@@ -144,4 +144,12 @@ public class {{getObjectName}}  implements I{{$caseName}}Service{
     public void deleteById({{- $primaryType }} {{$attribute.Name}}){
         dao.deleteById({{$attribute.Name}});
     }
+
+    public {{$caseName}}DTO copy({{$caseName}}DTO item){
+        dao.copy(item, 1);
+    }
+
+    public java.util.List<{{$caseName}}DTO> copy({{$caseName}}DTO item, int copies){
+        dao.copy(item, copies);
+    }
 }

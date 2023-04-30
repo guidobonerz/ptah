@@ -75,4 +75,8 @@ public interface {{getObjectName}} {
     public void deleteById({{$primaryType}} {{$attribute.Name}});
 
     public void deleteById(List<{{$primaryType}}> list);
+
+    public {{$caseName}}DTO copy({{$caseName}}DTO item);
+
+    public java.util.List<{{$caseName}}DTO> copy({{$caseName}}DTO item, int copies);
 }

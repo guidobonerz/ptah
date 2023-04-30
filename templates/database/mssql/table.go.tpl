@@ -13,7 +13,7 @@ CREATE TABLE [{{getNameSpace}}].[{{getTitleCaseName $.Name}}](
 END
 GO
 
-{{- if $.GenerateHistoryObject}}
+{{- if $.GenerateHistoryEntity}}
 if object_id(N'[{{getNameSpace}}].[{{getTitleCaseName $.Name}}History]','U') is null
 BEGIN
 CREATE TABLE [{{getNameSpace}}].[{{getTitleCaseName $.Name}}History](

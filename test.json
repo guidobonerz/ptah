@@ -103,7 +103,7 @@
             "enableRead": true,
             "enableUpdate": true,
             "enableDelete": true,
-            "generateHistoryObject": true,
+            "generateHistoryEntity": true,
             "addDefaultAttributes": true,
             "attributes": [
                 {

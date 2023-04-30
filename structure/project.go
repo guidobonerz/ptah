@@ -39,7 +39,7 @@ type Entity struct {
 	EnableFilter          bool        `json:"enableFilter"`
 	EnableSearch          bool        `json:"enableSearch"`
 	EnablePagination      bool        `json:"enablePagination"`
-	GenerateHistoryObject bool        `json:"generateHistoryObject"`
+	GenerateHistoryEntity bool        `json:"generateHistoryEntity"`
 	AddDefaultAttributes  bool        `json:"addDefaulAttributes"`
 	Attributes            []Attribute `json:"attributes"`
 }
