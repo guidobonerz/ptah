@@ -44,7 +44,7 @@ public class TestServiceImpl  implements ITestService{
     }
 
     public java.util.List<TestDTO> getList(java.lang.String searchText, java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
-        return dao.getList(searchText, sorterList, filterList)
+        return dao.getList(searchText, sorterList, filterList);
     }
         
     public java.util.List<TestDTO> getList(int start, int limit){
@@ -95,6 +95,22 @@ public class TestServiceImpl  implements ITestService{
         return dao.getListCount(searchText, filterList);
     }
 
+    public long getListCount(int start, int limit){
+        return dao.getListCount(int start, int limit);
+    }
+
+    public long getListCount(int start, int limit, java.lang.String searchText){
+        return dao.getListCount(start, limit, searchText);
+    }
+
+    public long getListCount(int start, int limit, java.util.Set<Filter> filterList){
+        return dao.getListCount(start, limit, filterList);
+    }
+
+    public long getListCount(jint start, int limit, ava.lang.String searchText, java.util.Set<Filter> filterList){
+        return dao.getListCount(start, limit, searchText, filterList);
+    }
+
     public void add(List<TestDTO> list){
         dao.add(list);
     }
@@ -103,8 +119,8 @@ public class TestServiceImpl  implements ITestService{
         return dao.add(item);
     }
         
-    public int add(java.lang.Long id,java.lang.Long column1,java.lang.String column2,java.util.Date column3,java.lang.Boolean column4){
-        return dao.add(id,column1,column2,column3,column4)
+    public int add(java.lang.Long id, java.lang.Long column1, java.lang.String column2, java.util.Date column3, java.lang.Boolean column4){
+        return dao.add(id, column1, column2, column3, column4);
     }
         
     public int update(List<TestDTO> list){
@@ -115,15 +131,15 @@ public class TestServiceImpl  implements ITestService{
         return dao.update(item);
     }
 
-    public int update(java.lang.Long id,java.lang.Long column1,java.lang.String column2,java.util.Date column3,java.lang.Boolean column4){
-        return dao.update(id,column1,column2,column3,column4;
+    public int delete(List<TestDTO> list){
+        dao.delete(list);
     }
 
     public void delete(TestDTO item){
-        return dao.delete(item);
+        dao.delete(item);
     }
 
     public void deleteById(java.lang.Long id){
-        return dao.deleteById(id);
+        dao.deleteById(id);
     }
 }

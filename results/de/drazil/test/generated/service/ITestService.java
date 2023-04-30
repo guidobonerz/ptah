@@ -46,19 +46,25 @@ public interface ITestService {
 
     public long getCount(java.util.Set<Filter> filterList);    
 
-    public long getCount(java.lang.String searchText, java.util.Set<Filter> filterList);   
+    public long getCount(java.lang.String searchText, java.util.Set<Filter> filterList);
+
+    public long getCount(int start, int limit);
+
+    public long getCount(int start, int limit, java.lang.String searchText);    
+
+    public long getCount(int start, int limit, java.util.Set<Filter> filterList);    
+
+    public long getCount(int start, int limit, java.lang.String searchText, java.util.Set<Filter> filterList);   
 
     public void add(List<TestDTO> list) ;
 
     public int add(TestDTO item) ;
 
-    public int add(java.lang.Long id,java.lang.Long column1,java.lang.String column2,java.util.Date column3,java.lang.Boolean column4) ;
+    public int add(java.lang.Long id, java.lang.Long column1, java.lang.String column2, java.util.Date column3, java.lang.Boolean column4) ;
             
     public int update(List<TestDTO> list);
 
     public int update(TestDTO item);
-
-    public int update(java.lang.Long id,java.lang.Long column1,java.lang.String column2,java.util.Date column3,java.lang.Boolean column4);
 
     public void delete(TestDTO item);
 

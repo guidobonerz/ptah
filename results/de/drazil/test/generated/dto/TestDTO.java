@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -20,7 +19,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Entity
 @JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.NONE)
-@Table(name = "[Test]", schema = "dbo")
+@Table(name = "[Test]", schema = "dto")
 public class TestDTO implements Serializable {
 
     private static final long serialVersionUID = 4869392400353269847L;

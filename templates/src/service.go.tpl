@@ -1,4 +1,4 @@
-package {{getNameSpace}};
+package {{getFullNameSpace}};
 
 {{- $attribute := getPrimaryKeyAttribute}}
 {{- $primaryType := getDataType $attribute.DataType }}
@@ -48,19 +48,25 @@ public interface {{getObjectName}} {
 
     public long getCount(java.util.Set<Filter> filterList);    
 
-    public long getCount(java.lang.String searchText, java.util.Set<Filter> filterList);   
+    public long getCount(java.lang.String searchText, java.util.Set<Filter> filterList);
+
+    public long getCount(int start, int limit);
+
+    public long getCount(int start, int limit, java.lang.String searchText);    
+
+    public long getCount(int start, int limit, java.util.Set<Filter> filterList);    
+
+    public long getCount(int start, int limit, java.lang.String searchText, java.util.Set<Filter> filterList);   
 
     public void add(List<{{$caseName}}DTO> list) ;
 
     public int add({{$caseName}}DTO item) ;
 
-    public int add({{- range $index,$attribute := $.Attributes }}{{ getDataType $attribute.DataType }} {{ $attribute.Name }}{{- if isNotLastAttribute $index}},{{- end}}{{- end}}) ;
+    public int add({{- range $index,$attribute := $.Attributes }}{{ getDataType $attribute.DataType }} {{ $attribute.Name }}{{getArgumentSeparator $index}}{{- end}}) ;
             
     public int update(List<{{$caseName}}DTO> list);
 
     public int update({{$caseName}}DTO item);
-
-    public int update({{- range $index,$attribute := $.Attributes }}{{ getDataType $attribute.DataType }} {{ $attribute.Name }}{{- if isNotLastAttribute $index}},{{- end}}{{- end}});
 
     public void delete({{$caseName}}DTO item);
 

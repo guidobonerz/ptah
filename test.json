@@ -1,13 +1,53 @@
 {
     "baseNameSpace": "de.drazil.test.generated",
-    "childProjectNames": [
-        "path-to-project-json-files"
-    ],
-    "templateConfigurations": [
-        {
+    "templateDefinition": {
+        "table": {
+            "nameSpace": "dbo",
+            "namePattern": "%s",
+            "metaData": "sql"
+        },
+        "view": {
+            "nameSpace": "dbo",
+            "namePattern": "%sView",
+            "metaData": "sql"
+        },
+        "procedure": {
+            "nameSpace": "dbo",
+            "namePattern": "%s",
+            "metaData": "sql"
+        },
+        "dto": {
+            "nameSpace": "dto",
+            "namePattern": "%sDTO",
+            "metaData": "java"
+        },
+        "service": {
+            "nameSpace": "service",
+            "namePattern": "I%sService",
+            "metaData": "java"
+        },
+        "impl": {
+            "nameSpace": "service.impl",
+            "namePattern": "%sServiceImpl",
+            "metaData": "java"
+        },
+        "dao": {
+            "nameSpace": "service.dao",
+            "namePattern": "%sDAO",
+            "metaData": "java"
+        },
+        "controller": {
+            "nameSpace": "controller",
+            "namePattern": "%sController",
+            "metaData": "java"
+        }
+    },
+    "metaData": {
+        "sql": {
             "templateBasePath": "database/mssql/",
             "suffix": "sql",
             "allowBundledFile": true,
+            "argumentSeparator": ",",
             "dataTypes": {
                 "string": {
                     "dataType": "nvarchar",
@@ -26,30 +66,13 @@
                     "dataType": "bit",
                     "hasSize": false
                 }
-            },
-            "templates": [
-                {
-                    "name": "table",
-                    "nameSpace": "",
-                    "namePattern": "%s",
-                    "enabled": false
-                },
-                {
-                    "name": "view",
-                    "nameSpace": "",
-                    "namePattern": "%sView"
-                },
-                {
-                    "name": "procedure",
-                    "namePattern": "%s",
-                    "nameSpace": ""
-                }
-            ]
+            }
         },
-        {
+        "java": {
             "templateBasePath": "src/",
             "suffix": "java",
             "allowBundledFile": false,
+            "argumentSeparator": ",",
             "dataTypes": {
                 "string": {
                     "dataType": "java.lang.String"
@@ -63,39 +86,19 @@
                 "boolean": {
                     "dataType": "java.lang.Boolean"
                 }
-            },
-            "templates": [
-                {
-                    "name": "dto",
-                    "nameSpace": "dto",
-                    "namePattern": "%sDTO",
-                    "enabled": true
-                },
-                {
-                    "name": "service",
-                    "nameSpace": "service",
-                    "namePattern": "I%sService",
-                    "enabled": true
-                },
-                {
-                    "name": "impl",
-                    "nameSpace": "service.impl",
-                    "namePattern": "%sServiceImpl",
-                    "enabled": true
-                },
-                {
-                    "name": "dao",
-                    "nameSpace": "service.dao",
-                    "namePattern": "%sDAO",
-                    "enabled": true
-                }
-            ]
+            }
         }
-    ],
+    },
     "entities": [
         {
             "name": "test",
-            "schema": "dbo",
+            "templateNames": [
+                "table",
+                "dto",
+                "impl",
+                "service",
+                "dao"
+            ],
             "enableCreate": true,
             "enableRead": true,
             "enableUpdate": true,

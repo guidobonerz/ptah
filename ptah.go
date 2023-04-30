@@ -55,81 +55,90 @@ func parseTemplate(file string) error {
 	var project structure.Project
 	json.Unmarshal(byteValue, &project)
 
-	for _, templateConfig := range project.TemplateConfigurations {
-		for _, tmpl := range templateConfig.Templates {
-			if tmpl.Enabled {
-				for _, entity := range project.Entities {
-					var nameSpace = project.BaseNameSpace + "." + tmpl.NameSpace
-					var nameSpacePath = "results/" + strings.Replace(nameSpace, ".", "/", -1)
-					var objectName = fmt.Sprintf(tmpl.NamePattern, strings.Title(entity.Name))
-					var outputFileName = nameSpacePath + "/" + objectName + "." + templateConfig.Suffix
-					var templateFileName = tmpl.Name + ".go.tpl"
-					var templatePathName = "templates/" + templateConfig.TemplateBasePath + templateFileName
-					t, err := template.New(templateFileName).Funcs(template.FuncMap{
-						"getNameSpace": func() string {
-							return nameSpace
-						},
-						"getTemplateName": func() string {
-							return tmpl.Name
-						},
-						"getObjectName": func() string {
-							return objectName
-						},
-						"isNotLastAttribute": func(index int) bool {
-							return len(entity.Attributes)-1 != index
-						},
-						"getDataType": func(key string) string {
-							return templateConfig.DataTypes[key].DataType
-						},
-						"getUpperCaseName": func(name string) string {
-							return strings.ToUpper(name)
-						},
-						"getTitleCaseName": func(name string) string {
-							return strings.Title(name)
-						},
-						"getCamelCaseName": func(name string) string {
-							return strings.ToTitle(name)
-						},
-						"getPrimaryKeyString": func() string {
-							var pk string
-							var list []structure.Attribute = entity.Attributes
-							for i := 0; i < len(list); i++ {
-								if list[i].PrimaryKey {
-									pk += list[i].Name + ","
-								}
-							}
-							pk = pk[:len(pk)-1]
-							return pk
-						}, "getPrimaryKeyAttribute": func() structure.Attribute {
-							var attribute structure.Attribute
-							var list []structure.Attribute = entity.Attributes
-							for i := 0; i < len(list); i++ {
-								if list[i].PrimaryKey {
-									attribute = list[i]
-								}
-							}
-							return attribute
-						}}).ParseFiles(templatePathName)
-
-					check(err)
-					if err := os.MkdirAll(nameSpacePath, os.ModePerm); err != nil {
-						log.Fatalln(err)
+	for _, entity := range project.Entities {
+		for _, templateName := range entity.TemplateNames {
+			var templateDefinition = project.TemplateDefinition[templateName]
+			var metaData = project.MetaData[templateDefinition.MetaData]
+			var fullNameSpace = project.BaseNameSpace + "." + templateDefinition.NameSpace
+			var nameSpacePath = "results/" + strings.Replace(fullNameSpace, ".", "/", -1)
+			var objectName = fmt.Sprintf(templateDefinition.NamePattern, strings.Title(entity.Name))
+			var outputFileName = nameSpacePath + "/" + objectName + "." + metaData.Suffix
+			var templateFileName = templateName + ".go.tpl"
+			var templatePathName = "templates/" + metaData.TemplateBasePath + templateFileName
+			t, err := template.New(templateFileName).Funcs(template.FuncMap{
+				"getBaseNameSpace": func() string {
+					return project.BaseNameSpace
+				},
+				"getNameSpace": func() string {
+					return templateDefinition.NameSpace
+				},
+				"getFullNameSpace": func() string {
+					return fullNameSpace
+				},
+				"getTemplateName": func() string {
+					return templateName
+				},
+				"getObjectName": func() string {
+					return objectName
+				},
+				"getArgumentSeparator": func(index int) string {
+					var separator = ""
+					if len(entity.Attributes)-1 != index {
+						separator = metaData.ArgumentSeparator + " "
 					}
-					generatedFile, err := os.Create(outputFileName)
-					check(err)
-					generatedFile.WriteString("/* !!! CAUTION - THIS FILE MUST NOT BE CHANGED !!!*/\n\n")
-
-					if err := t.Execute(generatedFile, entity); err != nil {
-						log.Fatalln(err)
-					} else {
-						if verbose {
-							log.Printf("%s successfully written", outputFileName)
+					return separator
+				},
+				"getDataType": func(key string) string {
+					return metaData.DataTypes[key].DataType
+				},
+				"getUpperCaseName": func(name string) string {
+					return strings.ToUpper(name)
+				},
+				"getTitleCaseName": func(name string) string {
+					return strings.Title(name)
+				},
+				"getCamelCaseName": func(name string) string {
+					return strings.ToTitle(name)
+				},
+				"getPrimaryKeyString": func() string {
+					var pk string
+					var list []structure.Attribute = entity.Attributes
+					for i := 0; i < len(list); i++ {
+						if list[i].PrimaryKey {
+							pk += list[i].Name + ","
 						}
 					}
+					pk = pk[:len(pk)-1]
+					return pk
+				}, "getPrimaryKeyAttribute": func() structure.Attribute {
+					var attribute structure.Attribute
+					var list []structure.Attribute = entity.Attributes
+					for i := 0; i < len(list); i++ {
+						if list[i].PrimaryKey {
+							attribute = list[i]
+						}
+					}
+					return attribute
+				}}).ParseFiles(templatePathName)
+
+			check(err)
+			if err := os.MkdirAll(nameSpacePath, os.ModePerm); err != nil {
+				log.Fatalln(err)
+			}
+			generatedFile, err := os.Create(outputFileName)
+			check(err)
+			generatedFile.WriteString("/* !!! CAUTION - THIS FILE MUST NOT BE CHANGED !!!*/\n\n")
+
+			if err := t.Execute(generatedFile, entity); err != nil {
+				log.Fatalln(err)
+			} else {
+				if verbose {
+					log.Printf("%s successfully written", outputFileName)
 				}
 			}
+			log.Printf("finished.")
 		}
+
 	}
-	log.Printf("finished.")
 	return nil
 }

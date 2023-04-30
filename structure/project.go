@@ -1,27 +1,25 @@
 package structure
 
 type Project struct {
-	TargetBasePath         string           `json:"targetBasePath"`
-	BaseNameSpace          string           `json:"baseNameSpace"`
-	Entities               []Entity         `json:"entities"`
-	TemplateConfigurations []TemplateConfig `json:"templateConfigurations"`
-	ChildProjectNames      []string         `json:"childProjectNames"`
+	BaseNameSpace      string                        `json:"baseNameSpace"`
+	Entities           []Entity                      `json:"entities"`
+	TemplateDefinition map[string]TemplateDefinition `json:"templateDefinition"`
+	MetaData           map[string]MetaData           `json:"metaData"`
 }
 
-type TemplateConfig struct {
-	TemplateBasePath string                        `json:"templateBasepath"`
-	NamingStyle      string                        `json:"namingStyle"`
-	Suffix           string                        `json:"suffix"`
-	AllowBundledFile bool                          `json:"allowBundledFile"`
-	DataTypes        map[string]DataTypeDefinition `json:"dataTypes"`
-	Templates        []Template                    `json:"templates"`
-}
-
-type Template struct {
-	Name        string `json:"name"`
+type TemplateDefinition struct {
 	NameSpace   string `json:"nameSpace"`
 	NamePattern string `json:"namePattern"`
-	Enabled     bool   `json:"enabled"`
+	MetaData    string `json:"metaData"`
+}
+
+type MetaData struct {
+	TemplateBasePath  string                        `json:"templateBasepath"`
+	NamingStyle       string                        `json:"namingStyle"`
+	ArgumentSeparator string                        `json:"argumentSeparator"`
+	Suffix            string                        `json:"suffix"`
+	AllowBundledFile  bool                          `json:"allowBundledFile"`
+	DataTypes         map[string]DataTypeDefinition `json:"dataTypes"`
 }
 
 type DataTypeDefinition struct {
@@ -32,7 +30,7 @@ type DataTypeDefinition struct {
 
 type Entity struct {
 	Name                  string      `json:"name"`
-	Schema                string      `json:"schema"`
+	TemplateNames         []string    `json:"templateNames"`
 	EnableCreate          bool        `json:"enableCreate"`
 	EnableRead            bool        `json:"enableRead"`
 	EnableUpdate          bool        `json:"enableUpdate"`

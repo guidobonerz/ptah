@@ -1,4 +1,4 @@
-package {{getNameSpace}};
+package {{getFullNameSpace}};
 
 {{- $attribute := getPrimaryKeyAttribute}}
 {{- $primaryType := getDataType $attribute.DataType }}
@@ -18,21 +18,24 @@ public class {{getObjectName}} {
     @Autowired
     private EntityManager entityManager;
 
-    private final static String SELECT_ALL = "SELECT o from {{$caseName}}DTO o";
+    private final static String SELECT_ALL   = "SELECT o from {{$caseName}}DTO o";
     private final static String SELECT_BY_ID = "SELECT o from {{$caseName}}DTO o where {{$attribute.Name}}=:{{$attribute.Name}}";
-    private final static String COUNT_ALL = "SELECT count(o) from {{$caseName}}DTO o";
-    private final static String CREATE_{{ getUpperCaseName $.Name}} = "EXEC CREATE_{{ getUpperCaseName $.Name}}{{- range $index,$attribute := $.Attributes }} :{{ $attribute.Name }}{{- if isNotLastAttribute $index}},{{- end}}{{- end}}";
-    private final static String UPDATE_{{ getUpperCaseName $.Name}} = "EXEC UPDATE_{{ getUpperCaseName $.Name}}{{- range $index,$attribute := $.Attributes }} :{{ $attribute.Name }}{{- if isNotLastAttribute $index}},{{- end}}{{- end}}";
-    private final static String DELETE_{{ getUpperCaseName $.Name}} = "EXEC DELETE_{{ getUpperCaseName $.Name}}_BY_ID :{{$attribute.Name}}";
+    private final static String COUNT        = "SELECT count(o) from {{$caseName}}DTO o";
+    private final static String CREATE       = "EXEC CREATE_{{ getUpperCaseName $.Name}}{{- range $index,$attribute := $.Attributes }} :{{ $attribute.Name }}{{getArgumentSeparator $index}}{{- end}}";
+    private final static String UPDATE       = "EXEC UPDATE_{{ getUpperCaseName $.Name}}{{- range $index,$attribute := $.Attributes }} :{{ $attribute.Name }}{{getArgumentSeparator $index}}{{- end}}";
+    private final static String DELETE_BY_ID = "EXEC DELETE_{{ getUpperCaseName $.Name}}_BY_ID :{{$attribute.Name}}";
     
     
 
     public {{$caseName}}DTO getById({{- $primaryType }} {{$attribute.Name}}){
-        return dao.getById({{$attribute.Name}});
+        final Query query = entityManager.createQuery(SELECT_BY_ID,{{$caseName}}DTO.class);
+        query.setParameter("{{ $attribute.Name }}",{{$attribute.Name}});
+        return query.getSingleResult();
     }
 
     public java.util.List<{{$caseName}}DTO> getList(){
-        return dao.getList();
+        final Query query = entityManager.createQuery(SELECT_ALL,{{$caseName}}DTO.class);
+        return query.getResultList();
     }
 
     public java.util.List<{{$caseName}}DTO> getList(java.lang.String searchText){
@@ -96,47 +99,59 @@ public class {{getObjectName}} {
     }
 
     public long getListCount(){
-        return 0;
+        return getListCount((String)null, (java.util.Set<Filter>null);
     }
 
     public long getListCount(java.lang.String searchText){
-        return 0;
+        return getListCount(searchText, (java.util.Set<Filter>null);
     }
 
     public long getListCount(java.util.Set<Filter> filterList){
-        return 0;
+        return getListCount((String)null), (java.util.Set<Filter>filterList);
     }
 
     public long getListCount(java.lang.String searchText, java.util.Set<Filter> filterList){
         return 0;
     }
+
+    public long getListCount(int start, int limit){
+        return getListCount(start, limit, (String)null, (java.util.Set<Filter>null);
+    }
+
+    public long getListCount(int start, int limit, java.lang.String searchText){
+        return getListCount(start, limit,searchText, (java.util.Set<Filter>null);
+    }
+
+    public long getListCount(int start, int limit, java.util.Set<Filter> filterList){
+        return getListCount(start, limit,(String)null), (java.util.Set<Filter>filterList);
+    }
+
+    public long getListCount(int start, int limit, java.lang.String searchText, java.util.Set<Filter> filterList){
+        return 0;
+    }
     
     public void add(List<{{$caseName}}DTO> list){
         for({{$caseName}}DTO item:list){
-            add{{$caseName}}(item);
+            add(item);
         }
     }
 
     public int add({{$caseName}}DTO item){
-        return add({{- range $index,$attribute := $.Attributes }}{{ $attribute.Name }}{{- if isNotLastAttribute $index}},{{- end}}{{- end}})
+        return add({{- range $index,$attribute := $.Attributes }}item.get{{getTitleCaseName $attribute.Name}}(){{getArgumentSeparator $index}}{{- end}})
     }
 
-    public int add({{- range $index,$attribute := $.Attributes }}{{ getDataType $attribute.DataType }} {{ $attribute.Name }}{{- if isNotLastAttribute $index}},{{- end}}{{- end}}){
+    public int add({{- range $index,$attribute := $.Attributes }}{{getDataType $attribute.DataType}} {{$attribute.Name}}{{getArgumentSeparator $index}}{{- end}}){
         {{- range $index,$attribute := $.Attributes }}
-        query.setParameter("{{ $attribute.Name }}",item.get{{getTitleCaseName $attribute.Name}}());
+        query.setParameter("{{ $attribute.Name }}",{{$attribute.Name}});
         {{- end}}
     }
 
     public int update(List<{{$caseName}}DTO> list){
         int updatedItems=0;
         for({{$caseName}}DTO item:list){
-            updatedItems+=update{{$caseName}}(item);
+            updatedItems+=update(item);
         }
         return updatedItems;
-    }
-
-    public int update({{$caseName}}DTO item){
-        return update({{- range $index,$attribute := $.Attributes }}{{ getDataType $attribute.DataType }} {{ $attribute.Name }}{{- if isNotLastAttribute $index}},{{- end}}{{- end}})
     }
 
     public int update({{$caseName}}DTO item){
@@ -144,6 +159,12 @@ public class {{getObjectName}} {
         query.setParameter("{{ $attribute.Name }}",item.get{{getTitleCaseName $attribute.Name}}());
         {{- end}}
         return 0;
+    }
+
+    public void delete(List<{{$caseName}}DTO> list){
+        for({{$caseName}}DTO item:list){
+            delete(item);
+        }
     }
 
     public void delete({{$caseName}}DTO item){

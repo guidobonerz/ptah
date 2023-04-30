@@ -1,4 +1,4 @@
-package {{getNameSpace}};
+package {{getFullNameSpace}};
 
 {{- $attribute := getPrimaryKeyAttribute}}
 {{- $primaryType := getDataType $attribute.DataType }}
@@ -46,7 +46,7 @@ public class {{getObjectName}}  implements I{{$caseName}}Service{
     }
 
     public java.util.List<{{$caseName}}DTO> getList(java.lang.String searchText, java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
-        return dao.getList(searchText, sorterList, filterList)
+        return dao.getList(searchText, sorterList, filterList);
     }
         
     public java.util.List<{{$caseName}}DTO> getList(int start, int limit){
@@ -97,6 +97,22 @@ public class {{getObjectName}}  implements I{{$caseName}}Service{
         return dao.getListCount(searchText, filterList);
     }
 
+    public long getListCount(int start, int limit){
+        return dao.getListCount(int start, int limit);
+    }
+
+    public long getListCount(int start, int limit, java.lang.String searchText){
+        return dao.getListCount(start, limit, searchText);
+    }
+
+    public long getListCount(int start, int limit, java.util.Set<Filter> filterList){
+        return dao.getListCount(start, limit, filterList);
+    }
+
+    public long getListCount(jint start, int limit, ava.lang.String searchText, java.util.Set<Filter> filterList){
+        return dao.getListCount(start, limit, searchText, filterList);
+    }
+
     public void add(List<{{$caseName}}DTO> list){
         dao.add(list);
     }
@@ -105,8 +121,8 @@ public class {{getObjectName}}  implements I{{$caseName}}Service{
         return dao.add(item);
     }
         
-    public int add({{- range $index,$attribute := $.Attributes }}{{ getDataType $attribute.DataType }} {{ $attribute.Name }}{{- if isNotLastAttribute $index}},{{- end}}{{- end}}){
-        return dao.add({{- range $index,$attribute := $.Attributes }}{{ $attribute.Name }}{{- if isNotLastAttribute $index}},{{- end}}{{- end}});
+    public int add({{- range $index,$attribute := $.Attributes }}{{ getDataType $attribute.DataType }} {{ $attribute.Name }}{{getArgumentSeparator $index}}{{- end}}){
+        return dao.add({{- range $index,$attribute := $.Attributes }}{{ $attribute.Name }}{{getArgumentSeparator $index}}{{- end}});
     }
         
     public int update(List<{{$caseName}}DTO> list){
@@ -117,15 +133,15 @@ public class {{getObjectName}}  implements I{{$caseName}}Service{
         return dao.update(item);
     }
 
-    public int update({{- range $index,$attribute := $.Attributes }}{{ getDataType $attribute.DataType }} {{ $attribute.Name }}{{- if isNotLastAttribute $index}},{{- end}}{{- end}}){
-        return dao.update({{- range $index,$attribute := $.Attributes }}{{ $attribute.Name }}{{- if isNotLastAttribute $index}},{{- end}}{{- end}});
+    public int delete(List<{{$caseName}}DTO> list){
+        dao.delete(list);
     }
 
     public void delete({{$caseName}}DTO item){
-        return dao.delete(item);
+        dao.delete(item);
     }
 
     public void deleteById({{- $primaryType }} {{$attribute.Name}}){
-        return dao.deleteById({{$attribute.Name}});
+        dao.deleteById({{$attribute.Name}});
     }
 }

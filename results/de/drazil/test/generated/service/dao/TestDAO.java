@@ -16,21 +16,24 @@ public class TestDAO {
     @Autowired
     private EntityManager entityManager;
 
-    private final static String SELECT_ALL = "SELECT o from TestDTO o";
+    private final static String SELECT_ALL   = "SELECT o from TestDTO o";
     private final static String SELECT_BY_ID = "SELECT o from TestDTO o where id=:id";
-    private final static String COUNT_ALL = "SELECT count(o) from TestDTO o";
-    private final static String CREATE_TEST = "EXEC CREATE_TEST :id, :column1, :column2, :column3, :column4";
-    private final static String UPDATE_TEST = "EXEC UPDATE_TEST :id, :column1, :column2, :column3, :column4";
-    private final static String DELETE_TEST = "EXEC DELETE_TEST_BY_ID :id";
+    private final static String COUNT        = "SELECT count(o) from TestDTO o";
+    private final static String CREATE       = "EXEC CREATE_TEST :id,  :column1,  :column2,  :column3,  :column4";
+    private final static String UPDATE       = "EXEC UPDATE_TEST :id,  :column1,  :column2,  :column3,  :column4";
+    private final static String DELETE_BY_ID = "EXEC DELETE_TEST_BY_ID :id";
     
     
 
     public TestDTO getById(java.lang.Long id){
-        return dao.getById(id);
+        final Query query = entityManager.createQuery(SELECT_BY_ID,TestDTO.class);
+        query.setParameter("id",id);
+        return query.getSingleResult();
     }
 
     public java.util.List<TestDTO> getList(){
-        return dao.getList();
+        final Query query = entityManager.createQuery(SELECT_ALL,TestDTO.class);
+        return query.getResultList();
     }
 
     public java.util.List<TestDTO> getList(java.lang.String searchText){
@@ -94,49 +97,61 @@ public class TestDAO {
     }
 
     public long getListCount(){
-        return 0;
+        return getListCount((String)null, (java.util.Set<Filter>null);
     }
 
     public long getListCount(java.lang.String searchText){
-        return 0;
+        return getListCount(searchText, (java.util.Set<Filter>null);
     }
 
     public long getListCount(java.util.Set<Filter> filterList){
-        return 0;
+        return getListCount((String)null), (java.util.Set<Filter>filterList);
     }
 
     public long getListCount(java.lang.String searchText, java.util.Set<Filter> filterList){
         return 0;
     }
+
+    public long getListCount(int start, int limit){
+        return getListCount(start, limit, (String)null, (java.util.Set<Filter>null);
+    }
+
+    public long getListCount(int start, int limit, java.lang.String searchText){
+        return getListCount(start, limit,searchText, (java.util.Set<Filter>null);
+    }
+
+    public long getListCount(int start, int limit, java.util.Set<Filter> filterList){
+        return getListCount(start, limit,(String)null), (java.util.Set<Filter>filterList);
+    }
+
+    public long getListCount(int start, int limit, java.lang.String searchText, java.util.Set<Filter> filterList){
+        return 0;
+    }
     
     public void add(List<TestDTO> list){
         for(TestDTO item:list){
-            addTest(item);
+            add(item);
         }
     }
 
     public int add(TestDTO item){
-        return add(id,column1,column2,column3,column4)
+        return add(item.getId(), item.getColumn1(), item.getColumn2(), item.getColumn3(), item.getColumn4())
     }
 
-    public int add(java.lang.Long id,java.lang.Long column1,java.lang.String column2,java.util.Date column3,java.lang.Boolean column4){
-        query.setParameter("id",item.getId());
-        query.setParameter("column1",item.getColumn1());
-        query.setParameter("column2",item.getColumn2());
-        query.setParameter("column3",item.getColumn3());
-        query.setParameter("column4",item.getColumn4());
+    public int add(java.lang.Long id, java.lang.Long column1, java.lang.String column2, java.util.Date column3, java.lang.Boolean column4){
+        query.setParameter("id",id);
+        query.setParameter("column1",column1);
+        query.setParameter("column2",column2);
+        query.setParameter("column3",column3);
+        query.setParameter("column4",column4);
     }
 
     public int update(List<TestDTO> list){
         int updatedItems=0;
         for(TestDTO item:list){
-            updatedItems+=updateTest(item);
+            updatedItems+=update(item);
         }
         return updatedItems;
-    }
-
-    public int update(TestDTO item){
-        return update(java.lang.Long id,java.lang.Long column1,java.lang.String column2,java.util.Date column3,java.lang.Boolean column4)
     }
 
     public int update(TestDTO item){
@@ -146,6 +161,12 @@ public class TestDAO {
         query.setParameter("column3",item.getColumn3());
         query.setParameter("column4",item.getColumn4());
         return 0;
+    }
+
+    public void delete(List<TestDTO> list){
+        for(TestDTO item:list){
+            delete(item);
+        }
     }
 
     public void delete(TestDTO item){
