@@ -42,6 +42,7 @@ type Entity struct {
 	GenerateHistoryEntity bool        `json:"generateHistoryEntity"`
 	AddDefaultAttributes  bool        `json:"addDefaulAttributes"`
 	Attributes            []Attribute `json:"attributes"`
+	Index                 []Index     `json:"index"`
 }
 
 type Attribute struct {
@@ -52,4 +53,12 @@ type Attribute struct {
 	PrimaryKey   bool   `json:"primaryKey"`
 	AllowNull    bool   `json:"allowNull"`
 	AutoId       bool   `json:"autoId"`
+	RefEntity    string `json:"refEntity"`
+	RefAttribute string `json:"refAttribute"`
+}
+
+type Index struct {
+	Name       string   `json:"name"`
+	Attributes []string `json:"attributes"`
+	Unique     bool     `json:"unique"`
 }

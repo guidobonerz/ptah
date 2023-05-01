@@ -2,7 +2,7 @@ package {{getFullNameSpace}};
 
 {{- $attribute := getPrimaryKeyAttribute}}
 {{- $primaryType := getDataType $attribute.DataType }}
-{{- $caseName := getTitleCaseName $.Name}}
+{{- $caseName := getCamelCaseName $.Name}}
 
 import java.util.List;
 import org.springframework.stereotype.Service;

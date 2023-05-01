@@ -91,7 +91,7 @@
     },
     "entities": [
         {
-            "name": "test",
+            "name": "musician",
             "templateNames": [
                 "table",
                 "dto",
@@ -114,28 +114,78 @@
                     "autoId": true
                 },
                 {
-                    "name": "column1",
-                    "primaryKey": false,
-                    "dataType": "integer",
-                    "defaultValue": "0",
-                    "allowNull": true
-                },
-                {
-                    "name": "column2",
+                    "name": "firstName",
                     "dataType": "string",
-                    "allowNull": true
-                },
-                {
-                    "name": "column3",
-                    "dataType": "date",
-                    "defaultValue": "date()",
                     "allowNull": false
                 },
                 {
-                    "name": "column4",
-                    "dataType": "boolean",
-                    "defaultValue": "0",
+                    "name": "lastName",
+                    "dataType": "string",
                     "allowNull": false
+                }
+            ]
+        },
+        {
+            "name": "band",
+            "templateNames": [
+                "table",
+                "dto",
+                "impl",
+                "service",
+                "dao"
+            ],
+            "enableCreate": true,
+            "enableRead": true,
+            "enableUpdate": true,
+            "enableDelete": true,
+            "generateHistoryEntity": true,
+            "addDefaultAttributes": true,
+            "attributes": [
+                {
+                    "name": "id",
+                    "primaryKey": true,
+                    "dataType": "integer",
+                    "allowNull": false,
+                    "autoId": true
+                },
+                {
+                    "name": "name",
+                    "dataType": "string",
+                    "allowNull": false
+                }
+            ]
+        },
+        {
+            "name": "bandmember",
+            "templateNames": [
+                "table",
+                "dto",
+                "impl",
+                "service",
+                "dao"
+            ],
+            "enableCreate": true,
+            "enableRead": true,
+            "enableUpdate": true,
+            "enableDelete": true,
+            "generateHistoryEntity": true,
+            "addDefaultAttributes": true,
+            "attributes": [
+                {
+                    "name": "musicianId",
+                    "primaryKey": true,
+                    "dataType": "integer",
+                    "allowNull": false,
+                    "refEntity": "musician",
+                    "refAttribute": "id"
+                },
+                {
+                    "name": "bandId",
+                    "primaryKey": true,
+                    "dataType": "integer",
+                    "allowNull": false,
+                    "refEntity": "band",
+                    "refAttribute": "id"
                 }
             ]
         }

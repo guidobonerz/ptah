@@ -1,4 +1,6 @@
-package {{getFullNameSpace}};
+/* !!! CAUTION - THIS FILE MUST NOT BE CHANGED !!!*/
+
+package de.drazil.test.generated.dto;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,14 +19,18 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Entity
 @JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.NONE)
-@Table(name = "[{{getCamelCaseName $.Name}}]", schema = "{{getNameSpace}}")
-public class {{getObjectName}} implements Serializable {
+@Table(name = "[Bandmember]", schema = "dto")
+public class BandmemberDTO implements Serializable {
 
     private static final long serialVersionUID = 4869392400353269847L;
-    {{- range $index,$attribute := $.Attributes }}
-    {{ if $attribute.PrimaryKey}}@Id{{- end}}
-    @JsonProperty("{{$attribute.Name}}")
-    @Column(name = "[{{$attribute.Name}}]", nullable = {{- if $attribute.AllowNull}} true{{- else}} false{{- end}})
-    private {{ getDataType $attribute.DataType }} {{$attribute.Name}};
-    {{ end}}
+    @Id
+    @JsonProperty("musicianId")
+    @Column(name = "[musicianId]", nullable = false)
+    private java.lang.Long musicianId;
+    
+    @Id
+    @JsonProperty("bandId")
+    @Column(name = "[bandId]", nullable = false)
+    private java.lang.Long bandId;
+    
 }

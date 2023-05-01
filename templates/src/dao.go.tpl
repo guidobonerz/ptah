@@ -2,7 +2,7 @@ package {{getFullNameSpace}};
 
 {{- $attribute := getPrimaryKeyAttribute}}
 {{- $primaryType := getDataType $attribute.DataType }}
-{{- $caseName := getTitleCaseName $.Name}}
+{{- $caseName := getCamelCaseName $.Name}}
 
 import java.util.List;
 import org.springframework.stereotype.Repository;
@@ -99,11 +99,11 @@ public class {{getObjectName}} {
     }
 
     public long getListCount(){
-        return getListCount((String)null, (java.util.Set<Filter>null);
+        return getListCount((String)null, (java.util.Set<Filter>null));
     }
 
     public long getListCount(java.lang.String searchText){
-        return getListCount(searchText, (java.util.Set<Filter>null);
+        return getListCount(searchText, (java.util.Set<Filter>null));
     }
 
     public long getListCount(java.util.Set<Filter> filterList){
@@ -115,11 +115,11 @@ public class {{getObjectName}} {
     }
 
     public long getListCount(int start, int limit){
-        return getListCount(start, limit, (String)null, (java.util.Set<Filter>null);
+        return getListCount(start, limit, (String)null, (java.util.Set<Filter>null));
     }
 
     public long getListCount(int start, int limit, java.lang.String searchText){
-        return getListCount(start, limit,searchText, (java.util.Set<Filter>null);
+        return getListCount(start, limit,searchText, (java.util.Set<Filter>null));
     }
 
     public long getListCount(int start, int limit, java.util.Set<Filter> filterList){
@@ -137,7 +137,7 @@ public class {{getObjectName}} {
     }
 
     public int add({{$caseName}}DTO item){
-        return add({{- range $index,$attribute := $.Attributes }}item.get{{getTitleCaseName $attribute.Name}}(){{getArgumentSeparator $index}}{{- end}})
+        return add({{- range $index,$attribute := $.Attributes }}item.get{{getCamelCaseName $attribute.Name}}(){{getArgumentSeparator $index}}{{- end}})
     }
 
     public int add({{- range $index,$attribute := $.Attributes }}{{getDataType $attribute.DataType}} {{$attribute.Name}}{{getArgumentSeparator $index}}{{- end}}){
@@ -156,7 +156,7 @@ public class {{getObjectName}} {
 
     public int update({{$caseName}}DTO item){
         {{- range $index,$attribute := $.Attributes }}
-        query.setParameter("{{ $attribute.Name }}",item.get{{getTitleCaseName $attribute.Name}}());
+        query.setParameter("{{ $attribute.Name }}",item.get{{getCamelCaseName $attribute.Name}}());
         {{- end}}
         return 0;
     }
@@ -168,7 +168,7 @@ public class {{getObjectName}} {
     }
 
     public void delete({{$caseName}}DTO item){
-        deleteById(item.get{{getTitleCaseName $attribute.Name}}());
+        deleteById(item.get{{getCamelCaseName $attribute.Name}}());
     }
 
     public void deleteById({{- $primaryType }} {{$attribute.Name}}){
@@ -177,7 +177,7 @@ public class {{getObjectName}} {
 
     public java.util.List<{{$caseName}}DTO> copy({{$caseName}}DTO item, int copies){
         {{- range $index,$attribute := $.Attributes }}
-        query.setParameter("{{ $attribute.Name }}",item.get{{getTitleCaseName $attribute.Name}}());
+        query.setParameter("{{ $attribute.Name }}",item.get{{getCamelCaseName $attribute.Name}}());
         {{- end}}
     }
 }

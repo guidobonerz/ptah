@@ -94,11 +94,36 @@ func parseTemplate(file string) error {
 				"getUpperCaseName": func(name string) string {
 					return strings.ToUpper(name)
 				},
-				"getTitleCaseName": func(name string) string {
+				"getCamelCaseName": func(name string) string {
 					return strings.Title(name)
 				},
-				"getCamelCaseName": func(name string) string {
-					return strings.ToTitle(name)
+				"getReferences": func() [][]string {
+					var attribute structure.Attribute
+					var list []structure.Attribute = entity.Attributes
+					var referencedEntities []string
+					var referencedAttributes []string
+					var referencingAttributes []string
+					for i := 0; i < len(list); i++ {
+						attribute = list[i]
+						if attribute.RefEntity != "" && attribute.RefAttribute != "" {
+							referencingAttributes = append(referencingAttributes, attribute.Name)
+							referencedAttributes = append(referencedAttributes, attribute.RefAttribute)
+							var found bool = false
+							for j := 0; j < len(referencedEntities); j++ {
+								if referencedEntities[j] == attribute.RefEntity {
+									found = true
+								}
+							}
+							if !found {
+								referencedEntities = append(referencedEntities, attribute.RefEntity)
+							}
+						}
+					}
+					var result [][]string
+					result = append(result, referencingAttributes)
+					result = append(result, referencedEntities)
+					result = append(result, referencedAttributes)
+					return result
 				},
 				"getPrimaryKeyString": func() string {
 					var pk string
@@ -136,9 +161,9 @@ func parseTemplate(file string) error {
 					log.Printf("%s successfully written", outputFileName)
 				}
 			}
-			log.Printf("finished.")
-		}
 
+		}
+		log.Printf("finished.")
 	}
 	return nil
 }
