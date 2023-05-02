@@ -1,7 +1,3 @@
-{{- $references := getReferences}}
-{{- $referencingAttributes := index $references 0}}
-{{- $referencedEntities := index $references 1}}
-{{- $referencedAttributes := index $references 2}}
 if object_id(N'[{{getNameSpace}}].[{{getCamelCaseName $.Name}}]','U') is null
 BEGIN
 CREATE TABLE [{{getNameSpace}}].[{{getCamelCaseName $.Name}}](
@@ -10,13 +6,13 @@ CREATE TABLE [{{getNameSpace}}].[{{getCamelCaseName $.Name}}](
 		{{- if $attribute.AutoId}} IDENTITY(1,1){{- end}}
 		{{- if $attribute.AllowNull}} NULL{{- else}} NOT NULL{{- end}}
 		{{- if $attribute.DefaultValue}} DEFAULT ({{$attribute.DefaultValue}}){{- end}}
-		{{- getArgumentSeparator $index}}
+		{{- getArgumentSeparator $index $.Attributes}}
 	{{- end}}
 		CONSTRAINT [PK_{{getCamelCaseName $.Name}}] PRIMARY KEY NONCLUSTERED ({{getPrimaryKeyString}})
-	{{- range $index,$entity := $referencedEntities }}
-		CONSTRAINT [FK_{{getCamelCaseName $.Name}}_{{getCamelCaseName $entity}}] FOREIGN KEY ({{- range $index,$attribute := $referencingAttributes }}{{$attribute}} {{- end}}) REFERENCES [{{getNameSpace}}].[{{getCamelCaseName $entity}}] ({{- range $index,$attribute := $referencedAttributes }}{{$attribute}} {{- end}})
+	{{- $entityMap := getReferences}}
+	{{- range $entityName,$attributes := $entityMap }}
+		CONSTRAINT [FK_{{getCamelCaseName $.Name}}_{{getCamelCaseName $entityName}}] FOREIGN KEY ({{- range $index,$attribute := $attributes }}{{$attribute.Name}}{{- getArgumentSeparator $index  $attributes}}{{- end}}) REFERENCES [{{getNameSpace}}].[{{getCamelCaseName $entityName}}] ({{- range $index,$attribute := $attributes }}{{$attribute.RefAttribute}}{{- getArgumentSeparator $index $attributes}}{{- end}})
 	{{- end}}
-	
 ) ON [PRIMARY]
 END
 GO
@@ -29,7 +25,7 @@ CREATE TABLE [{{getNameSpace}}].[{{getCamelCaseName $.Name}}History](
 	{{- range $index,$attribute := $.Attributes }}
 		{{ $attribute.Name }} {{ getDataType $attribute.DataType }}
 		{{- if $attribute.PrimaryKey}} NOT NULL{{- else}} NULL{{- end}}
-		{{- getArgumentSeparator $index}}
+		{{- getArgumentSeparator $index $.Attributes}}
 	{{- end}}
 		CONSTRAINT [PK_{{getCamelCaseName $.Name}}History] PRIMARY KEY NONCLUSTERED (historyId)
 		CONSTRAINT [FK_{{getCamelCaseName $.Name}}History] FOREIGN KEY (id) REFERENCES [{{getNameSpace}}].[{{getCamelCaseName $.Name}}] (id)

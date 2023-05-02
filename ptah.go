@@ -81,9 +81,9 @@ func parseTemplate(file string) error {
 				"getObjectName": func() string {
 					return objectName
 				},
-				"getArgumentSeparator": func(index int) string {
+				"getArgumentSeparator": func(index int, attributes []structure.Attribute) string {
 					var separator = ""
-					if len(entity.Attributes)-1 != index {
+					if len(attributes)-1 != index {
 						separator = metaData.ArgumentSeparator + " "
 					}
 					return separator
@@ -97,43 +97,37 @@ func parseTemplate(file string) error {
 				"getCamelCaseName": func(name string) string {
 					return strings.Title(name)
 				},
-				"getReferences": func() [][]string {
+				"getReferences": func() map[string][]structure.Attribute {
 					var attribute structure.Attribute
 					var list []structure.Attribute = entity.Attributes
-					var referencedEntities []string
-					var referencedAttributes []string
-					var referencingAttributes []string
+
+					var references = make(map[string][]structure.Attribute)
+
 					for i := 0; i < len(list); i++ {
 						attribute = list[i]
 						if attribute.RefEntity != "" && attribute.RefAttribute != "" {
-							referencingAttributes = append(referencingAttributes, attribute.Name)
-							referencedAttributes = append(referencedAttributes, attribute.RefAttribute)
-							var found bool = false
-							for j := 0; j < len(referencedEntities); j++ {
-								if referencedEntities[j] == attribute.RefEntity {
-									found = true
-								}
-							}
-							if !found {
-								referencedEntities = append(referencedEntities, attribute.RefEntity)
+							referencingAttributes, exists := references[attribute.RefEntity]
+							if !exists {
+								referencingAttributes = []structure.Attribute{}
+								referencingAttributes = append(referencingAttributes, attribute)
+								references[attribute.RefEntity] = referencingAttributes
+							} else {
+								referencingAttributes = append(referencingAttributes, attribute)
+								references[attribute.RefEntity] = referencingAttributes
 							}
 						}
 					}
-					var result [][]string
-					result = append(result, referencingAttributes)
-					result = append(result, referencedEntities)
-					result = append(result, referencedAttributes)
-					return result
+					return references
 				},
 				"getPrimaryKeyString": func() string {
 					var pk string
 					var list []structure.Attribute = entity.Attributes
 					for i := 0; i < len(list); i++ {
 						if list[i].PrimaryKey {
-							pk += list[i].Name + ","
+							pk += list[i].Name + ", "
 						}
 					}
-					pk = pk[:len(pk)-1]
+					pk = pk[:len(pk)-2]
 					return pk
 				}, "getPrimaryKeyAttribute": func() structure.Attribute {
 					var attribute structure.Attribute

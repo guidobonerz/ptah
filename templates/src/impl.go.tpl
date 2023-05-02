@@ -121,8 +121,8 @@ public class {{getObjectName}}  implements I{{$caseName}}Service{
         return dao.add(item);
     }
         
-    public int add({{- range $index,$attribute := $.Attributes }}{{ getDataType $attribute.DataType }} {{ $attribute.Name }}{{getArgumentSeparator $index}}{{- end}}){
-        return dao.add({{- range $index,$attribute := $.Attributes }}{{ $attribute.Name }}{{getArgumentSeparator $index}}{{- end}});
+    public int add({{- range $index,$attribute := $.Attributes }}{{ getDataType $attribute.DataType }} {{ $attribute.Name }}{{getArgumentSeparator $index $.Attributes}}{{- end}}){
+        return dao.add({{- range $index,$attribute := $.Attributes }}{{ $attribute.Name }}{{getArgumentSeparator $index $.Attributes}}{{- end}});
     }
         
     public int update(List<{{$caseName}}DTO> list){

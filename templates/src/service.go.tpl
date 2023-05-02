@@ -62,7 +62,7 @@ public interface {{getObjectName}} {
 
     public int add({{$caseName}}DTO item) ;
 
-    public int add({{- range $index,$attribute := $.Attributes }}{{ getDataType $attribute.DataType }} {{ $attribute.Name }}{{getArgumentSeparator $index}}{{- end}}) ;
+    public int add({{- range $index,$attribute := $.Attributes }}{{ getDataType $attribute.DataType }} {{ $attribute.Name }}{{getArgumentSeparator $index $.Attributes}}{{- end}}) ;
             
     public int update(List<{{$caseName}}DTO> list);
 
