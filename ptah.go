@@ -10,6 +10,7 @@ import (
 	"os"
 	"strings"
 	"text/template"
+	"time"
 )
 
 var verbose bool = false
@@ -34,7 +35,7 @@ func main() {
 		flag.Usage()
 		os.Exit(1)
 	}
-	parseTemplate(inputfile)
+	parseTemplates(inputfile)
 }
 
 func check(e error) {
@@ -43,7 +44,8 @@ func check(e error) {
 	}
 }
 
-func parseTemplate(file string) error {
+func parseTemplates(file string) error {
+	start := time.Now()
 	controlFile, err := os.Open(file)
 	check(err)
 
@@ -54,9 +56,11 @@ func parseTemplate(file string) error {
 
 	var project structure.Project
 	json.Unmarshal(byteValue, &project)
+	var templateCount int = 0
 
 	for _, entity := range project.Entities {
 		for _, templateName := range entity.TemplateNames {
+			templateCount++
 			var templateDefinition = project.TemplateDefinition[templateName]
 			var metaData = project.MetaData[templateDefinition.MetaData]
 			var fullNameSpace = project.BaseNameSpace + "." + templateDefinition.NameSpace
@@ -157,7 +161,9 @@ func parseTemplate(file string) error {
 			}
 
 		}
-		log.Printf("finished.")
+
 	}
+	var duration = time.Now().Sub(start).Seconds()
+	log.Printf("parsing %d entities and writing %d files in %f seconds.", len(project.Entities), templateCount, duration)
 	return nil
 }
