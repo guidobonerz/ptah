@@ -33,4 +33,5 @@ public class BandDTO implements Serializable {
     @Column(name = "[name]", nullable = false)
     private java.lang.String name;
     
+    
 }

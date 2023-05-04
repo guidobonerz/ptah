@@ -21,6 +21,11 @@
             "namePattern": "%sDTO",
             "metaData": "java"
         },
+        "id": {
+            "nameSpace": "dto",
+            "namePattern": "%sId",
+            "metaData": "java"
+        },
         "service": {
             "nameSpace": "service",
             "namePattern": "I%sService",
@@ -73,6 +78,7 @@
             "suffix": "java",
             "allowBundledFile": false,
             "argumentSeparator": ",",
+            "enableMultiAttributeIdOption": true,
             "dataTypes": {
                 "string": {
                     "dataType": "java.lang.String"

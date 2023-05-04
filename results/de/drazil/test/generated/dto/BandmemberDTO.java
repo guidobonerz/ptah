@@ -23,14 +23,6 @@ import java.io.Serializable;
 public class BandmemberDTO implements Serializable {
 
     private static final long serialVersionUID = 4869392400353269847L;
-    @Id
-    @JsonProperty("musicianId")
-    @Column(name = "[musicianId]", nullable = false)
-    private java.lang.Long musicianId;
-    
-    @Id
-    @JsonProperty("bandId")
-    @Column(name = "[bandId]", nullable = false)
-    private java.lang.Long bandId;
-    
+    @EmbeddedId
+    private BandmemberId id;
 }

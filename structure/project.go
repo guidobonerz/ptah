@@ -14,12 +14,13 @@ type TemplateDefinition struct {
 }
 
 type MetaData struct {
-	TemplateBasePath  string                        `json:"templateBasepath"`
-	NamingStyle       string                        `json:"namingStyle"`
-	ArgumentSeparator string                        `json:"argumentSeparator"`
-	Suffix            string                        `json:"suffix"`
-	AllowBundledFile  bool                          `json:"allowBundledFile"`
-	DataTypes         map[string]DataTypeDefinition `json:"dataTypes"`
+	TemplateBasePath             string                        `json:"templateBasepath"`
+	NamingStyle                  string                        `json:"namingStyle"`
+	ArgumentSeparator            string                        `json:"argumentSeparator"`
+	Suffix                       string                        `json:"suffix"`
+	AllowBundledFile             bool                          `json:"allowBundledFile"`
+	EnableMultiAttributeIdOption bool                          `json:"enableMultiAttributeIdOption"`
+	DataTypes                    map[string]DataTypeDefinition `json:"dataTypes"`
 }
 
 type DataTypeDefinition struct {

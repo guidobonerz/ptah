@@ -17,26 +17,17 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Embeddable
 @JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.NONE)
-@Table(name = "[Musician]", schema = "dto")
-public class MusicianDTO implements Serializable {
-
+public class BandmemberId implements Serializable {
+    
     private static final long serialVersionUID = 4869392400353269847L;
-    @Id
-    @JsonProperty("id")
-    @Column(name = "[id]", nullable = false)
-    private java.lang.Long id;
+    @JsonProperty("musicianId")
+    @Column(name = "[musicianId]", nullable = false)
+    private java.lang.Long musicianId;
     
-    
-    @JsonProperty("firstName")
-    @Column(name = "[firstName]", nullable = false)
-    private java.lang.String firstName;
-    
-    
-    @JsonProperty("lastName")
-    @Column(name = "[lastName]", nullable = false)
-    private java.lang.String lastName;
-    
+    @JsonProperty("bandId")
+    @Column(name = "[bandId]", nullable = false)
+    private java.lang.Long bandId;
     
 }

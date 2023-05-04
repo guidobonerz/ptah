@@ -1,5 +1,7 @@
 package {{getFullNameSpace}};
 
+{{- $primaryAttributes := getPrimaryAttributes}}
+{{- $primaryAttributeTypes := getDataTypes $primaryAttributes }}
 {{- $caseName := getCamelCaseName $.Name}}
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -17,22 +19,15 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Embeddable
 @JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.NONE)
-@Table(name = "[{{getCamelCaseName $.Name}}]", schema = "{{getNameSpace}}")
 public class {{getObjectName}} implements Serializable {
-
+    
     private static final long serialVersionUID = 4869392400353269847L;
     
-    {{- if hasMultiplePrimaryAttriutes}}
-    @EmbeddedId
-    private {{ $caseName }}Id id;
-    {{- else}}
-    {{- range $index,$attribute := $.Attributes }}
-    {{ if $attribute.PrimaryKey}}@Id{{- end}}
+    {{- range $index,$attribute := $primaryAttributes }}
     @JsonProperty("{{$attribute.Name}}")
     @Column(name = "[{{$attribute.Name}}]", nullable = {{- if $attribute.AllowNull}} true{{- else}} false{{- end}})
     private {{ getDataType $attribute.DataType }} {{$attribute.Name}};
-    {{ end}}
     {{ end}}
 }
