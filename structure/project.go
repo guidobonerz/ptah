@@ -1,37 +1,49 @@
 package structure
 
 type Project struct {
-	TargetBasePath    string   `json:"targetBasePath"`
-	NameSpace         string   `json:"nameSpace"`
-	Entities          []Entity `json:"entities"`
-	Targets           []Target `json:"targets"`
-	ChildProjectNames []string `json:"childProjectNames"`
+	BaseNameSpace      string                        `json:"baseNameSpace"`
+	Entities           []Entity                      `json:"entities"`
+	TemplateDefinition map[string]TemplateDefinition `json:"templateDefinition"`
+	MetaData           map[string]MetaData           `json:"metaData"`
 }
 
-type Target struct {
-	Name      string     `json:"name"`
-	Type      string     `json:"type"`
-	Suffix    string     `json:"suffix"`
-	DataTypes []DataType `json:"dataTypes"`
+type TemplateDefinition struct {
+	NameSpace   string `json:"nameSpace"`
+	NamePattern string `json:"namePattern"`
+	MetaData    string `json:"metaData"`
 }
-type DataType struct {
-	GenericType string `json:"genericType"`
-	RealType    string `json:"realType"`
-	HasSize     bool   `json:"hasSize"`
-	MaxSize     string `json:"maxSize"`
+
+type MetaData struct {
+	TemplateBasePath             string                        `json:"templateBasepath"`
+	NamingStyle                  string                        `json:"namingStyle"`
+	ArgumentSeparator            string                        `json:"argumentSeparator"`
+	Suffix                       string                        `json:"suffix"`
+	AllowBundledFile             bool                          `json:"allowBundledFile"`
+	EnableMultiAttributeIdOption bool                          `json:"enableMultiAttributeIdOption"`
+	DataTypes                    map[string]DataTypeDefinition `json:"dataTypes"`
+}
+
+type DataTypeDefinition struct {
+	DataType string `json:"dataType"`
+	HasSize  bool   `json:"hasSize"`
+	MaxSize  string `json:"maxSize"`
 }
 
 type Entity struct {
 	Name                  string      `json:"name"`
-	Schema                string      `json:"schema"`
-	Type                  string      `json:"type"` // Table,View,StoredProcedure,Class, etc.
+	TemplateNames         []string    `json:"templateNames"`
 	EnableCreate          bool        `json:"enableCreate"`
 	EnableRead            bool        `json:"enableRead"`
 	EnableUpdate          bool        `json:"enableUpdate"`
 	EnableDelete          bool        `json:"enableDelete"`
+	EnableSort            bool        `json:"enableSort"`
+	EnableFilter          bool        `json:"enableFilter"`
+	EnableSearch          bool        `json:"enableSearch"`
+	EnablePagination      bool        `json:"enablePagination"`
 	GenerateHistoryEntity bool        `json:"generateHistoryEntity"`
 	AddDefaultAttributes  bool        `json:"addDefaulAttributes"`
 	Attributes            []Attribute `json:"attributes"`
+	Index                 []Index     `json:"index"`
 }
 
 type Attribute struct {
@@ -42,4 +54,12 @@ type Attribute struct {
 	PrimaryKey   bool   `json:"primaryKey"`
 	AllowNull    bool   `json:"allowNull"`
 	AutoId       bool   `json:"autoId"`
+	RefEntity    string `json:"refEntity"`
+	RefAttribute string `json:"refAttribute"`
+}
+
+type Index struct {
+	Name       string   `json:"name"`
+	Attributes []string `json:"attributes"`
+	Unique     bool     `json:"unique"`
 }

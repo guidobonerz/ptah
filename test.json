@@ -1,44 +1,110 @@
 {
-    "nameSpace": "de.drazil.test",
-    "childProjectNames": [
-        "path-to-project-json-files"
-    ],
-    "targets": [
-        {
-            "name": "database",
-            "type": "mssql",
+    "baseNameSpace": "de.drazil.test.generated",
+    "templateDefinition": {
+        "table": {
+            "nameSpace": "dbo",
+            "namePattern": "%s",
+            "metaData": "sql"
+        },
+        "view": {
+            "nameSpace": "dbo",
+            "namePattern": "%sView",
+            "metaData": "sql"
+        },
+        "procedure": {
+            "nameSpace": "dbo",
+            "namePattern": "%s",
+            "metaData": "sql"
+        },
+        "dto": {
+            "nameSpace": "dto",
+            "namePattern": "%sDTO",
+            "metaData": "java"
+        },
+        "id": {
+            "nameSpace": "dto",
+            "namePattern": "%sId",
+            "metaData": "java"
+        },
+        "service": {
+            "nameSpace": "service",
+            "namePattern": "I%sService",
+            "metaData": "java"
+        },
+        "impl": {
+            "nameSpace": "service.impl",
+            "namePattern": "%sServiceImpl",
+            "metaData": "java"
+        },
+        "dao": {
+            "nameSpace": "service.dao",
+            "namePattern": "%sDAO",
+            "metaData": "java"
+        },
+        "controller": {
+            "nameSpace": "controller",
+            "namePattern": "%sController",
+            "metaData": "java"
+        }
+    },
+    "metaData": {
+        "sql": {
+            "templateBasePath": "database/mssql/",
             "suffix": "sql",
             "allowBundledFile": true,
-            "dataTypes": [
-                {
-                    "genericType": "string",
-                    "realType": "nvarchar2",
+            "argumentSeparator": ",",
+            "dataTypes": {
+                "string": {
+                    "dataType": "nvarchar",
                     "hasSize": true,
                     "maxSize": "MAX"
                 },
-                {
-                    "genericType": "integer",
-                    "realType": "bigint",
+                "integer": {
+                    "dataType": "bigint",
                     "hasSize": false
                 },
-                {
-                    "genericType": "date",
-                    "realType": "date",
+                "date": {
+                    "dataType": "date",
                     "hasSize": false
                 },
-                {
-                    "genericType": "boolean",
-                    "realType": "bit",
+                "boolean": {
+                    "dataType": "bit",
                     "hasSize": false
                 }
-            ]
+            }
+        },
+        "java": {
+            "templateBasePath": "src/",
+            "suffix": "java",
+            "allowBundledFile": false,
+            "argumentSeparator": ",",
+            "enableMultiAttributeIdOption": true,
+            "dataTypes": {
+                "string": {
+                    "dataType": "java.lang.String"
+                },
+                "integer": {
+                    "dataType": "java.lang.Long"
+                },
+                "date": {
+                    "dataType": "java.util.Date"
+                },
+                "boolean": {
+                    "dataType": "java.lang.Boolean"
+                }
+            }
         }
-    ],
+    },
     "entities": [
         {
-            "name": "test",
-            "schema": "dbo",
-            "type": "Table",
+            "name": "musician",
+            "templateNames": [
+                "table",
+                "dto",
+                "impl",
+                "service",
+                "dao"
+            ],
             "enableCreate": true,
             "enableRead": true,
             "enableUpdate": true,
@@ -47,38 +113,85 @@
             "addDefaultAttributes": true,
             "attributes": [
                 {
-                    "primaryKey": true,
                     "name": "id",
+                    "primaryKey": true,
                     "dataType": "integer",
-                    "allowNull": true,
+                    "allowNull": false,
                     "autoId": true
                 },
                 {
-                    "name": "column1",
-                    "dataType": "integer",
-                    "primaryKey": true,
-                    "defaultValue": "0",
-                    "allowNull": true
-                },
-                {
-                    "name": "column2",
+                    "name": "firstName",
                     "dataType": "string",
-                    "primaryKey": false,
-                    "allowNull": true
-                },
-                {
-                    "name": "column3",
-                    "dataType": "date",
-                    "primaryKey": false,
-                    "defaultValue": "date()",
                     "allowNull": false
                 },
                 {
-                    "name": "column4",
-                    "dataType": "boolean",
-                    "primaryKey": false,
-                    "defaultValue": "0",
+                    "name": "lastName",
+                    "dataType": "string",
                     "allowNull": false
+                }
+            ]
+        },
+        {
+            "name": "band",
+            "templateNames": [
+                "table",
+                "dto",
+                "impl",
+                "service",
+                "dao"
+            ],
+            "enableCreate": true,
+            "enableRead": true,
+            "enableUpdate": true,
+            "enableDelete": true,
+            "generateHistoryEntity": true,
+            "addDefaultAttributes": true,
+            "attributes": [
+                {
+                    "name": "id",
+                    "primaryKey": true,
+                    "dataType": "integer",
+                    "allowNull": false,
+                    "autoId": true
+                },
+                {
+                    "name": "name",
+                    "dataType": "string",
+                    "allowNull": false
+                }
+            ]
+        },
+        {
+            "name": "bandmember",
+            "templateNames": [
+                "table",
+                "dto",
+                "impl",
+                "service",
+                "dao"
+            ],
+            "enableCreate": true,
+            "enableRead": true,
+            "enableUpdate": true,
+            "enableDelete": true,
+            "generateHistoryEntity": true,
+            "addDefaultAttributes": true,
+            "attributes": [
+                {
+                    "name": "musicianId",
+                    "primaryKey": true,
+                    "dataType": "integer",
+                    "allowNull": false,
+                    "refEntity": "musician",
+                    "refAttribute": "id"
+                },
+                {
+                    "name": "bandId",
+                    "primaryKey": true,
+                    "dataType": "integer",
+                    "allowNull": false,
+                    "refEntity": "band",
+                    "refAttribute": "id"
                 }
             ]
         }
