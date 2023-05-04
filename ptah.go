@@ -44,6 +44,17 @@ func check(e error) {
 	}
 }
 
+func getPrimaryAttributes(attributes []structure.Attribute) []structure.Attribute {
+	var pkAttribute []structure.Attribute
+	var list []structure.Attribute = attributes
+	for i := 0; i < len(list); i++ {
+		if list[i].PrimaryKey {
+			pkAttribute = append(pkAttribute, list[i])
+		}
+	}
+	return pkAttribute
+}
+
 func parseTemplates(file string) error {
 	start := time.Now()
 	controlFile, err := os.Open(file)
@@ -92,6 +103,13 @@ func parseTemplates(file string) error {
 					}
 					return separator
 				},
+				"getDataTypes": func(attributes []structure.Attribute) []string {
+					var dataTypes []string
+					for i := 0; i < len(attributes); i++ {
+						dataTypes = append(dataTypes, metaData.DataTypes[attributes[i].DataType].DataType)
+					}
+					return dataTypes
+				},
 				"getDataType": func(key string) string {
 					return metaData.DataTypes[key].DataType
 				},
@@ -123,25 +141,18 @@ func parseTemplates(file string) error {
 					}
 					return references
 				},
-				"getPrimaryKeyString": func() string {
-					var pk string
+				"getPrimaryAttributes": func() []structure.Attribute {
+					return getPrimaryAttributes(entity.Attributes)
+				},
+				"hasMultiplePrimaryKey": func() bool {
 					var list []structure.Attribute = entity.Attributes
+					var count = 0
 					for i := 0; i < len(list); i++ {
 						if list[i].PrimaryKey {
-							pk += list[i].Name + ", "
+							count++
 						}
 					}
-					pk = pk[:len(pk)-2]
-					return pk
-				}, "getPrimaryKeyAttribute": func() structure.Attribute {
-					var attribute structure.Attribute
-					var list []structure.Attribute = entity.Attributes
-					for i := 0; i < len(list); i++ {
-						if list[i].PrimaryKey {
-							attribute = list[i]
-						}
-					}
-					return attribute
+					return count > 1
 				}}).ParseFiles(templatePathName)
 
 			check(err)

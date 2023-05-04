@@ -1,3 +1,4 @@
+{{- $pkList := getPrimaryAttributes}}
 if object_id(N'[{{getNameSpace}}].[{{getCamelCaseName $.Name}}]','U') is null
 BEGIN
 CREATE TABLE [{{getNameSpace}}].[{{getCamelCaseName $.Name}}](
@@ -8,7 +9,7 @@ CREATE TABLE [{{getNameSpace}}].[{{getCamelCaseName $.Name}}](
 		{{- if $attribute.DefaultValue}} DEFAULT ({{$attribute.DefaultValue}}){{- end}}
 		{{- getArgumentSeparator $index $.Attributes}}
 	{{- end}}
-		CONSTRAINT [PK_{{getCamelCaseName $.Name}}] PRIMARY KEY NONCLUSTERED ({{getPrimaryKeyString}})
+		CONSTRAINT [PK_{{getCamelCaseName $.Name}}] PRIMARY KEY NONCLUSTERED ({{- range $index,$attribute := $pkList }}{{- $attribute.Name}}{{- end}})
 	{{- $entityMap := getReferences}}
 	{{- range $entityName,$attributes := $entityMap }}
 		CONSTRAINT [FK_{{getCamelCaseName $.Name}}_{{getCamelCaseName $entityName}}] FOREIGN KEY ({{- range $index,$attribute := $attributes }}{{$attribute.Name}}{{- getArgumentSeparator $index  $attributes}}{{- end}}) REFERENCES [{{getNameSpace}}].[{{getCamelCaseName $entityName}}] ({{- range $index,$attribute := $attributes }}{{$attribute.RefAttribute}}{{- getArgumentSeparator $index $attributes}}{{- end}})

@@ -21,7 +21,7 @@ public class BandDAO {
     private final static String COUNT        = "SELECT count(o) from BandDTO o";
     private final static String CREATE       = "EXEC CREATE_BAND :id,  :name";
     private final static String UPDATE       = "EXEC UPDATE_BAND :id,  :name";
-    private final static String DELETE_BY_ID = "EXEC DELETE_BAND_BY_ID :id";
+    private final static String DELETE_BY_ID = "EXEC DELETE_BAND_BY_ID id=:id";
     
     
 
@@ -31,100 +31,100 @@ public class BandDAO {
         return query.getSingleResult();
     }
 
-    public java.util.List<BandDTO> getList(){
+    public List<BandDTO> getList(){
         final Query query = entityManager.createQuery(SELECT_ALL,BandDTO.class);
         return query.getResultList();
     }
 
-    public java.util.List<BandDTO> getList(java.lang.String searchText){
-        return getList(searchText, (java.util.Set<Sorter>)null, (java.util.Set<Filter>)null);
+    public List<BandDTO> getList(java.lang.String searchText){
+        return getList(searchText, (List<Sorter>)null, (List<Filter>)null);
     }
     
-    public java.util.List<BandDTO> getList(java.util.Set<Sorter> sorterList){
-        return getList((String)null, sorterList, (java.util.Set<Filter>)null);
+    public List<BandDTO> getList(List<Sorter> sorterList){
+        return getList((String)null, sorterList, (List<Filter>)null);
     }
 
-    public java.util.List<BandDTO> getList(java.lang.String searchText, java.util.Set<Sorter> sorterList){
-        return getList(searchText, sorterList, (java.util.Set<Filter>)null);
+    public List<BandDTO> getList(java.lang.String searchText, ListSet<Sorter> sorterList){
+        return getList(searchText, sorterList, (List<Filter>)null);
     }
 
-    public java.util.List<BandDTO> getList(java.util.Set<Filter> filterList){
-        return getList((String)null, (java.util.Set<Sorter>)null, filterList);
+    public List<BandDTO> getList(List<Filter> filterList){
+        return getList((String)null, (List<Sorter>)null, filterList);
     }
 
-    public java.util.List<BandDTO> getList(java.lang.String searchText, java.util.Set<Filter> filterList){
-        return getList(searchText, (java.util.Set<Sorter>)null, filterList);
+    public List<BandDTO> getList(java.lang.String searchText, List<Filter> filterList){
+        return getList(searchText, (List<Sorter>)null, filterList);
     }
 
-    public java.util.List<BandDTO> getList(java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
+    public List<BandDTO> getList(List<Sorter> sorterList, List<Filter> filterList){
         return getList((String)null, sorterList, filterList);
     }
 
-    public java.util.List<BandDTO> getList(java.lang.String searchText, java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
+    public List<BandDTO> getList(java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList){
         return null;
     }
         
-    public java.util.List<BandDTO> getList(int start, int limit){
-        return getList(start, limit, (String)null, (java.util.Set<Sorter>)null, (java.util.Set<Filter>)null);
+    public List<BandDTO> getList(int start, int limit){
+        return getList(start, limit, (String)null, (List<Sorter>)null, (List<Filter>)null);
     }
     
-    public java.util.List<BandDTO> getList(int start, int limit, java.lang.String searchText){
-        return getList(start, limit, searchText, (java.util.Set<Sorter>)null, (java.util.Set<Filter>)null);
+    public List<BandDTO> getList(int start, int limit, java.lang.String searchText){
+        return getList(start, limit, searchText, (List<Sorter>)null, (List<Filter>)null);
     }
     
-    public java.util.List<BandDTO> getList(int start, int limit, java.util.Set<Sorter> sorterList){
-        return getList(start, limit, (String)null, sorterList, (java.util.Set<Filter>)null);
+    public List<BandDTO> getList(int start, int limit, List<Sorter> sorterList){
+        return getList(start, limit, (String)null, sorterList, (List<Filter>)null);
     }
 
-    public java.util.List<BandDTO> getList(int start, int limit, java.lang.String searchText, java.util.Set<Sorter> sorterList){
-        return getList(start, limit, searchText, sorterList, (java.util.Set<Filter>)null);
+    public List<BandDTO> getList(int start, int limit, java.lang.String searchText, List<Sorter> sorterList){
+        return getList(start, limit, searchText, sorterList, (List<Filter>)null);
     }
 
-    public java.util.List<BandDTO> getList(int start, int limit, java.util.Set<Filter> filterList){
-        return getList(start, limit, (String)null, (java.util.Set<Sorter>)null, filterList);
+    public List<BandDTO> getList(int start, int limit, List<Filter> filterList){
+        return getList(start, limit, (String)null, (List<Sorter>)null, filterList);
     }
 
-    public java.util.List<BandDTO> getList(int start, int limit, java.lang.String searchText, java.util.Set<Filter> filterList){
-        return getList(start, limit, searchText, (java.util.Set<Sorter>)null, filterList);
+    public List<BandDTO> getList(int start, int limit, java.lang.String searchText, List<Filter> filterList){
+        return getList(start, limit, searchText, (List<Sorter>)null, filterList);
     }
 
-    public java.util.List<BandDTO> getList(int start, int limit, java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
+    public List<BandDTO> getList(int start, int limit, List<Sorter> sorterList, List<Filter> filterList){
         return getList(start, limit, (String)null, sorterList, filterList);
     }
 
-    public java.util.List<BandDTO> getList(int start, int limit, java.lang.String searchText, java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
-        return null;
+    public List<BandDTO> getList(int start, int limit, java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList){
+        return null;List
     }
 
     public long getListCount(){
-        return getListCount((String)null, (java.util.Set<Filter>null));
+        return getListCount((String)null, (List<Filter>)null);
     }
 
     public long getListCount(java.lang.String searchText){
-        return getListCount(searchText, (java.util.Set<Filter>null));
+        return getListCount(searchText, (List<Filter>)null);
     }
 
-    public long getListCount(java.util.Set<Filter> filterList){
-        return getListCount((String)null), (java.util.Set<Filter>filterList);
+    public long getListCount(List<Filter> filterList){
+        return getListCount((String)null, filterList);
     }
 
-    public long getListCount(java.lang.String searchText, java.util.Set<Filter> filterList){
+    public long getListCount(java.lang.String searchText, List<Filter> filterList){
         return 0;
     }
 
     public long getListCount(int start, int limit){
-        return getListCount(start, limit, (String)null, (java.util.Set<Filter>null));
+        return getListCount(start, limit, (String)null, (List<Filter>)null);
     }
 
     public long getListCount(int start, int limit, java.lang.String searchText){
-        return getListCount(start, limit,searchText, (java.util.Set<Filter>null));
+        return getListCount(start, limit,searchText, (List<Filter>)null);
     }
 
-    public long getListCount(int start, int limit, java.util.Set<Filter> filterList){
-        return getListCount(start, limit,(String)null), (java.util.Set<Filter>filterList);
+    public long getListCount(int start, int limit, List<Filter> filterList){
+        return getListCount(start, limit,(String)null, filterList);
     }
 
-    public long getListCount(int start, int limit, java.lang.String searchText, java.util.Set<Filter> filterList){
+    public long getListCount(int start, int limit, java.lang.String searchText, List<Filter> filterList){
         return 0;
     }
     
@@ -171,7 +171,7 @@ public class BandDAO {
         query.setParameter("id",id);
     }
 
-    public java.util.List<BandDTO> copy(BandDTO item, int copies){
+    public List<BandDTO> copy(BandDTO item, int copies){
         query.setParameter("id",item.getId());
         query.setParameter("name",item.getName());
     }

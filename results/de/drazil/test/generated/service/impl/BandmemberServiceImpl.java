@@ -11,71 +11,71 @@ public class BandmemberServiceImpl  implements IBandmemberService{
     @Autowired
     private BandmemberDAO dao;
 
-    public BandmemberDTO getById(java.lang.Long bandId){
-        return dao.getById(bandId);
+    public BandmemberDTO getById(java.lang.Long musicianId, java.lang.Long bandId){
+        return dao.getById(musicianId, bandId);
     }
 
-    public java.util.List<BandmemberDTO> getList(){
+    public List<BandmemberDTO> getList(){
         return dao.getList();
     }
 
-    public java.util.List<BandmemberDTO> getList(java.lang.String searchText){
+    public List<BandmemberDTO> getList(java.lang.String searchText){
         return dao.getList(searchText);
     }
     
-    public java.util.List<BandmemberDTO> getList(java.util.Set<Sorter> sorterList){
+    public List<BandmemberDTO> getList(List<Sorter> sorterList){
         return dao.getList(sorterList);
     }
 
-    public java.util.List<BandmemberDTO> getList(java.lang.String searchText, java.util.Set<Sorter> sorterList){
+    public List<BandmemberDTO> getList(java.lang.String searchText, List<Sorter> sorterList){
         return dao.getList(searchText, sorterList);
     }
 
-    public java.util.List<BandmemberDTO> getList(java.util.Set<Filter> filterList){
+    public List<BandmemberDTO> getList(List<Filter> filterList){
         return dao.getList(filterList);
     }
 
-    public java.util.List<BandmemberDTO> getList(java.lang.String searchText, java.util.Set<Filter> filterList){
+    public List<BandmemberDTO> getList(java.lang.String searchText, List<Filter> filterList){
         return dao.getList(searchText, filterList);
     }
 
-    public java.util.List<BandmemberDTO> getList(java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
+    public List<BandmemberDTO> getList(List<Sorter> sorterList, List<Filter> filterList){
         return dao.getList(sorterList, filterList);
     }
 
-    public java.util.List<BandmemberDTO> getList(java.lang.String searchText, java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
+    public List<BandmemberDTO> getList(java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList){
         return dao.getList(searchText, sorterList, filterList);
     }
         
-    public java.util.List<BandmemberDTO> getList(int start, int limit){
+    public List<BandmemberDTO> getList(int start, int limit){
         return dao.getList(start, limit);
     }
     
-    public java.util.List<BandmemberDTO> getList(int start, int limit, java.lang.String searchText){
+    public List<BandmemberDTO> getList(int start, int limit, java.lang.String searchText){
         return dao.getList(start, limit, searchText);
     }
     
-    public java.util.List<BandmemberDTO> getList(int start, int limit, java.util.Set<Sorter> sorterList){
+    public List<BandmemberDTO> getList(int start, int limit, List<Sorter> sorterList){
         return dao.getList(start, limit, sorterList);
     }
 
-    public java.util.List<BandmemberDTO> getList(int start, int limit, java.lang.String searchText, java.util.Set<Sorter> sorterList){
+    public List<BandmemberDTO> getList(int start, int limit, java.lang.String searchText, List<Sorter> sorterList){
         return dao.getList(start, limit, searchText, sorterList);
     }
 
-    public java.util.List<BandmemberDTO> getList(int start, int limit, java.util.Set<Filter> filterList){
+    public List<BandmemberDTO> getList(int start, int limit, List<Filter> filterList){
         return dao.getList(start, limit, filterList);
     }
 
-    public java.util.List<BandmemberDTO> getList(int start, int limit, java.lang.String searchText, java.util.Set<Filter> filterList){
+    public List<BandmemberDTO> getList(int start, int limit, java.lang.String searchText, List<Filter> filterList){
         return dao.getList(start, limit, searchText, filterList);
     }
 
-    public java.util.List<BandmemberDTO> getList(int start, int limit, java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
+    public List<BandmemberDTO> getList(int start, int limit, List<Sorter> sorterList, List<Filter> filterList){
         return dao.getList(start, limit, sorterList, filterList);
     }
 
-    public java.util.List<BandmemberDTO> getList(int start, int limit, java.lang.String searchText, java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
+    public List<BandmemberDTO> getList(int start, int limit, java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList){
         return dao.getList(start, limit, searchText, sorterList, filterList);
     }
 
@@ -87,11 +87,11 @@ public class BandmemberServiceImpl  implements IBandmemberService{
         return dao.getListCount(searchText);
     }
 
-    public long getListCount(java.util.Set<Filter> filterList){
+    public long getListCount(List<Filter> filterList){
         return dao.getListCount(filterList);
     }
 
-    public long getListCount(java.lang.String searchText, java.util.Set<Filter> filterList){
+    public long getListCount(java.lang.String searchText, List<Filter> filterList){
         return dao.getListCount(searchText, filterList);
     }
 
@@ -103,11 +103,11 @@ public class BandmemberServiceImpl  implements IBandmemberService{
         return dao.getListCount(start, limit, searchText);
     }
 
-    public long getListCount(int start, int limit, java.util.Set<Filter> filterList){
+    public long getListCount(int start, int limit, List<Filter> filterList){
         return dao.getListCount(start, limit, filterList);
     }
 
-    public long getListCount(jint start, int limit, ava.lang.String searchText, java.util.Set<Filter> filterList){
+    public long getListCount(jint start, int limit, ava.lang.String searchText, List<Filter> filterList){
         return dao.getListCount(start, limit, searchText, filterList);
     }
 
@@ -139,15 +139,15 @@ public class BandmemberServiceImpl  implements IBandmemberService{
         dao.delete(item);
     }
 
-    public void deleteById(java.lang.Long bandId){
-        dao.deleteById(bandId);
+    public void deleteById(java.lang.Long musicianId, java.lang.Long bandId){
+        dao.deleteById(musicianId, bandId);
     }
 
     public BandmemberDTO copy(BandmemberDTO item){
         dao.copy(item, 1);
     }
 
-    public java.util.List<BandmemberDTO> copy(BandmemberDTO item, int copies){
+    public List<BandmemberDTO> copy(BandmemberDTO item, int copies){
         dao.copy(item, copies);
     }
 }

@@ -2,59 +2,60 @@
 
 package de.drazil.test.generated.service;
 
+
 import java.util.List;
 
 public interface IBandService {
 
     public BandDTO getBandById(java.lang.Long id);
 
-    public java.util.List<BandDTO> getList();
+    public List<BandDTO> getList();
 
-    public java.util.List<BandDTO> getList(java.lang.String searchText);
+    public List<BandDTO> getList(java.lang.String searchText);
     
-    public java.util.List<BandDTO> getList(java.util.Set<Sorter> sorterList);
+    public List<BandDTO> getList(List<Sorter> sorterList);
 
-    public java.util.List<BandDTO> getList(java.lang.String searchText, java.util.Set<Sorter> sorterList);
+    public List<BandDTO> getList(java.lang.String searchText, List<Sorter> sorterList);
 
-    public java.util.List<BandDTO> getList(java.util.Set<Filter> filterList);
+    public List<BandDTO> getList(List<Filter> filterList);
 
-    public java.util.List<BandDTO> getList(java.lang.String searchText, java.util.Set<Filter> filterList);
+    public List<BandDTO> getList(java.lang.String searchText, List<Filter> filterList);
 
-    public java.util.List<BandDTO> getList(java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList);
+    public List<BandDTO> getList(List<Sorter> sorterList, List<Filter> filterList);
 
-    public java.util.List<BandDTO> getList(java.lang.String searchText, java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList);
+    public List<BandDTO> getList(java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList);
         
-    public java.util.List<BandDTO> getList(int start, int limit);
+    public List<BandDTO> getList(int start, int limit);
     
-    public java.util.List<BandDTO> getList(int start, int limit, java.lang.String searchText);
+    public List<BandDTO> getList(int start, int limit, java.lang.String searchText);
     
-    public java.util.List<BandDTO> getList(int start, int limit, java.util.Set<Sorter> sorterList);
+    public List<BandDTO> getList(int start, int limit, List<Sorter> sorterList);
 
-    public java.util.List<BandDTO> getList(int start, int limit, java.lang.String searchText, java.util.Set<Sorter> sorterList);
+    public List<BandDTO> getList(int start, int limit, java.lang.String searchText, List<Sorter> sorterList);
 
-    public java.util.List<BandDTO> getList(int start, int limit, java.util.Set<Filter> filterList);
+    public List<BandDTO> getList(int start, int limit, List<Filter> filterList);
 
-    public java.util.List<BandDTO> getList(int start, int limit, java.lang.String searchText, java.util.Set<Filter> filterList);
+    public List<BandDTO> getList(int start, int limit, java.lang.String searchText, List<Filter> filterList);
 
-    public java.util.List<BandDTO> getList(int start, int limit, java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList);
+    public List<BandDTO> getList(int start, int limit, List<Sorter> sorterList, List<Filter> filterList);
 
-    public java.util.List<BandDTO> getList(int start, int limit, java.lang.String searchText, java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList);
+    public List<BandDTO> getList(int start, int limit, java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList);
 
     public long getCount();
 
     public long getCount(java.lang.String searchText);    
 
-    public long getCount(java.util.Set<Filter> filterList);    
+    public long getCount(List<Filter> filterList);    
 
-    public long getCount(java.lang.String searchText, java.util.Set<Filter> filterList);
+    public long getCount(java.lang.String searchText, List<Filter> filterList);
 
     public long getCount(int start, int limit);
 
     public long getCount(int start, int limit, java.lang.String searchText);    
 
-    public long getCount(int start, int limit, java.util.Set<Filter> filterList);    
+    public long getCount(int start, int limit, List<Filter> filterList);    
 
-    public long getCount(int start, int limit, java.lang.String searchText, java.util.Set<Filter> filterList);   
+    public long getCount(int start, int limit, java.lang.String searchText, List<Filter> filterList);   
 
     public void add(List<BandDTO> list) ;
 
@@ -71,10 +72,8 @@ public interface IBandService {
     public void delete(List<BandDTO> list);
 
     public void deleteById(java.lang.Long id);
-
-    public void deleteById(List<java.lang.Long> list);
-
+    
     public BandDTO copy(BandDTO item);
 
-    public java.util.List<BandDTO> copy(BandDTO item, int copies);
+    public List<BandDTO> copy(BandDTO item, int copies);
 }

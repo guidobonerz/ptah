@@ -17,114 +17,115 @@ public class BandmemberDAO {
     private EntityManager entityManager;
 
     private final static String SELECT_ALL   = "SELECT o from BandmemberDTO o";
-    private final static String SELECT_BY_ID = "SELECT o from BandmemberDTO o where bandId=:bandId";
+    private final static String SELECT_BY_ID = "SELECT o from BandmemberDTO o where musicianId=:musicianId, bandId=:bandId";
     private final static String COUNT        = "SELECT count(o) from BandmemberDTO o";
     private final static String CREATE       = "EXEC CREATE_BANDMEMBER :musicianId,  :bandId";
     private final static String UPDATE       = "EXEC UPDATE_BANDMEMBER :musicianId,  :bandId";
-    private final static String DELETE_BY_ID = "EXEC DELETE_BANDMEMBER_BY_ID :bandId";
+    private final static String DELETE_BY_ID = "EXEC DELETE_BANDMEMBER_BY_ID musicianId=:musicianId, bandId=:bandId";
     
     
 
-    public BandmemberDTO getById(java.lang.Long bandId){
+    public BandmemberDTO getById(java.lang.Long musicianId, java.lang.Long bandId){
         final Query query = entityManager.createQuery(SELECT_BY_ID,BandmemberDTO.class);
+        query.setParameter("musicianId",musicianId);
         query.setParameter("bandId",bandId);
         return query.getSingleResult();
     }
 
-    public java.util.List<BandmemberDTO> getList(){
+    public List<BandmemberDTO> getList(){
         final Query query = entityManager.createQuery(SELECT_ALL,BandmemberDTO.class);
         return query.getResultList();
     }
 
-    public java.util.List<BandmemberDTO> getList(java.lang.String searchText){
-        return getList(searchText, (java.util.Set<Sorter>)null, (java.util.Set<Filter>)null);
+    public List<BandmemberDTO> getList(java.lang.String searchText){
+        return getList(searchText, (List<Sorter>)null, (List<Filter>)null);
     }
     
-    public java.util.List<BandmemberDTO> getList(java.util.Set<Sorter> sorterList){
-        return getList((String)null, sorterList, (java.util.Set<Filter>)null);
+    public List<BandmemberDTO> getList(List<Sorter> sorterList){
+        return getList((String)null, sorterList, (List<Filter>)null);
     }
 
-    public java.util.List<BandmemberDTO> getList(java.lang.String searchText, java.util.Set<Sorter> sorterList){
-        return getList(searchText, sorterList, (java.util.Set<Filter>)null);
+    public List<BandmemberDTO> getList(java.lang.String searchText, ListSet<Sorter> sorterList){
+        return getList(searchText, sorterList, (List<Filter>)null);
     }
 
-    public java.util.List<BandmemberDTO> getList(java.util.Set<Filter> filterList){
-        return getList((String)null, (java.util.Set<Sorter>)null, filterList);
+    public List<BandmemberDTO> getList(List<Filter> filterList){
+        return getList((String)null, (List<Sorter>)null, filterList);
     }
 
-    public java.util.List<BandmemberDTO> getList(java.lang.String searchText, java.util.Set<Filter> filterList){
-        return getList(searchText, (java.util.Set<Sorter>)null, filterList);
+    public List<BandmemberDTO> getList(java.lang.String searchText, List<Filter> filterList){
+        return getList(searchText, (List<Sorter>)null, filterList);
     }
 
-    public java.util.List<BandmemberDTO> getList(java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
+    public List<BandmemberDTO> getList(List<Sorter> sorterList, List<Filter> filterList){
         return getList((String)null, sorterList, filterList);
     }
 
-    public java.util.List<BandmemberDTO> getList(java.lang.String searchText, java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
+    public List<BandmemberDTO> getList(java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList){
         return null;
     }
         
-    public java.util.List<BandmemberDTO> getList(int start, int limit){
-        return getList(start, limit, (String)null, (java.util.Set<Sorter>)null, (java.util.Set<Filter>)null);
+    public List<BandmemberDTO> getList(int start, int limit){
+        return getList(start, limit, (String)null, (List<Sorter>)null, (List<Filter>)null);
     }
     
-    public java.util.List<BandmemberDTO> getList(int start, int limit, java.lang.String searchText){
-        return getList(start, limit, searchText, (java.util.Set<Sorter>)null, (java.util.Set<Filter>)null);
+    public List<BandmemberDTO> getList(int start, int limit, java.lang.String searchText){
+        return getList(start, limit, searchText, (List<Sorter>)null, (List<Filter>)null);
     }
     
-    public java.util.List<BandmemberDTO> getList(int start, int limit, java.util.Set<Sorter> sorterList){
-        return getList(start, limit, (String)null, sorterList, (java.util.Set<Filter>)null);
+    public List<BandmemberDTO> getList(int start, int limit, List<Sorter> sorterList){
+        return getList(start, limit, (String)null, sorterList, (List<Filter>)null);
     }
 
-    public java.util.List<BandmemberDTO> getList(int start, int limit, java.lang.String searchText, java.util.Set<Sorter> sorterList){
-        return getList(start, limit, searchText, sorterList, (java.util.Set<Filter>)null);
+    public List<BandmemberDTO> getList(int start, int limit, java.lang.String searchText, List<Sorter> sorterList){
+        return getList(start, limit, searchText, sorterList, (List<Filter>)null);
     }
 
-    public java.util.List<BandmemberDTO> getList(int start, int limit, java.util.Set<Filter> filterList){
-        return getList(start, limit, (String)null, (java.util.Set<Sorter>)null, filterList);
+    public List<BandmemberDTO> getList(int start, int limit, List<Filter> filterList){
+        return getList(start, limit, (String)null, (List<Sorter>)null, filterList);
     }
 
-    public java.util.List<BandmemberDTO> getList(int start, int limit, java.lang.String searchText, java.util.Set<Filter> filterList){
-        return getList(start, limit, searchText, (java.util.Set<Sorter>)null, filterList);
+    public List<BandmemberDTO> getList(int start, int limit, java.lang.String searchText, List<Filter> filterList){
+        return getList(start, limit, searchText, (List<Sorter>)null, filterList);
     }
 
-    public java.util.List<BandmemberDTO> getList(int start, int limit, java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
+    public List<BandmemberDTO> getList(int start, int limit, List<Sorter> sorterList, List<Filter> filterList){
         return getList(start, limit, (String)null, sorterList, filterList);
     }
 
-    public java.util.List<BandmemberDTO> getList(int start, int limit, java.lang.String searchText, java.util.Set<Sorter> sorterList, java.util.Set<Filter> filterList){
-        return null;
+    public List<BandmemberDTO> getList(int start, int limit, java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList){
+        return null;List
     }
 
     public long getListCount(){
-        return getListCount((String)null, (java.util.Set<Filter>null));
+        return getListCount((String)null, (List<Filter>)null);
     }
 
     public long getListCount(java.lang.String searchText){
-        return getListCount(searchText, (java.util.Set<Filter>null));
+        return getListCount(searchText, (List<Filter>)null);
     }
 
-    public long getListCount(java.util.Set<Filter> filterList){
-        return getListCount((String)null), (java.util.Set<Filter>filterList);
+    public long getListCount(List<Filter> filterList){
+        return getListCount((String)null, filterList);
     }
 
-    public long getListCount(java.lang.String searchText, java.util.Set<Filter> filterList){
+    public long getListCount(java.lang.String searchText, List<Filter> filterList){
         return 0;
     }
 
     public long getListCount(int start, int limit){
-        return getListCount(start, limit, (String)null, (java.util.Set<Filter>null));
+        return getListCount(start, limit, (String)null, (List<Filter>)null);
     }
 
     public long getListCount(int start, int limit, java.lang.String searchText){
-        return getListCount(start, limit,searchText, (java.util.Set<Filter>null));
+        return getListCount(start, limit,searchText, (List<Filter>)null);
     }
 
-    public long getListCount(int start, int limit, java.util.Set<Filter> filterList){
-        return getListCount(start, limit,(String)null), (java.util.Set<Filter>filterList);
+    public long getListCount(int start, int limit, List<Filter> filterList){
+        return getListCount(start, limit,(String)null, filterList);
     }
 
-    public long getListCount(int start, int limit, java.lang.String searchText, java.util.Set<Filter> filterList){
+    public long getListCount(int start, int limit, java.lang.String searchText, List<Filter> filterList){
         return 0;
     }
     
@@ -164,14 +165,15 @@ public class BandmemberDAO {
     }
 
     public void delete(BandmemberDTO item){
-        deleteById(item.getBandId());
+        deleteById(item.getMusicianId(), item.getBandId());
     }
 
-    public void deleteById(java.lang.Long bandId){
+    public void deleteById(java.lang.Long musicianId, java.lang.Long bandId){
+        query.setParameter("musicianId",musicianId);
         query.setParameter("bandId",bandId);
     }
 
-    public java.util.List<BandmemberDTO> copy(BandmemberDTO item, int copies){
+    public List<BandmemberDTO> copy(BandmemberDTO item, int copies){
         query.setParameter("musicianId",item.getMusicianId());
         query.setParameter("bandId",item.getBandId());
     }
