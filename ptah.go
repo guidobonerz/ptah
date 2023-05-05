@@ -86,8 +86,14 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 		"getTemplateName": func() string {
 			return templateName
 		},
-		"getObjectName": func() string {
-			return objectName
+		"getFullObjectName": func(templateName string) string {
+			templateDefinition = project.TemplateDefinition[templateName]
+			var name = fmt.Sprintf(templateDefinition.NamePattern, strings.Title(entity.Name))
+			return fmt.Sprintf("%s.%s.%s", project.BaseNameSpace, templateDefinition.NameSpace, name)
+		},
+		"getObjectName": func(templateName string) string {
+			templateDefinition = project.TemplateDefinition[templateName]
+			return fmt.Sprintf(templateDefinition.NamePattern, strings.Title(entity.Name))
 		},
 		"getArgumentSeparator": func(index int, attributes []structure.Attribute) string {
 			var separator = ""

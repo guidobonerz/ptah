@@ -2,82 +2,88 @@ package {{getFullNameSpace}};
 
 {{- $primaryAttributes := getPrimaryAttributes}}
 {{- $primaryAttributeTypes := getDataTypes $primaryAttributes }}
-{{- $caseName := getCamelCaseName $.Name}}
+{{- $daoName := getObjectName "dao"}}
+{{- $dtoName := getObjectName "dto"}}
+{{- $serviceName := getObjectName "service"}}
+{{- $implName := getObjectName "impl"}}
+
+import {{getFullObjectName "dao"}};
+import {{getFullObjectName "dto"}};
 
 import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
-public class {{getObjectName}}  implements I{{$caseName}}Service{
+public class {{$implName}}  implements {{$serviceName}}{
 
     @Autowired
-    private {{$caseName}}DAO dao;
+    private {{$daoName}} dao;
 
-    public {{$caseName}}DTO getById({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}}){
+    public {{$dtoName}} getById({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}}){
         return dao.getById({{- range $index,$attribute := $primaryAttributes }}{{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}});
     }
 
-    public List<{{$caseName}}DTO> getList(){
+    public List<{{$dtoName}}> getList(){
         return dao.getList();
     }
 
-    public List<{{$caseName}}DTO> getList(java.lang.String searchText){
+    public List<{{$dtoName}}> getList(java.lang.String searchText){
         return dao.getList(searchText);
     }
     
-    public List<{{$caseName}}DTO> getList(List<Sorter> sorterList){
+    public List<{{$dtoName}}> getList(List<Sorter> sorterList){
         return dao.getList(sorterList);
     }
 
-    public List<{{$caseName}}DTO> getList(java.lang.String searchText, List<Sorter> sorterList){
+    public List<{{$dtoName}}> getList(java.lang.String searchText, List<Sorter> sorterList){
         return dao.getList(searchText, sorterList);
     }
 
-    public List<{{$caseName}}DTO> getList(List<Filter> filterList){
+    public List<{{$dtoName}}> getList(List<Filter> filterList){
         return dao.getList(filterList);
     }
 
-    public List<{{$caseName}}DTO> getList(java.lang.String searchText, List<Filter> filterList){
+    public List<{{$dtoName}}> getList(java.lang.String searchText, List<Filter> filterList){
         return dao.getList(searchText, filterList);
     }
 
-    public List<{{$caseName}}DTO> getList(List<Sorter> sorterList, List<Filter> filterList){
+    public List<{{$dtoName}}> getList(List<Sorter> sorterList, List<Filter> filterList){
         return dao.getList(sorterList, filterList);
     }
 
-    public List<{{$caseName}}DTO> getList(java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList){
+    public List<{{$dtoName}}> getList(java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList){
         return dao.getList(searchText, sorterList, filterList);
     }
         
-    public List<{{$caseName}}DTO> getList(int start, int limit){
+    public List<{{$dtoName}}> getList(int start, int limit){
         return dao.getList(start, limit);
     }
     
-    public List<{{$caseName}}DTO> getList(int start, int limit, java.lang.String searchText){
+    public List<{{$dtoName}}> getList(int start, int limit, java.lang.String searchText){
         return dao.getList(start, limit, searchText);
     }
     
-    public List<{{$caseName}}DTO> getList(int start, int limit, List<Sorter> sorterList){
+    public List<{{$dtoName}}> getList(int start, int limit, List<Sorter> sorterList){
         return dao.getList(start, limit, sorterList);
     }
 
-    public List<{{$caseName}}DTO> getList(int start, int limit, java.lang.String searchText, List<Sorter> sorterList){
+    public List<{{$dtoName}}> getList(int start, int limit, java.lang.String searchText, List<Sorter> sorterList){
         return dao.getList(start, limit, searchText, sorterList);
     }
 
-    public List<{{$caseName}}DTO> getList(int start, int limit, List<Filter> filterList){
+    public List<{{$dtoName}}> getList(int start, int limit, List<Filter> filterList){
         return dao.getList(start, limit, filterList);
     }
 
-    public List<{{$caseName}}DTO> getList(int start, int limit, java.lang.String searchText, List<Filter> filterList){
+    public List<{{$dtoName}}> getList(int start, int limit, java.lang.String searchText, List<Filter> filterList){
         return dao.getList(start, limit, searchText, filterList);
     }
 
-    public List<{{$caseName}}DTO> getList(int start, int limit, List<Sorter> sorterList, List<Filter> filterList){
+    public List<{{$dtoName}}> getList(int start, int limit, List<Sorter> sorterList, List<Filter> filterList){
         return dao.getList(start, limit, sorterList, filterList);
     }
 
-    public List<{{$caseName}}DTO> getList(int start, int limit, java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList){
+    public List<{{$dtoName}}> getList(int start, int limit, java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList){
         return dao.getList(start, limit, searchText, sorterList, filterList);
     }
 
@@ -109,15 +115,15 @@ public class {{getObjectName}}  implements I{{$caseName}}Service{
         return dao.getListCount(start, limit, filterList);
     }
 
-    public long getListCount(jint start, int limit, ava.lang.String searchText, List<Filter> filterList){
+    public long getListCount(int start, int limit, java.lang.String searchText, List<Filter> filterList){
         return dao.getListCount(start, limit, searchText, filterList);
     }
 
-    public void add(List<{{$caseName}}DTO> list){
+    public void add(List<{{$dtoName}}> list){
         dao.add(list);
     }
     
-    public int add({{$caseName}}DTO item){
+    public int add({{$dtoName}} item){
         return dao.add(item);
     }
         
@@ -125,27 +131,27 @@ public class {{getObjectName}}  implements I{{$caseName}}Service{
         return dao.add({{- range $index,$attribute := $.Attributes }}{{ $attribute.Name }}{{getArgumentSeparator $index $.Attributes}}{{- end}});
     }
 
-    public {{$caseName}}DTO copy({{$caseName}}DTO item){
+    public {{$dtoName}} copy({{$dtoName}} item){
         dao.copy(item, 1);
     }
 
-    public List<{{$caseName}}DTO> copy({{$caseName}}DTO item, int copies){
+    public List<{{$dtoName}}> copy({{$dtoName}} item, int copies){
         dao.copy(item, copies);
     }
 
-    public int update(List<{{$caseName}}DTO> list){
+    public int update(List<{{$dtoName}}> list){
         return dao.update(list);
     }
 
-    public int update({{$caseName}}DTO item){
+    public int update({{$dtoName}} item){
         return dao.update(item);
     }
 
-    public int delete(List<{{$caseName}}DTO> list){
+    public int delete(List<{{$dtoName}}> list){
         dao.delete(list);
     }
 
-    public void delete({{$caseName}}DTO item){
+    public void delete({{$dtoName}} item){
         dao.delete(item);
     }
 

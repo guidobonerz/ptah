@@ -21,7 +21,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Embeddable
 @JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.NONE)
-public class {{getObjectName}} implements Serializable {
+public class {{getObjectName "id"}} implements Serializable {
     
      private static final long serialVersionUID = {{getUid}}L;
     
