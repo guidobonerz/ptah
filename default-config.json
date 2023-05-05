@@ -111,6 +111,48 @@
             }
         }
     },
+    "commonAttributes": [
+        {
+            "name": "createUser",
+            "dataType": "long",
+            "allowNull": false
+        },
+        {
+            "name": "createDate",
+            "dataType": "date",
+            "allowNull": false,
+            "defaultValue": "getdate()"
+        },
+        {
+            "name": "editUser",
+            "dataType": "long",
+            "allowNull": false
+        },
+        {
+            "name": "editDate",
+            "dataType": "date",
+            "allowNull": false,
+            "defaultValue": "getdate()"
+        },
+        {
+            "name": "version",
+            "dataType": "long",
+            "allowNull": false,
+            "defaultValue": "0"
+        },
+        {
+            "name": "phanton",
+            "dataType": "bool",
+            "allowNull": false,
+            "defaultValue": "0"
+        },
+        {
+            "name": "deleted",
+            "dataType": "bool",
+            "allowNull": false,
+            "defaultValue": "0"
+        }
+    ],
     "entities": [
         {
             "name": "musician",

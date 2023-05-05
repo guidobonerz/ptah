@@ -5,6 +5,7 @@ type Project struct {
 	Entities           []Entity                      `json:"entities"`
 	TemplateDefinition map[string]TemplateDefinition `json:"templateDefinition"`
 	MetaData           map[string]MetaData           `json:"metaData"`
+	CommonAttributes   []Attribute                   `json:"commonAttributes"`
 }
 
 type TemplateDefinition struct {

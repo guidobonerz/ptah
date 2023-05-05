@@ -66,6 +66,15 @@ func getPrimaryAttributes(attributes []structure.Attribute) []structure.Attribut
 	return pkAttribute
 }
 
+func getCommonAttributes(attributes []structure.Attribute) []structure.Attribute {
+	var commonAttributes []structure.Attribute = attributes
+	var filteredCommonAttributes []structure.Attribute
+	for _, attribute := range commonAttributes {
+		filteredCommonAttributes = append(filteredCommonAttributes, attribute)
+	}
+	return filteredCommonAttributes
+}
+
 func processTemplate(project structure.Project, entity structure.Entity, templateName string, templateDefinition structure.TemplateDefinition, metaData structure.MetaData) {
 	var primaryAttributes = getPrimaryAttributes(entity.Attributes)
 	var fullNameSpace = project.BaseNameSpace + "." + templateDefinition.NameSpace
@@ -119,6 +128,11 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 				separator = metaData.ArgumentSeparator + " "
 			}
 			return separator
+		},
+		"getAttributes": func() []structure.Attribute {
+			var attributes = entity.Attributes
+			attributes = append(attributes, getCommonAttributes(project.CommonAttributes)...)
+			return attributes
 		},
 		"getDataTypes": func(attributes []structure.Attribute) []string {
 			var dataTypes []string
