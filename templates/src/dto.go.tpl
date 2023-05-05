@@ -32,7 +32,7 @@ public class {{getObjectName "dto"}} implements Serializable {
     {{ if $attribute.PrimaryKey}}@Id{{- end}}
     @JsonProperty("{{$attribute.Name}}")
     @Column(name = "[{{$attribute.Name}}]", nullable = {{- if $attribute.AllowNull}} true{{- else}} false{{- end}})
-    private {{ getDataType $attribute.DataType }} {{$attribute.Name}};
+    private {{ getDataType $attribute }} {{$attribute.Name}};
     {{ end}}
     {{ end}}
 }

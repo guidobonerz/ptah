@@ -56,19 +56,23 @@
             "dataTypes": {
                 "string": {
                     "dataType": "nvarchar",
+                    "nonNullDataType": "nvarchar",
                     "hasSize": true,
                     "maxSize": "MAX"
                 },
                 "integer": {
                     "dataType": "bigint",
+                    "nonNullDataType": "bigint",
                     "hasSize": false
                 },
                 "date": {
                     "dataType": "date",
+                    "nonNullDataType": "date",
                     "hasSize": false
                 },
                 "boolean": {
                     "dataType": "bit",
+                    "nonNullDataType": "bit",
                     "hasSize": false
                 }
             }
@@ -81,16 +85,28 @@
             "enableMultiAttributeIdOption": true,
             "dataTypes": {
                 "string": {
-                    "dataType": "java.lang.String"
+                    "dataType": "java.lang.String",
+                    "nonNullDataType": "java.lang.String"
                 },
-                "integer": {
-                    "dataType": "java.lang.Long"
+                "int": {
+                    "dataType": "java.lang.Integer",
+                    "nonNullDataType": "int"
+                },
+                "long": {
+                    "dataType": "java.lang.Long",
+                    "nonNullDataType": "long"
+                },
+                "double": {
+                    "dataType": "java.lang.Double",
+                    "nonNullDataType": "double"
                 },
                 "date": {
-                    "dataType": "java.util.Date"
+                    "dataType": "java.util.Date",
+                    "nonNullDataType": "java.util.Date"
                 },
                 "boolean": {
-                    "dataType": "java.lang.Boolean"
+                    "dataType": "java.lang.Boolean",
+                    "nonNullDataType": "boolean"
                 }
             }
         }
@@ -116,7 +132,7 @@
                 {
                     "name": "id",
                     "primaryKey": true,
-                    "dataType": "integer",
+                    "dataType": "long",
                     "allowNull": false,
                     "autoId": true
                 },
@@ -129,8 +145,13 @@
                 {
                     "name": "lastName",
                     "dataType": "string",
-                    "allowNull": false,
+                    "allowNull": true,
                     "size": -1
+                },
+                {
+                    "name": "nummer",
+                    "dataType": "int",
+                    "allowNull": true
                 }
             ]
         },
@@ -154,7 +175,7 @@
                 {
                     "name": "id",
                     "primaryKey": true,
-                    "dataType": "integer",
+                    "dataType": "long",
                     "allowNull": false,
                     "autoId": true
                 },
@@ -186,7 +207,7 @@
                 {
                     "name": "musicianId",
                     "primaryKey": true,
-                    "dataType": "integer",
+                    "dataType": "long",
                     "allowNull": false,
                     "refEntity": "musician",
                     "refAttribute": "id"
@@ -194,7 +215,7 @@
                 {
                     "name": "bandId",
                     "primaryKey": true,
-                    "dataType": "integer",
+                    "dataType": "long",
                     "allowNull": false,
                     "refEntity": "band",
                     "refAttribute": "id"

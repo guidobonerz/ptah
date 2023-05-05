@@ -123,12 +123,20 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 		"getDataTypes": func(attributes []structure.Attribute) []string {
 			var dataTypes []string
 			for i := 0; i < len(attributes); i++ {
-				dataTypes = append(dataTypes, metaData.DataTypes[attributes[i].DataType].DataType)
+				var dt = metaData.DataTypes[attributes[i].DataType].NonNullDataType
+				if attributes[i].AllowNull {
+					dt = metaData.DataTypes[attributes[i].DataType].DataType
+				}
+				dataTypes = append(dataTypes, dt)
 			}
 			return dataTypes
 		},
-		"getDataType": func(key string) string {
-			return metaData.DataTypes[key].DataType
+		"getDataType": func(attribute structure.Attribute) string {
+			var dt = metaData.DataTypes[attribute.DataType].NonNullDataType
+			if attribute.AllowNull {
+				dt = metaData.DataTypes[attribute.DataType].DataType
+			}
+			return dt
 		},
 		"getUpperCaseName": func(name string) string {
 			return strings.ToUpper(name)
@@ -195,7 +203,7 @@ func run(file string) error {
 	fmt.Println("successfully opened project file")
 	defer controlFile.Close()
 
-	if pruneOutputFolders {
+	if purgeOutputFolders {
 		err := os.RemoveAll(outputFolder)
 		log.Printf("purge folder [ %s ]", outputFolder)
 		check(err)

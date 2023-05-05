@@ -28,6 +28,6 @@ public class {{getObjectName "id"}} implements Serializable {
     {{- range $index,$attribute := $primaryAttributes }}
     @JsonProperty("{{$attribute.Name}}")
     @Column(name = "[{{$attribute.Name}}]", nullable = {{- if $attribute.AllowNull}} true{{- else}} false{{- end}})
-    private {{ getDataType $attribute.DataType }} {{$attribute.Name}};
+    private {{ getDataType $attribute }} {{$attribute.Name}};
     {{ end}}
 }

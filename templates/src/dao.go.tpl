@@ -141,7 +141,7 @@ public class {{$daoName}} {
         return add({{- range $index,$attribute := $.Attributes }}item.get{{getCamelCaseName $attribute.Name}}(){{getArgumentSeparator $index $.Attributes}}{{- end}})
     }
 
-    public int add({{- range $index,$attribute := $.Attributes }}{{getDataType $attribute.DataType}} {{$attribute.Name}}{{getArgumentSeparator $index $.Attributes}}{{- end}}){
+    public int add({{- range $index,$attribute := $.Attributes }}{{getDataType $attribute}} {{$attribute.Name}}{{getArgumentSeparator $index $.Attributes}}{{- end}}){
         {{- range $index,$attribute := $.Attributes }}
         query.setParameter("{{ $attribute.Name }}",{{$attribute.Name}});
         {{- end}}

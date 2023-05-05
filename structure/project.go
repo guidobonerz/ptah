@@ -24,9 +24,10 @@ type MetaData struct {
 }
 
 type DataTypeDefinition struct {
-	DataType string `json:"dataType"`
-	HasSize  bool   `json:"hasSize"`
-	MaxSize  string `json:"maxSize"`
+	DataType        string `json:"dataType"`
+	NonNullDataType string `json:"nonNullDataType"`
+	HasSize         bool   `json:"hasSize"`
+	MaxSize         string `json:"maxSize"`
 }
 
 type Entity struct {
