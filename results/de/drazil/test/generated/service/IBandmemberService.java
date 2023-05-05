@@ -63,6 +63,10 @@ public interface IBandmemberService {
 
     public int add(java.lang.Long musicianId, java.lang.Long bandId) ;
             
+    public BandmemberDTO copy(BandmemberDTO item);
+
+    public List<BandmemberDTO> copy(BandmemberDTO item, int copies);
+
     public int update(List<BandmemberDTO> list);
 
     public int update(BandmemberDTO item);
@@ -72,8 +76,4 @@ public interface IBandmemberService {
     public void delete(List<BandmemberDTO> list);
 
     public void deleteById(java.lang.Long musicianId, java.lang.Long bandId);
-    
-    public BandmemberDTO copy(BandmemberDTO item);
-
-    public List<BandmemberDTO> copy(BandmemberDTO item, int copies);
 }

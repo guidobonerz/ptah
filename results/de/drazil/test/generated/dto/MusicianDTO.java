@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Table(name = "[Musician]", schema = "dto")
 public class MusicianDTO implements Serializable {
 
-    private static final long serialVersionUID = 4869392400353269847L;
+    private static final long serialVersionUID = 4212985093L;
     @Id
     @JsonProperty("id")
     @Column(name = "[id]", nullable = false)

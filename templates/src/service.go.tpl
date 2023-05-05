@@ -65,6 +65,10 @@ public interface {{getObjectName}} {
 
     public int add({{- range $index,$attribute := $.Attributes }}{{ getDataType $attribute.DataType }} {{ $attribute.Name }}{{getArgumentSeparator $index $.Attributes}}{{- end}}) ;
             
+    public {{$caseName}}DTO copy({{$caseName}}DTO item);
+
+    public List<{{$caseName}}DTO> copy({{$caseName}}DTO item, int copies);
+
     public int update(List<{{$caseName}}DTO> list);
 
     public int update({{$caseName}}DTO item);
@@ -74,8 +78,4 @@ public interface {{getObjectName}} {
     public void delete(List<{{$caseName}}DTO> list);
 
     public void deleteById({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}});
-    
-    public {{$caseName}}DTO copy({{$caseName}}DTO item);
-
-    public List<{{$caseName}}DTO> copy({{$caseName}}DTO item, int copies);
 }

@@ -148,6 +148,12 @@ public class {{getObjectName}} {
         {{- end}}
     }
 
+    public List<{{$caseName}}DTO> copy({{$caseName}}DTO item, int copies){
+        {{- range $index,$attribute := $.Attributes }}
+        query.setParameter("{{ $attribute.Name }}",item.get{{getCamelCaseName $attribute.Name}}());
+        {{- end}}
+    }
+
     public int update(List<{{$caseName}}DTO> list){
         int updatedItems=0;
         for({{$caseName}}DTO item:list){
@@ -176,12 +182,6 @@ public class {{getObjectName}} {
     public void deleteById({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}}){
        {{- range $index,$attribute := $primaryAttributes }}
         query.setParameter("{{ $attribute.Name }}",{{$attribute.Name}});
-        {{- end}}
-    }
-
-    public List<{{$caseName}}DTO> copy({{$caseName}}DTO item, int copies){
-        {{- range $index,$attribute := $.Attributes }}
-        query.setParameter("{{ $attribute.Name }}",item.get{{getCamelCaseName $attribute.Name}}());
         {{- end}}
     }
 }

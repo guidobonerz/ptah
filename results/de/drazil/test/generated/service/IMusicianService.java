@@ -63,6 +63,10 @@ public interface IMusicianService {
 
     public int add(java.lang.Long id, java.lang.String firstName, java.lang.String lastName) ;
             
+    public MusicianDTO copy(MusicianDTO item);
+
+    public List<MusicianDTO> copy(MusicianDTO item, int copies);
+
     public int update(List<MusicianDTO> list);
 
     public int update(MusicianDTO item);
@@ -72,8 +76,4 @@ public interface IMusicianService {
     public void delete(List<MusicianDTO> list);
 
     public void deleteById(java.lang.Long id);
-    
-    public MusicianDTO copy(MusicianDTO item);
-
-    public List<MusicianDTO> copy(MusicianDTO item, int copies);
 }

@@ -122,7 +122,15 @@ public class BandServiceImpl  implements IBandService{
     public int add(java.lang.Long id, java.lang.String name){
         return dao.add(id, name);
     }
-        
+
+    public BandDTO copy(BandDTO item){
+        dao.copy(item, 1);
+    }
+
+    public List<BandDTO> copy(BandDTO item, int copies){
+        dao.copy(item, copies);
+    }
+
     public int update(List<BandDTO> list){
         return dao.update(list);
     }
@@ -141,13 +149,5 @@ public class BandServiceImpl  implements IBandService{
 
     public void deleteById(java.lang.Long id){
         dao.deleteById(id);
-    }
-
-    public BandDTO copy(BandDTO item){
-        dao.copy(item, 1);
-    }
-
-    public List<BandDTO> copy(BandDTO item, int copies){
-        dao.copy(item, copies);
     }
 }

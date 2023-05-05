@@ -122,7 +122,15 @@ public class MusicianServiceImpl  implements IMusicianService{
     public int add(java.lang.Long id, java.lang.String firstName, java.lang.String lastName){
         return dao.add(id, firstName, lastName);
     }
-        
+
+    public MusicianDTO copy(MusicianDTO item){
+        dao.copy(item, 1);
+    }
+
+    public List<MusicianDTO> copy(MusicianDTO item, int copies){
+        dao.copy(item, copies);
+    }
+
     public int update(List<MusicianDTO> list){
         return dao.update(list);
     }
@@ -141,13 +149,5 @@ public class MusicianServiceImpl  implements IMusicianService{
 
     public void deleteById(java.lang.Long id){
         dao.deleteById(id);
-    }
-
-    public MusicianDTO copy(MusicianDTO item){
-        dao.copy(item, 1);
-    }
-
-    public List<MusicianDTO> copy(MusicianDTO item, int copies){
-        dao.copy(item, copies);
     }
 }

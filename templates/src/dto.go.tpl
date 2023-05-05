@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Table(name = "[{{getCamelCaseName $.Name}}]", schema = "{{getNameSpace}}")
 public class {{getObjectName}} implements Serializable {
 
-    private static final long serialVersionUID = 4869392400353269847L;
+    private static final long serialVersionUID = {{getUid}}L;
     
     {{- if hasMultiplePrimaryAttriutes}}
     @EmbeddedId

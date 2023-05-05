@@ -144,6 +144,11 @@ public class BandmemberDAO {
         query.setParameter("bandId",bandId);
     }
 
+    public List<BandmemberDTO> copy(BandmemberDTO item, int copies){
+        query.setParameter("musicianId",item.getMusicianId());
+        query.setParameter("bandId",item.getBandId());
+    }
+
     public int update(List<BandmemberDTO> list){
         int updatedItems=0;
         for(BandmemberDTO item:list){
@@ -171,10 +176,5 @@ public class BandmemberDAO {
     public void deleteById(java.lang.Long musicianId, java.lang.Long bandId){
         query.setParameter("musicianId",musicianId);
         query.setParameter("bandId",bandId);
-    }
-
-    public List<BandmemberDTO> copy(BandmemberDTO item, int copies){
-        query.setParameter("musicianId",item.getMusicianId());
-        query.setParameter("bandId",item.getBandId());
     }
 }

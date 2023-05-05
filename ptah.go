@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"hash/fnv"
 	"io/ioutil"
 	"log"
 	"os"
@@ -13,29 +14,38 @@ import (
 	"time"
 )
 
+var configFile string
+var inputFolder string
+var outputFolder string
+var pruneOutputFolders bool
 var verbose bool = false
 
 func main() {
-	var inputfile string
 
-	flag.StringVar(&inputfile, "in", "test.json", "project file")
+	flag.StringVar(&configFile, "cf", "default-config.json", "project config file")
+	flag.StringVar(&inputFolder, "in", "templates", "template base path")
+	flag.StringVar(&outputFolder, "out", "results", "generated file base path")
+	flag.BoolVar(&pruneOutputFolders, "p", true, "prune all output folders before writing")
 	flag.BoolVar(&verbose, "v", true, "verbose mode")
 
 	flag.Usage = func() {
 		fmt.Printf("\nptah : the json based code generator\n\ndrazil 2023\n\n")
 		fmt.Printf("./ptah.exe -in <inputfolder>\n")
 		fmt.Printf("\nAvailable options  :\n")
-		fmt.Printf("-in <input file>   : path of the json project file to be processed\n")
-		fmt.Printf("-v <true*|false>   : verbose mode.\n")
+		fmt.Printf("-cf <config file>   : path of the json project config file to be processed\n")
+		fmt.Printf("-in <inputFolder>   : path of the json project config file to be processed\n")
+		fmt.Printf("-out <outputFolder>   : path of the json project config file to be processed\n")
+		fmt.Printf("-p <true*|false>   : prune all output folders before writing\n")
+		fmt.Printf("-v <true*|false>   : verbose mode\n")
 	}
 	flag.Parse()
 
-	if inputfile == "" {
-		fmt.Printf("ERROR: input file should NOT be empty")
+	if configFile == "" {
+		fmt.Printf("ERROR: config file should NOT be empty")
 		flag.Usage()
 		os.Exit(1)
 	}
-	run(inputfile)
+	run(configFile)
 }
 
 func check(e error) {
@@ -58,11 +68,11 @@ func getPrimaryAttributes(attributes []structure.Attribute) []structure.Attribut
 func processTemplate(project structure.Project, entity structure.Entity, templateName string, templateDefinition structure.TemplateDefinition, metaData structure.MetaData) {
 	var primaryAttributes = getPrimaryAttributes(entity.Attributes)
 	var fullNameSpace = project.BaseNameSpace + "." + templateDefinition.NameSpace
-	var nameSpacePath = "results/" + strings.Replace(fullNameSpace, ".", "/", -1)
+	var nameSpacePath = outputFolder + "/" + strings.Replace(fullNameSpace, ".", "/", -1)
 	var objectName = fmt.Sprintf(templateDefinition.NamePattern, strings.Title(entity.Name))
 	var outputFileName = nameSpacePath + "/" + objectName + "." + metaData.Suffix
 	var templateFileName = templateName + ".go.tpl"
-	var templatePathName = "templates/" + metaData.TemplateBasePath + templateFileName
+	var templatePathName = inputFolder + "/" + metaData.TemplateBasePath + templateFileName
 	t, err := template.New(templateFileName).Funcs(template.FuncMap{
 		"getBaseNameSpace": func() string {
 			return project.BaseNameSpace
@@ -101,6 +111,11 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 		},
 		"getCamelCaseName": func(name string) string {
 			return strings.Title(name)
+		},
+		"getUid": func() uint32 {
+			algorithm := fnv.New32()
+			algorithm.Write([]byte(objectName))
+			return algorithm.Sum32()
 		},
 		"getReferences": func() map[string][]structure.Attribute {
 			var attribute structure.Attribute
@@ -156,6 +171,11 @@ func run(file string) error {
 	fmt.Println("successfully opened project file")
 	defer controlFile.Close()
 
+	if pruneOutputFolders {
+		err := os.RemoveAll(outputFolder)
+		log.Printf("prune folder [ %s ]", outputFolder)
+		check(err)
+	}
 	byteValue, _ := ioutil.ReadAll(controlFile)
 
 	var project structure.Project

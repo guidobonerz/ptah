@@ -63,6 +63,10 @@ public interface IBandService {
 
     public int add(java.lang.Long id, java.lang.String name) ;
             
+    public BandDTO copy(BandDTO item);
+
+    public List<BandDTO> copy(BandDTO item, int copies);
+
     public int update(List<BandDTO> list);
 
     public int update(BandDTO item);
@@ -72,8 +76,4 @@ public interface IBandService {
     public void delete(List<BandDTO> list);
 
     public void deleteById(java.lang.Long id);
-    
-    public BandDTO copy(BandDTO item);
-
-    public List<BandDTO> copy(BandDTO item, int copies);
 }

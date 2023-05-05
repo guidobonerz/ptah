@@ -23,7 +23,7 @@ import java.io.Serializable;
 @JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.NONE)
 public class {{getObjectName}} implements Serializable {
     
-    private static final long serialVersionUID = 4869392400353269847L;
+     private static final long serialVersionUID = {{getUid}}L;
     
     {{- range $index,$attribute := $primaryAttributes }}
     @JsonProperty("{{$attribute.Name}}")

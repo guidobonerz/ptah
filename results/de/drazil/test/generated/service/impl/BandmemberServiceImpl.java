@@ -122,7 +122,15 @@ public class BandmemberServiceImpl  implements IBandmemberService{
     public int add(java.lang.Long musicianId, java.lang.Long bandId){
         return dao.add(musicianId, bandId);
     }
-        
+
+    public BandmemberDTO copy(BandmemberDTO item){
+        dao.copy(item, 1);
+    }
+
+    public List<BandmemberDTO> copy(BandmemberDTO item, int copies){
+        dao.copy(item, copies);
+    }
+
     public int update(List<BandmemberDTO> list){
         return dao.update(list);
     }
@@ -141,13 +149,5 @@ public class BandmemberServiceImpl  implements IBandmemberService{
 
     public void deleteById(java.lang.Long musicianId, java.lang.Long bandId){
         dao.deleteById(musicianId, bandId);
-    }
-
-    public BandmemberDTO copy(BandmemberDTO item){
-        dao.copy(item, 1);
-    }
-
-    public List<BandmemberDTO> copy(BandmemberDTO item, int copies){
-        dao.copy(item, copies);
     }
 }

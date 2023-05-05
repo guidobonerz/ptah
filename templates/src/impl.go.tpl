@@ -124,7 +124,15 @@ public class {{getObjectName}}  implements I{{$caseName}}Service{
     public int add({{- range $index,$attribute := $.Attributes }}{{ getDataType $attribute.DataType }} {{ $attribute.Name }}{{getArgumentSeparator $index $.Attributes}}{{- end}}){
         return dao.add({{- range $index,$attribute := $.Attributes }}{{ $attribute.Name }}{{getArgumentSeparator $index $.Attributes}}{{- end}});
     }
-        
+
+    public {{$caseName}}DTO copy({{$caseName}}DTO item){
+        dao.copy(item, 1);
+    }
+
+    public List<{{$caseName}}DTO> copy({{$caseName}}DTO item, int copies){
+        dao.copy(item, copies);
+    }
+
     public int update(List<{{$caseName}}DTO> list){
         return dao.update(list);
     }
@@ -143,13 +151,5 @@ public class {{getObjectName}}  implements I{{$caseName}}Service{
 
     public void deleteById({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}}){
         dao.deleteById({{- range $index,$attribute := $primaryAttributes }}{{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}});
-    }
-
-    public {{$caseName}}DTO copy({{$caseName}}DTO item){
-        dao.copy(item, 1);
-    }
-
-    public List<{{$caseName}}DTO> copy({{$caseName}}DTO item, int copies){
-        dao.copy(item, copies);
     }
 }

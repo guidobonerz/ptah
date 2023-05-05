@@ -143,6 +143,11 @@ public class BandDAO {
         query.setParameter("name",name);
     }
 
+    public List<BandDTO> copy(BandDTO item, int copies){
+        query.setParameter("id",item.getId());
+        query.setParameter("name",item.getName());
+    }
+
     public int update(List<BandDTO> list){
         int updatedItems=0;
         for(BandDTO item:list){
@@ -169,10 +174,5 @@ public class BandDAO {
 
     public void deleteById(java.lang.Long id){
         query.setParameter("id",id);
-    }
-
-    public List<BandDTO> copy(BandDTO item, int copies){
-        query.setParameter("id",item.getId());
-        query.setParameter("name",item.getName());
     }
 }

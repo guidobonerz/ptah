@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Table(name = "[Bandmember]", schema = "dto")
 public class BandmemberDTO implements Serializable {
 
-    private static final long serialVersionUID = 4869392400353269847L;
+    private static final long serialVersionUID = 1633496125L;
     @EmbeddedId
     private BandmemberId id;
 }
