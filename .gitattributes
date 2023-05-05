@@ -1,1 +1,2 @@
 *.go linguist-detectable=true
+*.smarty linguist-detectable=false
