@@ -49,7 +49,7 @@ type Entity struct {
 type Attribute struct {
 	Name         string `json:"name"`
 	DataType     string `json:"dataType"`
-	Size         string `json:"size"`
+	Size         int    `json:"size"`
 	DefaultValue string `json:"defaultValue"`
 	PrimaryKey   bool   `json:"primaryKey"`
 	AllowNull    bool   `json:"allowNull"`

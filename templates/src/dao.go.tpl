@@ -24,12 +24,8 @@ public class {{$daoName}} {
     private final static String SELECT_ALL   = "SELECT o from {{$dtoName}} o";
     private final static String SELECT_BY_ID = "SELECT o from {{$dtoName}} o where {{ range $index,$attribute := $primaryAttributes }}{{ $attribute.Name }}=:{{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}}";
     private final static String COUNT        = "SELECT count(o) from {{$dtoName}} o";
-    private final static String CREATE       = "EXEC CREATE_{{ getUpperCaseName $.Name}}{{ range $index,$attribute := $.Attributes }} :{{ $attribute.Name }}{{getArgumentSeparator $index $.Attributes}}{{- end}}";
-    private final static String UPDATE       = "EXEC UPDATE_{{ getUpperCaseName $.Name}}{{ range $index,$attribute := $.Attributes }} :{{ $attribute.Name }}{{getArgumentSeparator $index $.Attributes}}{{- end}}";
-    private final static String DELETE_BY_ID = "EXEC DELETE_{{ getUpperCaseName $.Name}}_BY_ID {{ range $index,$attribute := $primaryAttributes }}{{ $attribute.Name }}=:{{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}}";
+    private final static String HANDLE       = "EXEC HANDLE_{{ getUpperCaseName $.Name}} :action, {{ range $index,$attribute := $.Attributes }}:{{ $attribute.Name }}{{getArgumentSeparator $index $.Attributes}}{{- end}}";
     
-    
-
     public {{$dtoName}} getById({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}}){
         final Query query = entityManager.createQuery(SELECT_BY_ID,{{$dtoName}}.class);
         {{- range $index,$attribute := $primaryAttributes }}

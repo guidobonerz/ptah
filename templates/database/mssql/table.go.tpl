@@ -3,7 +3,7 @@ if object_id(N'[{{getNameSpace}}].[{{getCamelCaseName $.Name}}]','U') is null
 BEGIN
 CREATE TABLE [{{getNameSpace}}].[{{getCamelCaseName $.Name}}](
 	{{- range $index,$attribute := $.Attributes }}
-		{{ $attribute.Name }} {{ getDataType $attribute.DataType }}
+		{{ $attribute.Name }} {{ getDataType $attribute.DataType }}{{- if hasSize $attribute}}({{getSize $attribute}}){{- end}}
 		{{- if $attribute.AutoId}} IDENTITY(1,1){{- end}}
 		{{- if $attribute.AllowNull}} NULL{{- else}} NOT NULL{{- end}}
 		{{- if $attribute.DefaultValue}} DEFAULT ({{$attribute.DefaultValue}}){{- end}}
@@ -24,7 +24,7 @@ BEGIN
 CREATE TABLE [{{getNameSpace}}].[{{getCamelCaseName $.Name}}History](
 	    historyId bigint IDENTITY(1,1)
 	{{- range $index,$attribute := $.Attributes }}
-		{{ $attribute.Name }} {{ getDataType $attribute.DataType }}
+		{{ $attribute.Name }} {{ getDataType $attribute.DataType }}{{- if hasSize $attribute}}({{getSize $attribute}}){{- end}}
 		{{- if $attribute.PrimaryKey}} NOT NULL{{- else}} NULL{{- end}}
 		{{- getArgumentSeparator $index $.Attributes}}
 	{{- end}}

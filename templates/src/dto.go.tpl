@@ -19,7 +19,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Entity
 @JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.NONE)
-@Table(name = "[{{getCamelCaseName $.Name}}]", schema = "dbo")
+@Table(name = "[{{getCamelCaseName $.Name}}]", schema = "{{getNameSpaceByTemplate "table"}}")
 public class {{getObjectName "dto"}} implements Serializable {
 
     private static final long serialVersionUID = {{getUid}}L;

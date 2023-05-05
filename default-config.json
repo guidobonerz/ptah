@@ -13,7 +13,7 @@
         },
         "procedure": {
             "nameSpace": "dbo",
-            "namePattern": "%s",
+            "namePattern": "Handle%s",
             "metaData": "sql"
         },
         "dto": {
@@ -103,7 +103,8 @@
                 "dto",
                 "impl",
                 "service",
-                "dao"
+                "dao",
+                "procedure"
             ],
             "enableCreate": true,
             "enableRead": true,
@@ -122,12 +123,14 @@
                 {
                     "name": "firstName",
                     "dataType": "string",
-                    "allowNull": false
+                    "allowNull": false,
+                    "size": 50
                 },
                 {
                     "name": "lastName",
                     "dataType": "string",
-                    "allowNull": false
+                    "allowNull": false,
+                    "size": -1
                 }
             ]
         },
@@ -138,7 +141,8 @@
                 "dto",
                 "impl",
                 "service",
-                "dao"
+                "dao",
+                "procedure"
             ],
             "enableCreate": true,
             "enableRead": true,
@@ -157,7 +161,8 @@
                 {
                     "name": "name",
                     "dataType": "string",
-                    "allowNull": false
+                    "allowNull": false,
+                    "size": 40
                 }
             ]
         },
@@ -168,7 +173,8 @@
                 "dto",
                 "impl",
                 "service",
-                "dao"
+                "dao",
+                "procedure"
             ],
             "enableCreate": true,
             "enableRead": true,

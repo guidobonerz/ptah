@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 	"text/template"
 	"time"
@@ -80,6 +81,9 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 		"getNameSpace": func() string {
 			return templateDefinition.NameSpace
 		},
+		"getNameSpaceByTemplate": func(templateName string) string {
+			return project.TemplateDefinition[templateName].NameSpace
+		},
 		"getFullNameSpace": func() string {
 			return fullNameSpace
 		},
@@ -94,6 +98,20 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 		"getObjectName": func(templateName string) string {
 			templateDefinition = project.TemplateDefinition[templateName]
 			return fmt.Sprintf(templateDefinition.NamePattern, strings.Title(entity.Name))
+		},
+		"hasSize": func(attribute structure.Attribute) bool {
+			return metaData.DataTypes[attribute.DataType].HasSize
+		},
+		"getSize": func(attribute structure.Attribute) string {
+			var size = ""
+			if metaData.DataTypes[attribute.DataType].HasSize {
+				if attribute.Size == -1 {
+					size = metaData.DataTypes[attribute.DataType].MaxSize
+				} else {
+					size = strconv.Itoa(attribute.Size)
+				}
+			}
+			return size
 		},
 		"getArgumentSeparator": func(index int, attributes []structure.Attribute) string {
 			var separator = ""
