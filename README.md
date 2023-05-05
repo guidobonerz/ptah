@@ -1,3 +1,3 @@
 # ptah
-ptah - Pretty Template Automation Hooligan...
-... is a template code generator
+ptah - Pretty Template Automation Hooligan...\
+... is a template based code generator
