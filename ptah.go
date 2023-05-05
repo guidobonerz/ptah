@@ -25,7 +25,7 @@ func main() {
 	flag.StringVar(&configFile, "cf", "default-config.json", "project config file")
 	flag.StringVar(&inputFolder, "in", "templates", "template base path")
 	flag.StringVar(&outputFolder, "out", "results", "generated file base path")
-	flag.BoolVar(&pruneOutputFolders, "p", true, "prune all output folders before writing")
+	flag.BoolVar(&pruneOutputFolders, "p", true, "purge all output folders before writing")
 	flag.BoolVar(&verbose, "v", true, "verbose mode")
 
 	flag.Usage = func() {
@@ -35,7 +35,7 @@ func main() {
 		fmt.Printf("-cf <config file>   : path of the json project config file to be processed\n")
 		fmt.Printf("-in <inputFolder>   : path of the json project config file to be processed\n")
 		fmt.Printf("-out <outputFolder>   : path of the json project config file to be processed\n")
-		fmt.Printf("-p <true*|false>   : prune all output folders before writing\n")
+		fmt.Printf("-p <true*|false>   : purge all output folders before writing\n")
 		fmt.Printf("-v <true*|false>   : verbose mode\n")
 	}
 	flag.Parse()
@@ -179,7 +179,7 @@ func run(file string) error {
 
 	if pruneOutputFolders {
 		err := os.RemoveAll(outputFolder)
-		log.Printf("prune folder [ %s ]", outputFolder)
+		log.Printf("purge folder [ %s ]", outputFolder)
 		check(err)
 	}
 	byteValue, _ := ioutil.ReadAll(controlFile)
