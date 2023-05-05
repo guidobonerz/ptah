@@ -32,20 +32,20 @@ type DataTypeDefinition struct {
 }
 
 type Entity struct {
-	Name                  string      `json:"name"`
-	TemplateNames         []string    `json:"templateNames"`
-	EnableCreate          bool        `json:"enableCreate"`
-	EnableRead            bool        `json:"enableRead"`
-	EnableUpdate          bool        `json:"enableUpdate"`
-	EnableDelete          bool        `json:"enableDelete"`
-	EnableSort            bool        `json:"enableSort"`
-	EnableFilter          bool        `json:"enableFilter"`
-	EnableSearch          bool        `json:"enableSearch"`
-	EnablePagination      bool        `json:"enablePagination"`
-	GenerateHistoryEntity bool        `json:"generateHistoryEntity"`
-	AddDefaultAttributes  bool        `json:"addDefaulAttributes"`
-	Attributes            []Attribute `json:"attributes"`
-	Index                 []Index     `json:"index"`
+	Name                    string      `json:"name"`
+	TemplateNames           []string    `json:"templateNames"`
+	EnableCreate            bool        `json:"enableCreate"`
+	EnableRead              bool        `json:"enableRead"`
+	EnableUpdate            bool        `json:"enableUpdate"`
+	EnableDelete            bool        `json:"enableDelete"`
+	EnableSort              bool        `json:"enableSort"`
+	EnableFilter            bool        `json:"enableFilter"`
+	EnableSearch            bool        `json:"enableSearch"`
+	EnablePagination        bool        `json:"enablePagination"`
+	GenerateHistoryEntity   bool        `json:"generateHistoryEntity"`
+	DisableCommonAttributes bool        `json:"disableCommonAttributes"`
+	Attributes              []Attribute `json:"attributes"`
+	Index                   []Index     `json:"index"`
 }
 
 type Attribute struct {

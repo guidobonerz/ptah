@@ -1,5 +1,5 @@
 package {{getFullNameSpace}};
-
+{{- $attributeList := getAttributes}}
 {{- $primaryAttributes := getPrimaryAttributes}}
 {{- $primaryAttributeTypes := getDataTypes $primaryAttributes }}
 {{- $serviceName := getObjectName "service"}}
@@ -65,7 +65,7 @@ public interface {{$serviceName}} {
 
     public int add({{$dtoName}} item) ;
 
-    public int add({{- range $index,$attribute := $.Attributes }}{{ getDataType $attribute }} {{ $attribute.Name }}{{getArgumentSeparator $index $.Attributes}}{{- end}}) ;
+    public int add({{- range $index,$attribute := $attributeList }}{{ getDataType $attribute }} {{ $attribute.Name }}{{getArgumentSeparator $index $attributeList}}{{- end}}) ;
             
     public {{$dtoName}} copy({{$dtoName}} item);
 

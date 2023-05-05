@@ -1,5 +1,5 @@
 package {{getFullNameSpace}};
-
+{{- $attributeList := getAttributes}}
 {{- $primaryAttributes := getPrimaryAttributes}}
 {{- $primaryAttributeTypes := getDataTypes $primaryAttributes }}
 {{- $dtoName := getObjectName "dto"}}
@@ -24,7 +24,7 @@ public class {{$daoName}} {
     private final static String SELECT_ALL   = "SELECT o from {{$dtoName}} o";
     private final static String SELECT_BY_ID = "SELECT o from {{$dtoName}} o where {{ range $index,$attribute := $primaryAttributes }}{{ $attribute.Name }}=:{{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}}";
     private final static String COUNT        = "SELECT count(o) from {{$dtoName}} o";
-    private final static String HANDLE       = "EXEC HANDLE_{{ getUpperCaseName $.Name}} :action, {{ range $index,$attribute := $.Attributes }}:{{ $attribute.Name }}{{getArgumentSeparator $index $.Attributes}}{{- end}}";
+    private final static String HANDLE       = "EXEC HANDLE_{{ getUpperCaseName $.Name}} :action, {{ range $index,$attribute := $attributeList }}:{{ $attribute.Name }}{{getArgumentSeparator $index $attributeList}}{{- end}}";
     
     public {{$dtoName}} getById({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}}){
         final Query query = entityManager.createQuery(SELECT_BY_ID,{{$dtoName}}.class);
@@ -138,17 +138,17 @@ public class {{$daoName}} {
     }
 
     public int add({{$dtoName}} item){
-        return add({{- range $index,$attribute := $.Attributes }}item.get{{getCamelCaseName $attribute.Name}}(){{getArgumentSeparator $index $.Attributes}}{{- end}})
+        return add({{- range $index,$attribute := $attributeList }}item.get{{getCamelCaseName $attribute.Name}}(){{getArgumentSeparator $index $attributeList}}{{- end}})
     }
 
-    public int add({{- range $index,$attribute := $.Attributes }}{{getDataType $attribute}} {{$attribute.Name}}{{getArgumentSeparator $index $.Attributes}}{{- end}}){
-        {{- range $index,$attribute := $.Attributes }}
+    public int add({{- range $index,$attribute := $attributeList }}{{getDataType $attribute}} {{$attribute.Name}}{{getArgumentSeparator $index $attributeList}}{{- end}}){
+        {{- range $index,$attribute := $attributeList }}
         query.setParameter("{{ $attribute.Name }}",{{$attribute.Name}});
         {{- end}}
     }
 
     public List<{{$dtoName}}> copy({{$dtoName}} item, int copies){
-        {{- range $index,$attribute := $.Attributes }}
+        {{- range $index,$attribute := $attributeList }}
         query.setParameter("{{ $attribute.Name }}",item.get{{getCamelCaseName $attribute.Name}}());
         {{- end}}
     }
@@ -162,7 +162,7 @@ public class {{$daoName}} {
     }
 
     public int update({{$dtoName}} item){
-        {{- range $index,$attribute := $.Attributes }}
+        {{- range $index,$attribute := $attributeList }}
         query.setParameter("{{ $attribute.Name }}",item.get{{getCamelCaseName $attribute.Name}}());
         {{- end}}
         return 0;

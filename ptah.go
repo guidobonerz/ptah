@@ -131,7 +131,9 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 		},
 		"getAttributes": func() []structure.Attribute {
 			var attributes = entity.Attributes
-			attributes = append(attributes, getCommonAttributes(project.CommonAttributes)...)
+			if !entity.DisableCommonAttributes {
+				attributes = append(attributes, getCommonAttributes(project.CommonAttributes)...)
+			}
 			return attributes
 		},
 		"getDataTypes": func(attributes []structure.Attribute) []string {

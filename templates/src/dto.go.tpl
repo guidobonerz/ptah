@@ -1,5 +1,5 @@
 package {{getFullNameSpace}};
-
+{{- $attributeList := getAttributes}}
 {{- $caseName := getCamelCaseName $.Name}}
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -28,11 +28,11 @@ public class {{getObjectName "dto"}} implements Serializable {
     @EmbeddedId
     private {{ $caseName }}Id id;
     {{- else}}
-    {{- range $index,$attribute := $.Attributes }}
+    {{- range $index,$attribute := $attributeList }}
     {{ if $attribute.PrimaryKey}}@Id{{- end}}
     @JsonProperty("{{$attribute.Name}}")
     @Column(name = "[{{$attribute.Name}}]", nullable = {{- if $attribute.AllowNull}} true{{- else}} false{{- end}})
     private {{ getDataType $attribute }} {{$attribute.Name}};
-    {{ end}}
-    {{ end}}
+    {{- end}}
+    {{- end}}
 }
