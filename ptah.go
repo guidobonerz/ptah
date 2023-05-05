@@ -32,9 +32,9 @@ func main() {
 		fmt.Printf("\nptah : the json based code generator\n\ndrazil 2023\n\n")
 		fmt.Printf("./ptah.exe -in <inputfolder>\n")
 		fmt.Printf("\nAvailable options  :\n")
-		fmt.Printf("-cf  <config file>   : path of the json project config file to be processed\n")
-		fmt.Printf("-in  <inputFolder>   : path of the json project config file to be processed\n")
-		fmt.Printf("-out <outputFolder>  : path of the json project config file to be processed\n")
+		fmt.Printf("-cf  <config file>   : path to json project config file\n")
+		fmt.Printf("-in  <inputFolder>   : folder of the template file(s)\n")
+		fmt.Printf("-out <outputFolder>  : folder of the generated file(s)\n")
 		fmt.Printf("-p   <true*|false>   : purge all output folders before writing\n")
 		fmt.Printf("-v   <true*|false>   : verbose mode\n")
 	}
