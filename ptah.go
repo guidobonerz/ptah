@@ -18,7 +18,7 @@ import (
 var configFile string
 var inputFolder string
 var outputFolder string
-var pruneOutputFolders bool
+var purgeOutputFolders bool
 var verbose bool = false
 
 func main() {
@@ -26,7 +26,7 @@ func main() {
 	flag.StringVar(&configFile, "cf", "default-config.json", "project config file")
 	flag.StringVar(&inputFolder, "in", "templates", "template base path")
 	flag.StringVar(&outputFolder, "out", "results", "generated file base path")
-	flag.BoolVar(&pruneOutputFolders, "p", true, "purge all output folders before writing")
+	flag.BoolVar(&purgeOutputFolders, "p", true, "purge all output folders before writing")
 	flag.BoolVar(&verbose, "v", true, "verbose mode")
 
 	flag.Usage = func() {
