@@ -115,13 +115,13 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 			return strings.Title(name)
 		},
 		"hasSize": func(attribute structure.Attribute) bool {
-			return metaData.DataTypes[attribute.DataType].HasSize
+			return metaData.DataTypes[attribute.DataTypeKey].HasSize
 		},
 		"getSize": func(attribute structure.Attribute) string {
 			var size = ""
-			if metaData.DataTypes[attribute.DataType].HasSize {
+			if metaData.DataTypes[attribute.DataTypeKey].HasSize {
 				if attribute.Size == -1 {
-					size = metaData.DataTypes[attribute.DataType].MaxSize
+					size = metaData.DataTypes[attribute.DataTypeKey].MaxSize
 				} else {
 					size = strconv.Itoa(attribute.Size)
 				}
@@ -145,18 +145,18 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 		"getDataTypes": func(attributes []structure.Attribute) []string {
 			var dataTypes []string
 			for i := 0; i < len(attributes); i++ {
-				var dt = metaData.DataTypes[attributes[i].DataType].NonNullDataType
+				var dt = metaData.DataTypes[attributes[i].DataTypeKey].NonNullDataType
 				if attributes[i].AllowNull {
-					dt = metaData.DataTypes[attributes[i].DataType].DataType
+					dt = metaData.DataTypes[attributes[i].DataTypeKey].DataType
 				}
 				dataTypes = append(dataTypes, dt)
 			}
 			return dataTypes
 		},
 		"getDataType": func(attribute structure.Attribute) string {
-			var dt = metaData.DataTypes[attribute.DataType].NonNullDataType
+			var dt = metaData.DataTypes[attribute.DataTypeKey].NonNullDataType
 			if attribute.AllowNull {
-				dt = metaData.DataTypes[attribute.DataType].DataType
+				dt = metaData.DataTypes[attribute.DataTypeKey].DataType
 			}
 			return dt
 		},
@@ -173,15 +173,15 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 
 			for i := 0; i < len(list); i++ {
 				attribute = list[i]
-				if attribute.RefEntity != "" && attribute.RefAttribute != "" {
-					referencingAttributes, exists := references[attribute.RefEntity]
+				if attribute.RefEntityName != "" && attribute.RefAttributeName != "" {
+					referencingAttributes, exists := references[attribute.RefEntityName]
 					if !exists {
 						referencingAttributes = []structure.Attribute{}
 						referencingAttributes = append(referencingAttributes, attribute)
-						references[attribute.RefEntity] = referencingAttributes
+						references[attribute.RefEntityName] = referencingAttributes
 					} else {
 						referencingAttributes = append(referencingAttributes, attribute)
-						references[attribute.RefEntity] = referencingAttributes
+						references[attribute.RefEntityName] = referencingAttributes
 					}
 				}
 			}

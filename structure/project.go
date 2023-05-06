@@ -36,8 +36,8 @@ type DataTypeDefinition struct {
 type Entity struct {
 	Name                    string      `json:"name"`
 	TemplateNames           []string    `json:"templateNames"`
-	EnableCreate            bool        `json:"enableCreate"`
-	EnableRead              bool        `json:"enableRead"`
+	EnableAdd               bool        `json:"enableAdd"`
+	EnableList              bool        `json:"enableList"`
 	EnableUpdate            bool        `json:"enableUpdate"`
 	EnableDelete            bool        `json:"enableDelete"`
 	EnableSort              bool        `json:"enableSort"`
@@ -52,19 +52,19 @@ type Entity struct {
 }
 
 type Attribute struct {
-	Name         string `json:"name"`
-	DataType     string `json:"dataType"`
-	Size         int    `json:"size"`
-	DefaultValue string `json:"defaultValue"`
-	PrimaryKey   bool   `json:"primaryKey"`
-	AllowNull    bool   `json:"allowNull"`
-	AutoId       bool   `json:"autoId"`
-	RefEntity    string `json:"refEntity"`
-	RefAttribute string `json:"refAttribute"`
+	Name             string `json:"name"`
+	DataTypeKey      string `json:"dataTypeKey"`
+	Size             int    `json:"size"`
+	DefaultValue     string `json:"defaultValue"`
+	PrimaryKey       bool   `json:"primaryKey"`
+	AllowNull        bool   `json:"allowNull"`
+	AutoId           bool   `json:"autoId"`
+	RefEntityName    string `json:"refEntityName"`
+	RefAttributeName string `json:"refAttributeName"`
 }
 
 type Index struct {
-	Name       string   `json:"name"`
-	Attributes []string `json:"attributes"`
-	Unique     bool     `json:"unique"`
+	Name           string   `json:"name"`
+	AttributeNames []string `json:"attributeNames"`
+	Unique         bool     `json:"unique"`
 }

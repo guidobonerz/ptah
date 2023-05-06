@@ -230,8 +230,8 @@
                 "dao",
                 "procedure"
             ],
-            "enableCreate": true,
-            "enableRead": true,
+            "enableAdd": true,
+            "enableList": true,
             "enableUpdate": true,
             "enableDelete": true,
             "generateHistoryEntity": true,
@@ -239,26 +239,26 @@
             "attributes": [
                 {
                     "name": "id",
-                    "primaryKey": true,
+                    "dataTypeKey": true,
                     "dataType": "long",
                     "allowNull": false,
                     "autoId": true
                 },
                 {
                     "name": "firstName",
-                    "dataType": "string",
+                    "dataTypeKey": "string",
                     "allowNull": false,
                     "size": 50
                 },
                 {
                     "name": "lastName",
-                    "dataType": "string",
+                    "dataTypeKey": "string",
                     "allowNull": true,
                     "size": -1
                 },
                 {
                     "name": "nummer",
-                    "dataType": "int",
+                    "dataTypeKey": "int",
                     "allowNull": true
                 }
             ]
@@ -274,8 +274,8 @@
                 "dao",
                 "procedure"
             ],
-            "enableCreate": true,
-            "enableRead": true,
+            "enableAdd": true,
+            "enableList": true,
             "enableUpdate": true,
             "enableDelete": true,
             "generateHistoryEntity": true,
@@ -284,13 +284,13 @@
                 {
                     "name": "id",
                     "primaryKey": true,
-                    "dataType": "long",
+                    "dataTypeKey": "long",
                     "allowNull": false,
                     "autoId": true
                 },
                 {
                     "name": "name",
-                    "dataType": "string",
+                    "dataTypeKey": "string",
                     "allowNull": false,
                     "size": 40
                 }
@@ -307,8 +307,8 @@
                 "dao",
                 "procedure"
             ],
-            "enableCreate": true,
-            "enableRead": true,
+            "enableAdd": true,
+            "enableList": true,
             "enableUpdate": true,
             "enableDelete": true,
             "generateHistoryEntity": true,
@@ -317,7 +317,7 @@
                 {
                     "name": "musicianId",
                     "primaryKey": true,
-                    "dataType": "long",
+                    "dataTypeKey": "long",
                     "allowNull": false,
                     "refEntity": "musician",
                     "refAttribute": "id"
@@ -325,7 +325,7 @@
                 {
                     "name": "bandId",
                     "primaryKey": true,
-                    "dataType": "long",
+                    "dataTypeKey": "long",
                     "allowNull": false,
                     "refEntity": "band",
                     "refAttribute": "id"
