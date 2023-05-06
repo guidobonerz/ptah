@@ -90,7 +90,7 @@
         "java": {
             "baseNameSpace": "de.drazil.test.generated",
             "templateBasePath": "spring/",
-            "outputBasePath": "src/main/java",
+            "outputBasePath": "src/main/java/",
             "fileSuffix": "java",
             "allowBundledFile": false,
             "argumentSeparator": ",",
@@ -124,7 +124,7 @@
         },
         "js": {
             "templateBasePath": "js/",
-            "outputBasePath": "resources/static/assets/gen/js",
+            "outputBasePath": "resources/static/assets/gen/js/",
             "fileSuffix": "js",
             "allowBundledFile": false,
             "argumentSeparator": ",",
@@ -222,13 +222,13 @@
             "name": "musician",
             "templateNames": [
                 "table",
+                "procedure",
                 "ajaxcontroller",
                 "jscontroller",
                 "dto",
                 "impl",
                 "service",
-                "dao",
-                "procedure"
+                "dao"
             ],
             "enableAdd": true,
             "enableList": true,
@@ -267,12 +267,12 @@
             "name": "band",
             "templateNames": [
                 "table",
+                "procedure",
                 "ajaxcontroller",
                 "dto",
                 "impl",
                 "service",
-                "dao",
-                "procedure"
+                "dao"
             ],
             "enableAdd": true,
             "enableList": true,
@@ -300,12 +300,12 @@
             "name": "bandmember",
             "templateNames": [
                 "table",
+                "procedure",
                 "ajaxcontroller",
                 "dto",
                 "impl",
                 "service",
-                "dao",
-                "procedure"
+                "dao"
             ],
             "enableAdd": true,
             "enableList": true,

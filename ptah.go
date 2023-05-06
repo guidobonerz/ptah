@@ -24,8 +24,8 @@ var verbose bool = false
 func main() {
 
 	flag.StringVar(&configFile, "cf", "default-config.json", "project config file")
-	flag.StringVar(&inputFolder, "in", "templates", "template base path")
-	flag.StringVar(&outputFolder, "out", "results", "generated file base path")
+	flag.StringVar(&inputFolder, "in", "templates/", "template base path")
+	flag.StringVar(&outputFolder, "out", "results/", "generated file base path")
 	flag.BoolVar(&purgeOutputFolders, "p", true, "purge all output folders before writing")
 	flag.BoolVar(&verbose, "v", true, "verbose mode")
 
@@ -77,12 +77,18 @@ func getCommonAttributes(attributes []structure.Attribute) []structure.Attribute
 
 func processTemplate(project structure.Project, entity structure.Entity, templateName string, templateDefinition structure.TemplateDefinition, metaData structure.MetaData) {
 	var primaryAttributes = getPrimaryAttributes(entity.Attributes)
-	var fullNameSpace = metaData.BaseNameSpace + "." + templateDefinition.NameSpace
-	var nameSpacePath = outputFolder + "/" + metaData.OutputBasePath + "/" + strings.Replace(fullNameSpace, ".", "/", -1)
+	var fullNameSpace = ""
+
+	if metaData.BaseNameSpace != "" {
+		fullNameSpace += metaData.BaseNameSpace + "."
+	}
+	fullNameSpace += templateDefinition.NameSpace + "."
+
+	var nameSpacePath = outputFolder + metaData.OutputBasePath + strings.Replace(fullNameSpace, ".", "/", -1)
 	var objectName = fmt.Sprintf(templateDefinition.NamePattern, strings.Title(entity.Name))
-	var outputFileName = nameSpacePath + "/" + objectName + "." + metaData.FileSuffix
+	var outputFileName = nameSpacePath + objectName + "." + metaData.FileSuffix
 	var templateFileName = templateName + ".go.tpl"
-	var templatePathName = inputFolder + "/" + metaData.TemplateBasePath + templateFileName
+	var templatePathName = inputFolder + metaData.TemplateBasePath + templateFileName
 	t, err := template.New(templateFileName).Funcs(template.FuncMap{
 		"getBaseNameSpace": func() string {
 			return metaData.BaseNameSpace
