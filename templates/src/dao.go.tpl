@@ -21,113 +21,113 @@ public class {{$daoName}} {
     @Autowired
     private EntityManager entityManager;
 
-    private final static String SELECT_ALL   = "SELECT o from {{$dtoName}} o";
-    private final static String SELECT_BY_ID = "SELECT o from {{$dtoName}} o where {{ range $index,$attribute := $primaryAttributes }}{{ $attribute.Name }}=:{{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}}";
-    private final static String COUNT        = "SELECT count(o) from {{$dtoName}} o";
-    private final static String HANDLE       = "EXEC HANDLE_{{ getUpperCaseName $.Name}} :action, {{ range $index,$attribute := $attributeList }}:{{ $attribute.Name }}{{getArgumentSeparator $index $attributeList}}{{- end}}";
+    private final static String LIST   = "SELECT o from {{$dtoName}} o";
+    private final static String GET    = "SELECT o from {{$dtoName}} o where {{ range $index,$attribute := $primaryAttributes }}{{ $attribute.Name }}=:{{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}}";
+    private final static String COUNT  = "SELECT count(o) from {{$dtoName}} o";
+    private final static String HANDLE = "EXEC HANDLE_{{ getUpperCaseName $.Name}} :action, {{ range $index,$attribute := $attributeList }}:{{ $attribute.Name }}{{getArgumentSeparator $index $attributeList}}{{- end}}";
     
-    public {{$dtoName}} getById({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}}){
-        final Query query = entityManager.createQuery(SELECT_BY_ID,{{$dtoName}}.class);
+    public {{$dtoName}} get({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}}){
+        final Query query = entityManager.createQuery(GET,{{$dtoName}}.class);
         {{- range $index,$attribute := $primaryAttributes }}
         query.setParameter("{{ $attribute.Name }}",{{$attribute.Name}});
         {{- end}}
         return query.getSingleResult();
     }
 
-    public List<{{$dtoName}}> getList(){
-        final Query query = entityManager.createQuery(SELECT_ALL,{{$dtoName}}.class);
+    public List<{{$dtoName}}> list(){
+        final Query query = entityManager.createQuery(LIST,{{$dtoName}}.class);
         return query.getResultList();
     }
 
-    public List<{{$dtoName}}> getList(java.lang.String searchText){
-        return getList(searchText, (List<Sorter>)null, (List<Filter>)null);
+    public List<{{$dtoName}}> list(java.lang.String searchText){
+        return list(searchText, (List<Sorter>)null, (List<Filter>)null);
     }
     
-    public List<{{$dtoName}}> getList(List<Sorter> sorterList){
-        return getList((String)null, sorterList, (List<Filter>)null);
+    public List<{{$dtoName}}> list(List<Sorter> sorterList){
+        return list((String)null, sorterList, (List<Filter>)null);
     }
 
-    public List<{{$dtoName}}> getList(java.lang.String searchText, ListSet<Sorter> sorterList){
-        return getList(searchText, sorterList, (List<Filter>)null);
+    public List<{{$dtoName}}> list(java.lang.String searchText, ListSet<Sorter> sorterList){
+        return list(searchText, sorterList, (List<Filter>)null);
     }
 
-    public List<{{$dtoName}}> getList(List<Filter> filterList){
-        return getList((String)null, (List<Sorter>)null, filterList);
+    public List<{{$dtoName}}> list(List<Filter> filterList){
+        return list((String)null, (List<Sorter>)null, filterList);
     }
 
-    public List<{{$dtoName}}> getList(java.lang.String searchText, List<Filter> filterList){
-        return getList(searchText, (List<Sorter>)null, filterList);
+    public List<{{$dtoName}}> list(java.lang.String searchText, List<Filter> filterList){
+        return list(searchText, (List<Sorter>)null, filterList);
     }
 
-    public List<{{$dtoName}}> getList(List<Sorter> sorterList, List<Filter> filterList){
-        return getList((String)null, sorterList, filterList);
+    public List<{{$dtoName}}> list(List<Sorter> sorterList, List<Filter> filterList){
+        return list((String)null, sorterList, filterList);
     }
 
-    public List<{{$dtoName}}> getList(java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList){
+    public List<{{$dtoName}}> list(java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList){
         return null;
     }
         
-    public List<{{$dtoName}}> getList(int start, int limit){
-        return getList(start, limit, (String)null, (List<Sorter>)null, (List<Filter>)null);
+    public List<{{$dtoName}}> list(int start, int limit){
+        return list(start, limit, (String)null, (List<Sorter>)null, (List<Filter>)null);
     }
     
-    public List<{{$dtoName}}> getList(int start, int limit, java.lang.String searchText){
-        return getList(start, limit, searchText, (List<Sorter>)null, (List<Filter>)null);
+    public List<{{$dtoName}}> list(int start, int limit, java.lang.String searchText){
+        return list(start, limit, searchText, (List<Sorter>)null, (List<Filter>)null);
     }
     
-    public List<{{$dtoName}}> getList(int start, int limit, List<Sorter> sorterList){
-        return getList(start, limit, (String)null, sorterList, (List<Filter>)null);
+    public List<{{$dtoName}}> list(int start, int limit, List<Sorter> sorterList){
+        return list(start, limit, (String)null, sorterList, (List<Filter>)null);
     }
 
-    public List<{{$dtoName}}> getList(int start, int limit, java.lang.String searchText, List<Sorter> sorterList){
-        return getList(start, limit, searchText, sorterList, (List<Filter>)null);
+    public List<{{$dtoName}}> list(int start, int limit, java.lang.String searchText, List<Sorter> sorterList){
+        return list(start, limit, searchText, sorterList, (List<Filter>)null);
     }
 
-    public List<{{$dtoName}}> getList(int start, int limit, List<Filter> filterList){
-        return getList(start, limit, (String)null, (List<Sorter>)null, filterList);
+    public List<{{$dtoName}}> list(int start, int limit, List<Filter> filterList){
+        return list(start, limit, (String)null, (List<Sorter>)null, filterList);
     }
 
-    public List<{{$dtoName}}> getList(int start, int limit, java.lang.String searchText, List<Filter> filterList){
-        return getList(start, limit, searchText, (List<Sorter>)null, filterList);
+    public List<{{$dtoName}}> list(int start, int limit, java.lang.String searchText, List<Filter> filterList){
+        return list(start, limit, searchText, (List<Sorter>)null, filterList);
     }
 
-    public List<{{$dtoName}}> getList(int start, int limit, List<Sorter> sorterList, List<Filter> filterList){
-        return getList(start, limit, (String)null, sorterList, filterList);
+    public List<{{$dtoName}}> list(int start, int limit, List<Sorter> sorterList, List<Filter> filterList){
+        return list(start, limit, (String)null, sorterList, filterList);
     }
 
-    public List<{{$dtoName}}> getList(int start, int limit, java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList){
+    public List<{{$dtoName}}> list(int start, int limit, java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList){
         return null;List
     }
 
-    public long getListCount(){
-        return getListCount((String)null, (List<Filter>)null);
+    public long count(){
+        return count((String)null, (List<Filter>)null);
     }
 
-    public long getListCount(java.lang.String searchText){
-        return getListCount(searchText, (List<Filter>)null);
+    public long count(java.lang.String searchText){
+        return count(searchText, (List<Filter>)null);
     }
 
-    public long getListCount(List<Filter> filterList){
-        return getListCount((String)null, filterList);
+    public long count(List<Filter> filterList){
+        return count((String)null, filterList);
     }
 
-    public long getListCount(java.lang.String searchText, List<Filter> filterList){
+    public long count(java.lang.String searchText, List<Filter> filterList){
         return 0;
     }
 
-    public long getListCount(int start, int limit){
-        return getListCount(start, limit, (String)null, (List<Filter>)null);
+    public long count(int start, int limit){
+        return count(start, limit, (String)null, (List<Filter>)null);
     }
 
-    public long getListCount(int start, int limit, java.lang.String searchText){
-        return getListCount(start, limit,searchText, (List<Filter>)null);
+    public long count(int start, int limit, java.lang.String searchText){
+        return count(start, limit,searchText, (List<Filter>)null);
     }
 
-    public long getListCount(int start, int limit, List<Filter> filterList){
-        return getListCount(start, limit,(String)null, filterList);
+    public long count(int start, int limit, List<Filter> filterList){
+        return count(start, limit,(String)null, filterList);
     }
 
-    public long getListCount(int start, int limit, java.lang.String searchText, List<Filter> filterList){
+    public long count(int start, int limit, java.lang.String searchText, List<Filter> filterList){
         return 0;
     }
     
@@ -178,7 +178,7 @@ public class {{$daoName}} {
         deleteById({{- range $index,$attribute := $primaryAttributes }}item.get{{getCamelCaseName $attribute.Name}}(){{getArgumentSeparator $index $primaryAttributes}}{{- end}});
     }
 
-    public void deleteById({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}}){
+    public void delete({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}}){
        {{- range $index,$attribute := $primaryAttributes }}
         query.setParameter("{{ $attribute.Name }}",{{$attribute.Name}});
         {{- end}}

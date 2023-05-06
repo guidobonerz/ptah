@@ -41,7 +41,12 @@
             "namePattern": "%sDAO",
             "metaData": "java"
         },
-        "controller": {
+        "ajaxcontroller": {
+            "nameSpace": "controller",
+            "namePattern": "%sController",
+            "metaData": "java"
+        },
+        "formcontroller": {
             "nameSpace": "controller",
             "namePattern": "%sController",
             "metaData": "java"
@@ -153,11 +158,30 @@
             "defaultValue": "0"
         }
     ],
+    "dataGenerator": {
+        "randomInt": {
+            "from": 0,
+            "to": 100
+        },
+        "randomString": {
+            "minLength": 0,
+            "maxLength": 100
+        },
+        "randomFloat": {
+            "from": 0,
+            "to": 100.0
+        },
+        "randomDate": {
+            "from": "2023-05-01",
+            "to": "2023-10-30"
+        }
+    },
     "entities": [
         {
             "name": "musician",
             "templateNames": [
                 "table",
+                "ajaxcontroller",
                 "dto",
                 "impl",
                 "service",
@@ -201,6 +225,7 @@
             "name": "band",
             "templateNames": [
                 "table",
+                "ajaxcontroller",
                 "dto",
                 "impl",
                 "service",
@@ -233,6 +258,7 @@
             "name": "bandmember",
             "templateNames": [
                 "table",
+                "ajaxcontroller",
                 "dto",
                 "impl",
                 "service",

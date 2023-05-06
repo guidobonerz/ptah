@@ -19,104 +19,104 @@ public class {{$implName}}  implements {{$serviceName}}{
     @Autowired
     private {{$daoName}} dao;
 
-    public {{$dtoName}} getById({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}}){
-        return dao.getById({{- range $index,$attribute := $primaryAttributes }}{{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}});
+    public {{$dtoName}} get({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}}){
+        return dao.get({{- range $index,$attribute := $primaryAttributes }}{{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}});
     }
 
-    public List<{{$dtoName}}> getList(){
-        return dao.getList();
+    public List<{{$dtoName}}> list(){
+        return dao.list();
     }
 
-    public List<{{$dtoName}}> getList(java.lang.String searchText){
-        return dao.getList(searchText);
+    public List<{{$dtoName}}> list(java.lang.String searchText){
+        return dao.list(searchText);
     }
     
-    public List<{{$dtoName}}> getList(List<Sorter> sorterList){
-        return dao.getList(sorterList);
+    public List<{{$dtoName}}> list(List<Sorter> sorterList){
+        return dao.list(sorterList);
     }
 
-    public List<{{$dtoName}}> getList(java.lang.String searchText, List<Sorter> sorterList){
-        return dao.getList(searchText, sorterList);
+    public List<{{$dtoName}}> list(java.lang.String searchText, List<Sorter> sorterList){
+        return dao.list(searchText, sorterList);
     }
 
-    public List<{{$dtoName}}> getList(List<Filter> filterList){
-        return dao.getList(filterList);
+    public List<{{$dtoName}}> list(List<Filter> filterList){
+        return dao.list(filterList);
     }
 
-    public List<{{$dtoName}}> getList(java.lang.String searchText, List<Filter> filterList){
-        return dao.getList(searchText, filterList);
+    public List<{{$dtoName}}> list(java.lang.String searchText, List<Filter> filterList){
+        return dao.list(searchText, filterList);
     }
 
-    public List<{{$dtoName}}> getList(List<Sorter> sorterList, List<Filter> filterList){
-        return dao.getList(sorterList, filterList);
+    public List<{{$dtoName}}> list(List<Sorter> sorterList, List<Filter> filterList){
+        return dao.list(sorterList, filterList);
     }
 
-    public List<{{$dtoName}}> getList(java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList){
-        return dao.getList(searchText, sorterList, filterList);
+    public List<{{$dtoName}}> list(java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList){
+        return dao.list(searchText, sorterList, filterList);
     }
         
-    public List<{{$dtoName}}> getList(int start, int limit){
-        return dao.getList(start, limit);
+    public List<{{$dtoName}}> list(int start, int limit){
+        return dao.list(start, limit);
     }
     
-    public List<{{$dtoName}}> getList(int start, int limit, java.lang.String searchText){
-        return dao.getList(start, limit, searchText);
+    public List<{{$dtoName}}> list(int start, int limit, java.lang.String searchText){
+        return dao.list(start, limit, searchText);
     }
     
-    public List<{{$dtoName}}> getList(int start, int limit, List<Sorter> sorterList){
-        return dao.getList(start, limit, sorterList);
+    public List<{{$dtoName}}> list(int start, int limit, List<Sorter> sorterList){
+        return dao.list(start, limit, sorterList);
     }
 
-    public List<{{$dtoName}}> getList(int start, int limit, java.lang.String searchText, List<Sorter> sorterList){
-        return dao.getList(start, limit, searchText, sorterList);
+    public List<{{$dtoName}}> list(int start, int limit, java.lang.String searchText, List<Sorter> sorterList){
+        return dao.list(start, limit, searchText, sorterList);
     }
 
-    public List<{{$dtoName}}> getList(int start, int limit, List<Filter> filterList){
-        return dao.getList(start, limit, filterList);
+    public List<{{$dtoName}}> list(int start, int limit, List<Filter> filterList){
+        return dao.list(start, limit, filterList);
     }
 
-    public List<{{$dtoName}}> getList(int start, int limit, java.lang.String searchText, List<Filter> filterList){
-        return dao.getList(start, limit, searchText, filterList);
+    public List<{{$dtoName}}> list(int start, int limit, java.lang.String searchText, List<Filter> filterList){
+        return dao.list(start, limit, searchText, filterList);
     }
 
-    public List<{{$dtoName}}> getList(int start, int limit, List<Sorter> sorterList, List<Filter> filterList){
-        return dao.getList(start, limit, sorterList, filterList);
+    public List<{{$dtoName}}> list(int start, int limit, List<Sorter> sorterList, List<Filter> filterList){
+        return dao.list(start, limit, sorterList, filterList);
     }
 
-    public List<{{$dtoName}}> getList(int start, int limit, java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList){
-        return dao.getList(start, limit, searchText, sorterList, filterList);
+    public List<{{$dtoName}}> list(int start, int limit, java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList){
+        return dao.list(start, limit, searchText, sorterList, filterList);
     }
 
-    public long getListCount(){
-        return dao.getListCount();
+    public long count(){
+        return dao.count();
     }
 
-    public long getListCount(java.lang.String searchText){
-        return dao.getListCount(searchText);
+    public long count(java.lang.String searchText){
+        return dao.count(searchText);
     }
 
-    public long getListCount(List<Filter> filterList){
-        return dao.getListCount(filterList);
+    public long count(List<Filter> filterList){
+        return dao.count(filterList);
     }
 
-    public long getListCount(java.lang.String searchText, List<Filter> filterList){
-        return dao.getListCount(searchText, filterList);
+    public long count(java.lang.String searchText, List<Filter> filterList){
+        return dao.count(searchText, filterList);
     }
 
-    public long getListCount(int start, int limit){
-        return dao.getListCount(int start, int limit);
+    public long count(int start, int limit){
+        return dao.count(int start, int limit);
     }
 
-    public long getListCount(int start, int limit, java.lang.String searchText){
-        return dao.getListCount(start, limit, searchText);
+    public long count(int start, int limit, java.lang.String searchText){
+        return dao.count(start, limit, searchText);
     }
 
-    public long getListCount(int start, int limit, List<Filter> filterList){
-        return dao.getListCount(start, limit, filterList);
+    public long count(int start, int limit, List<Filter> filterList){
+        return dao.count(start, limit, filterList);
     }
 
-    public long getListCount(int start, int limit, java.lang.String searchText, List<Filter> filterList){
-        return dao.getListCount(start, limit, searchText, filterList);
+    public long count(int start, int limit, java.lang.String searchText, List<Filter> filterList){
+        return dao.count(start, limit, searchText, filterList);
     }
 
     public void add(List<{{$dtoName}}> list){
@@ -155,7 +155,7 @@ public class {{$implName}}  implements {{$serviceName}}{
         dao.delete(item);
     }
 
-    public void deleteById({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}}){
-        dao.deleteById({{- range $index,$attribute := $primaryAttributes }}{{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}});
+    public void delete({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}}){
+        dao.delete({{- range $index,$attribute := $primaryAttributes }}{{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}});
     }
 }

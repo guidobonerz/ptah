@@ -6,6 +6,7 @@ type Project struct {
 	TemplateDefinition map[string]TemplateDefinition `json:"templateDefinition"`
 	MetaData           map[string]MetaData           `json:"metaData"`
 	CommonAttributes   []Attribute                   `json:"commonAttributes"`
+	DataGenerator      map[string]interface{}        `json:"dataGenerator"`
 }
 
 type TemplateDefinition struct {
@@ -44,6 +45,7 @@ type Entity struct {
 	EnablePagination        bool        `json:"enablePagination"`
 	GenerateHistoryEntity   bool        `json:"generateHistoryEntity"`
 	DisableCommonAttributes bool        `json:"disableCommonAttributes"`
+	FakeDataRendererKey     string      `json:"fakeDataRendererKey"`
 	Attributes              []Attribute `json:"attributes"`
 	Index                   []Index     `json:"index"`
 }

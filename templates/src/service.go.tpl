@@ -11,55 +11,55 @@ import java.util.List;
 
 public interface {{$serviceName}} {
 
-    public {{$dtoName}} getById({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}});
+    public {{$dtoName}} get({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}});
 
-    public List<{{$dtoName}}> getList();
+    public List<{{$dtoName}}> list();
 
-    public List<{{$dtoName}}> getList(java.lang.String searchText);
+    public List<{{$dtoName}}> list(java.lang.String searchText);
     
-    public List<{{$dtoName}}> getList(List<Sorter> sorterList);
+    public List<{{$dtoName}}> list(List<Sorter> sorterList);
 
-    public List<{{$dtoName}}> getList(java.lang.String searchText, List<Sorter> sorterList);
+    public List<{{$dtoName}}> list(java.lang.String searchText, List<Sorter> sorterList);
 
-    public List<{{$dtoName}}> getList(List<Filter> filterList);
+    public List<{{$dtoName}}> list(List<Filter> filterList);
 
-    public List<{{$dtoName}}> getList(java.lang.String searchText, List<Filter> filterList);
+    public List<{{$dtoName}}> list(java.lang.String searchText, List<Filter> filterList);
 
-    public List<{{$dtoName}}> getList(List<Sorter> sorterList, List<Filter> filterList);
+    public List<{{$dtoName}}> list(List<Sorter> sorterList, List<Filter> filterList);
 
-    public List<{{$dtoName}}> getList(java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList);
+    public List<{{$dtoName}}> list(java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList);
         
-    public List<{{$dtoName}}> getList(int start, int limit);
+    public List<{{$dtoName}}> list(int start, int limit);
     
-    public List<{{$dtoName}}> getList(int start, int limit, java.lang.String searchText);
+    public List<{{$dtoName}}> list(int start, int limit, java.lang.String searchText);
     
-    public List<{{$dtoName}}> getList(int start, int limit, List<Sorter> sorterList);
+    public List<{{$dtoName}}> list(int start, int limit, List<Sorter> sorterList);
 
-    public List<{{$dtoName}}> getList(int start, int limit, java.lang.String searchText, List<Sorter> sorterList);
+    public List<{{$dtoName}}> list(int start, int limit, java.lang.String searchText, List<Sorter> sorterList);
 
-    public List<{{$dtoName}}> getList(int start, int limit, List<Filter> filterList);
+    public List<{{$dtoName}}> list(int start, int limit, List<Filter> filterList);
 
-    public List<{{$dtoName}}> getList(int start, int limit, java.lang.String searchText, List<Filter> filterList);
+    public List<{{$dtoName}}> list(int start, int limit, java.lang.String searchText, List<Filter> filterList);
 
-    public List<{{$dtoName}}> getList(int start, int limit, List<Sorter> sorterList, List<Filter> filterList);
+    public List<{{$dtoName}}> list(int start, int limit, List<Sorter> sorterList, List<Filter> filterList);
 
-    public List<{{$dtoName}}> getList(int start, int limit, java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList);
+    public List<{{$dtoName}}> list(int start, int limit, java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList);
 
-    public long getCount();
+    public long count();
 
-    public long getCount(java.lang.String searchText);    
+    public long count(java.lang.String searchText);    
 
-    public long getCount(List<Filter> filterList);    
+    public long count(List<Filter> filterList);    
 
-    public long getCount(java.lang.String searchText, List<Filter> filterList);
+    public long count(java.lang.String searchText, List<Filter> filterList);
 
-    public long getCount(int start, int limit);
+    public long count(int start, int limit);
 
-    public long getCount(int start, int limit, java.lang.String searchText);    
+    public long count(int start, int limit, java.lang.String searchText);    
 
-    public long getCount(int start, int limit, List<Filter> filterList);    
+    public long count(int start, int limit, List<Filter> filterList);    
 
-    public long getCount(int start, int limit, java.lang.String searchText, List<Filter> filterList);   
+    public long count(int start, int limit, java.lang.String searchText, List<Filter> filterList);   
 
     public void add(List<{{$dtoName}}> list) ;
 
@@ -79,5 +79,5 @@ public interface {{$serviceName}} {
 
     public void delete(List<{{$dtoName}}> list);
 
-    public void deleteById({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}});
+    public void delete({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getArgumentSeparator $index $primaryAttributes}}{{- end}});
 }

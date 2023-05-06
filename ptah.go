@@ -108,6 +108,12 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 			templateDefinition = project.TemplateDefinition[templateName]
 			return fmt.Sprintf(templateDefinition.NamePattern, strings.Title(entity.Name))
 		},
+		"getUpperCaseName": func(name string) string {
+			return strings.ToUpper(name)
+		},
+		"getCamelCaseName": func(name string) string {
+			return strings.Title(name)
+		},
 		"hasSize": func(attribute structure.Attribute) bool {
 			return metaData.DataTypes[attribute.DataType].HasSize
 		},
@@ -153,12 +159,6 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 				dt = metaData.DataTypes[attribute.DataType].DataType
 			}
 			return dt
-		},
-		"getUpperCaseName": func(name string) string {
-			return strings.ToUpper(name)
-		},
-		"getCamelCaseName": func(name string) string {
-			return strings.Title(name)
 		},
 		"getUid": func() uint32 {
 			algorithm := fnv.New32()
@@ -250,6 +250,6 @@ func run(file string) error {
 		}
 	}
 	var duration = time.Now().Sub(start).Seconds()
-	log.Printf("parsing %d entities and writing %d files in %f seconds.", len(project.Entities), templateCount, duration)
+	log.Printf("parsing %d entities and wrote %d files in %f seconds.", len(project.Entities), templateCount, duration)
 	return nil
 }
