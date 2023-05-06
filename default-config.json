@@ -1,5 +1,4 @@
 {
-    "baseNameSpace": "de.drazil.test.generated",
     "templateDefinition": {
         "table": {
             "nameSpace": "dbo",
@@ -50,11 +49,17 @@
             "nameSpace": "controller",
             "namePattern": "%sController",
             "metaData": "java"
+        },
+        "jscontroller": {
+            "nameSpace": "controller",
+            "namePattern": "%sController",
+            "metaData": "js"
         }
     },
     "metaData": {
         "sql": {
             "templateBasePath": "database/mssql/",
+            "outputBasePath": "resources/dbscripts/",
             "fileSuffix": "sql",
             "allowBundledFile": true,
             "argumentSeparator": ",",
@@ -83,8 +88,44 @@
             }
         },
         "java": {
-            "templateBasePath": "src/",
+            "baseNameSpace": "de.drazil.test.generated",
+            "templateBasePath": "spring/",
+            "outputBasePath": "src/main/java",
             "fileSuffix": "java",
+            "allowBundledFile": false,
+            "argumentSeparator": ",",
+            "enableMultiAttributeIdOption": true,
+            "dataTypes": {
+                "string": {
+                    "dataType": "java.lang.String",
+                    "nonNullDataType": "java.lang.String"
+                },
+                "int": {
+                    "dataType": "java.lang.Integer",
+                    "nonNullDataType": "int"
+                },
+                "long": {
+                    "dataType": "java.lang.Long",
+                    "nonNullDataType": "long"
+                },
+                "double": {
+                    "dataType": "java.lang.Double",
+                    "nonNullDataType": "double"
+                },
+                "date": {
+                    "dataType": "java.util.Date",
+                    "nonNullDataType": "java.util.Date"
+                },
+                "boolean": {
+                    "dataType": "java.lang.Boolean",
+                    "nonNullDataType": "boolean"
+                }
+            }
+        },
+        "js": {
+            "templateBasePath": "js/",
+            "outputBasePath": "resources/static/assets/gen/js",
+            "fileSuffix": "js",
             "allowBundledFile": false,
             "argumentSeparator": ",",
             "enableMultiAttributeIdOption": true,
@@ -182,6 +223,7 @@
             "templateNames": [
                 "table",
                 "ajaxcontroller",
+                "jscontroller",
                 "dto",
                 "impl",
                 "service",

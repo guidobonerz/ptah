@@ -77,15 +77,15 @@ func getCommonAttributes(attributes []structure.Attribute) []structure.Attribute
 
 func processTemplate(project structure.Project, entity structure.Entity, templateName string, templateDefinition structure.TemplateDefinition, metaData structure.MetaData) {
 	var primaryAttributes = getPrimaryAttributes(entity.Attributes)
-	var fullNameSpace = project.BaseNameSpace + "." + templateDefinition.NameSpace
-	var nameSpacePath = outputFolder + "/" + strings.Replace(fullNameSpace, ".", "/", -1)
+	var fullNameSpace = metaData.BaseNameSpace + "." + templateDefinition.NameSpace
+	var nameSpacePath = outputFolder + "/" + metaData.OutputBasePath + "/" + strings.Replace(fullNameSpace, ".", "/", -1)
 	var objectName = fmt.Sprintf(templateDefinition.NamePattern, strings.Title(entity.Name))
 	var outputFileName = nameSpacePath + "/" + objectName + "." + metaData.FileSuffix
 	var templateFileName = templateName + ".go.tpl"
 	var templatePathName = inputFolder + "/" + metaData.TemplateBasePath + templateFileName
 	t, err := template.New(templateFileName).Funcs(template.FuncMap{
 		"getBaseNameSpace": func() string {
-			return project.BaseNameSpace
+			return metaData.BaseNameSpace
 		},
 		"getNameSpace": func() string {
 			return templateDefinition.NameSpace
@@ -102,7 +102,7 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 		"getFullObjectName": func(templateName string) string {
 			templateDefinition = project.TemplateDefinition[templateName]
 			var name = fmt.Sprintf(templateDefinition.NamePattern, strings.Title(entity.Name))
-			return fmt.Sprintf("%s.%s.%s", project.BaseNameSpace, templateDefinition.NameSpace, name)
+			return fmt.Sprintf("%s.%s.%s", metaData.BaseNameSpace, templateDefinition.NameSpace, name)
 		},
 		"getObjectName": func(templateName string) string {
 			templateDefinition = project.TemplateDefinition[templateName]

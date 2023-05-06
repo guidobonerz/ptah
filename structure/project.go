@@ -1,7 +1,6 @@
 package structure
 
 type Project struct {
-	BaseNameSpace      string                        `json:"baseNameSpace"`
 	Entities           []Entity                      `json:"entities"`
 	TemplateDefinition map[string]TemplateDefinition `json:"templateDefinition"`
 	MetaData           map[string]MetaData           `json:"metaData"`
@@ -16,7 +15,9 @@ type TemplateDefinition struct {
 }
 
 type MetaData struct {
+	BaseNameSpace                string                        `json:"baseNameSpace"`
 	TemplateBasePath             string                        `json:"templateBasepath"`
+	OutputBasePath               string                        `json:"outputBasepath"`
 	NamingStyle                  string                        `json:"namingStyle"`
 	ArgumentSeparator            string                        `json:"argumentSeparator"`
 	FileSuffix                   string                        `json:"fileSuffix"`
