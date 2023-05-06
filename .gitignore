@@ -6,6 +6,7 @@
 *.dylib
 *.sql
 *.java
+*.js
 
 # Test binary, built with `go test -c`
 *.test
