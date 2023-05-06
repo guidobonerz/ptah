@@ -19,7 +19,7 @@ type MetaData struct {
 	TemplateBasePath             string                        `json:"templateBasepath"`
 	NamingStyle                  string                        `json:"namingStyle"`
 	ArgumentSeparator            string                        `json:"argumentSeparator"`
-	Suffix                       string                        `json:"suffix"`
+	FileSuffix                   string                        `json:"fileSuffix"`
 	AllowBundledFile             bool                          `json:"allowBundledFile"`
 	EnableMultiAttributeIdOption bool                          `json:"enableMultiAttributeIdOption"`
 	DataTypes                    map[string]DataTypeDefinition `json:"dataTypes"`

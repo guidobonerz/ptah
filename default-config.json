@@ -55,7 +55,7 @@
     "metaData": {
         "sql": {
             "templateBasePath": "database/mssql/",
-            "suffix": "sql",
+            "fileSuffix": "sql",
             "allowBundledFile": true,
             "argumentSeparator": ",",
             "dataTypes": {
@@ -84,7 +84,7 @@
         },
         "java": {
             "templateBasePath": "src/",
-            "suffix": "java",
+            "fileSuffix": "java",
             "allowBundledFile": false,
             "argumentSeparator": ",",
             "enableMultiAttributeIdOption": true,
