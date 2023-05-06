@@ -1,3 +1,3 @@
 # ptah
-ptah - Pretty Template Automation Hooligan...\
+ptah - Petit Template Automation Handler...\
 ... is a template based code generator
