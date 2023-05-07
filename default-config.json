@@ -8,14 +8,12 @@
         "constraint": {
             "nameSpace": "dbo",
             "namePattern": "%s",
-            "metaData": "sql",
-            "appendToEnd": true
+            "metaData": "sql"
         },
         "index": {
             "nameSpace": "dbo",
             "namePattern": "%s",
-            "metaData": "sql",
-            "appendToEnd": true
+            "metaData": "sql"
         },
         "view": {
             "nameSpace": "dbo",
@@ -70,6 +68,13 @@
     },
     "metaData": {
         "sql": {
+            "templateProcessingOrder": [
+                "table",
+                "view",
+                "procedure",
+                "constraint",
+                "index"
+            ],
             "templateBasePath": "database/mssql/",
             "outputBasePath": "resources/dbscripts/",
             "fileSuffix": "sql",

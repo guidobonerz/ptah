@@ -12,7 +12,6 @@ type TemplateDefinition struct {
 	NameSpace   string `json:"nameSpace"`
 	NamePattern string `json:"namePattern"`
 	MetaData    string `json:"metaData"`
-	AppendToEnd bool   `json:"AppendToEnd"`
 }
 
 type MetaData struct {
@@ -23,6 +22,7 @@ type MetaData struct {
 	FileSuffix                   string                        `json:"fileSuffix"`
 	WriteSeparateFile            bool                          `json:"writeSeparateFile"`
 	EnableMultiAttributeIdOption bool                          `json:"enableMultiAttributeIdOption"`
+	TemplateProcessingOrder      []string                      `json:"templateProcessingOrder"`
 	DataTypes                    map[string]DataTypeDefinition `json:"dataTypes"`
 }
 

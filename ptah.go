@@ -22,7 +22,6 @@ var outputFolder string
 var purgeOutputFolders bool
 var verbose bool = false
 var bundles = make(map[string]map[string]string)
-var bundleTail = make(map[string]string)
 var caution = "/* !!! CAUTION - THIS FILE MUST NOT BE CHANGED !!!*/\n\n"
 
 func main() {
@@ -214,20 +213,16 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 			tmap = make(map[string]string)
 			bundles[templateDefinition.MetaData] = tmap
 		}
-
 		var text = tmap[templateName]
-
 		var buffer bytes.Buffer
 		if err := t.Execute(&buffer, entity); err != nil {
 			check(err)
 		} else {
 			text += buffer.String()
-			tmap[templateName] = text
+			tmap[templateName] = text + "\n"
 			log.Printf("%s successfully buffered", templateName)
 		}
-		if templateDefinition.AppendToEnd {
-			bundleTail[templateName] = templateName
-		}
+
 	} else {
 		generatedFile, err := os.Create(outputFileName)
 		check(err)
@@ -284,19 +279,13 @@ func run(file string) error {
 
 	if len(bundles) > 0 {
 		for k := range bundles {
-			var content string
-			var body string
-			var tail string
-			for key, value := range bundles[k] {
-				_, exists := bundleTail[key]
-				if exists {
-					tail += value + "\n"
-				} else {
-					body += value + "\n"
-				}
-			}
-			content += body + tail
 			var metaData = project.MetaData[k]
+			var content string
+
+			for _, templateName := range metaData.TemplateProcessingOrder {
+				content += bundles[k][templateName]
+			}
+
 			generatedFile, err := os.Create(outputFolder + metaData.OutputBasePath + "bundled_" + k + "_script." + metaData.FileSuffix)
 			check(err)
 			generatedFile.WriteString(caution)
