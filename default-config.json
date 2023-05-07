@@ -73,7 +73,7 @@
             "templateBasePath": "database/mssql/",
             "outputBasePath": "resources/dbscripts/",
             "fileSuffix": "sql",
-            "writeSeparateFile": true,
+            "writeSeparateFile": false,
             "argumentSeparator": ",",
             "dataTypes": {
                 "string": {
@@ -104,7 +104,7 @@
             "templateBasePath": "spring/",
             "outputBasePath": "src/main/java/",
             "fileSuffix": "java",
-            "writeSeparateFile": false,
+            "writeSeparateFile": true,
             "argumentSeparator": ",",
             "enableMultiAttributeIdOption": true,
             "dataTypes": {
@@ -138,7 +138,7 @@
             "templateBasePath": "js/",
             "outputBasePath": "resources/static/assets/gen/js/",
             "fileSuffix": "js",
-            "writeSeparateFile": false,
+            "writeSeparateFile": true,
             "argumentSeparator": ",",
             "enableMultiAttributeIdOption": true,
             "dataTypes": {

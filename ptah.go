@@ -23,6 +23,7 @@ var purgeOutputFolders bool
 var verbose bool = false
 var bundles = make(map[string]map[string]string)
 var bundleTail = make(map[string]string)
+var caution = "/* !!! CAUTION - THIS FILE MUST NOT BE CHANGED !!!*/\n\n"
 
 func main() {
 
@@ -207,7 +208,7 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 	if err := os.MkdirAll(nameSpacePath, os.ModePerm); err != nil {
 		check(err)
 	}
-	if metaData.WriteSeparateFile {
+	if !metaData.WriteSeparateFile {
 		var tmap, tmapExists = bundles[templateDefinition.MetaData]
 		if !tmapExists {
 			tmap = make(map[string]string)
@@ -230,7 +231,7 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 	} else {
 		generatedFile, err := os.Create(outputFileName)
 		check(err)
-		generatedFile.WriteString("/* !!! CAUTION - THIS FILE MUST NOT BE CHANGED !!!*/\n\n")
+		generatedFile.WriteString(caution)
 
 		if err := t.Execute(generatedFile, entity); err != nil {
 			check(err)
@@ -298,7 +299,7 @@ func run(file string) error {
 			var metaData = project.MetaData[k]
 			generatedFile, err := os.Create(outputFolder + metaData.OutputBasePath + "bundled_" + k + "_script." + metaData.FileSuffix)
 			check(err)
-			generatedFile.WriteString("/* !!! CAUTION - THIS FILE MUST NOT BE CHANGED !!!*/\n\n")
+			generatedFile.WriteString(caution)
 			generatedFile.WriteString(content)
 
 		}
