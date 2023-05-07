@@ -2,9 +2,9 @@ package structure
 
 type Project struct {
 	Entities           []Entity                      `json:"entities"`
+	CommonAttributes   []Attribute                   `json:"commonAttributes"`
 	TemplateDefinition map[string]TemplateDefinition `json:"templateDefinition"`
 	MetaData           map[string]MetaData           `json:"metaData"`
-	CommonAttributes   []Attribute                   `json:"commonAttributes"`
 	DataGenerator      map[string]interface{}        `json:"dataGenerator"`
 }
 
@@ -12,16 +12,16 @@ type TemplateDefinition struct {
 	NameSpace   string `json:"nameSpace"`
 	NamePattern string `json:"namePattern"`
 	MetaData    string `json:"metaData"`
+	AppendToEnd bool   `json:"AppendToEnd"`
 }
 
 type MetaData struct {
 	BaseNameSpace                string                        `json:"baseNameSpace"`
 	TemplateBasePath             string                        `json:"templateBasepath"`
 	OutputBasePath               string                        `json:"outputBasepath"`
-	NamingStyle                  string                        `json:"namingStyle"`
 	ArgumentSeparator            string                        `json:"argumentSeparator"`
 	FileSuffix                   string                        `json:"fileSuffix"`
-	AllowBundledFile             bool                          `json:"allowBundledFile"`
+	WriteSeparateFile            bool                          `json:"writeSeparateFile"`
 	EnableMultiAttributeIdOption bool                          `json:"enableMultiAttributeIdOption"`
 	DataTypes                    map[string]DataTypeDefinition `json:"dataTypes"`
 }

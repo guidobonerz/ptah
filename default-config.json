@@ -5,6 +5,18 @@
             "namePattern": "%s",
             "metaData": "sql"
         },
+        "constraint": {
+            "nameSpace": "dbo",
+            "namePattern": "%s",
+            "metaData": "sql",
+            "appendToEnd": true
+        },
+        "index": {
+            "nameSpace": "dbo",
+            "namePattern": "%s",
+            "metaData": "sql",
+            "appendToEnd": true
+        },
         "view": {
             "nameSpace": "dbo",
             "namePattern": "%sView",
@@ -61,7 +73,7 @@
             "templateBasePath": "database/mssql/",
             "outputBasePath": "resources/dbscripts/",
             "fileSuffix": "sql",
-            "allowBundledFile": true,
+            "writeSeparateFile": true,
             "argumentSeparator": ",",
             "dataTypes": {
                 "string": {
@@ -92,7 +104,7 @@
             "templateBasePath": "spring/",
             "outputBasePath": "src/main/java/",
             "fileSuffix": "java",
-            "allowBundledFile": false,
+            "writeSeparateFile": false,
             "argumentSeparator": ",",
             "enableMultiAttributeIdOption": true,
             "dataTypes": {
@@ -126,7 +138,7 @@
             "templateBasePath": "js/",
             "outputBasePath": "resources/static/assets/gen/js/",
             "fileSuffix": "js",
-            "allowBundledFile": false,
+            "writeSeparateFile": false,
             "argumentSeparator": ",",
             "enableMultiAttributeIdOption": true,
             "dataTypes": {
@@ -222,12 +234,14 @@
             "name": "musician",
             "templateNames": [
                 "table",
+                "constraint",
+                "index",
                 "procedure",
                 "ajaxcontroller",
                 "jscontroller",
                 "dto",
-                "impl",
                 "service",
+                "impl",
                 "dao"
             ],
             "enableAdd": true,
@@ -267,6 +281,8 @@
             "name": "band",
             "templateNames": [
                 "table",
+                "constraint",
+                "index",
                 "procedure",
                 "ajaxcontroller",
                 "dto",
@@ -301,6 +317,8 @@
             "templateNames": [
                 "table",
                 "procedure",
+                "constraint",
+                "index",
                 "ajaxcontroller",
                 "dto",
                 "impl",

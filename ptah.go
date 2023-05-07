@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"de/drazil/ptah/structure"
 	"encoding/json"
 	"flag"
@@ -20,6 +21,8 @@ var inputFolder string
 var outputFolder string
 var purgeOutputFolders bool
 var verbose bool = false
+var bundles = make(map[string]map[string]string)
+var bundleTail = make(map[string]string)
 
 func main() {
 
@@ -204,15 +207,37 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 	if err := os.MkdirAll(nameSpacePath, os.ModePerm); err != nil {
 		check(err)
 	}
-	generatedFile, err := os.Create(outputFileName)
-	check(err)
-	generatedFile.WriteString("/* !!! CAUTION - THIS FILE MUST NOT BE CHANGED !!!*/\n\n")
+	if metaData.WriteSeparateFile {
+		var tmap, tmapExists = bundles[templateDefinition.MetaData]
+		if !tmapExists {
+			tmap = make(map[string]string)
+			bundles[templateDefinition.MetaData] = tmap
+		}
 
-	if err := t.Execute(generatedFile, entity); err != nil {
-		check(err)
+		var text = tmap[templateName]
+
+		var buffer bytes.Buffer
+		if err := t.Execute(&buffer, entity); err != nil {
+			check(err)
+		} else {
+			text += buffer.String()
+			tmap[templateName] = text
+			log.Printf("%s successfully buffered", templateName)
+		}
+		if templateDefinition.AppendToEnd {
+			bundleTail[templateName] = templateName
+		}
 	} else {
-		if verbose {
-			log.Printf("%s successfully written", outputFileName)
+		generatedFile, err := os.Create(outputFileName)
+		check(err)
+		generatedFile.WriteString("/* !!! CAUTION - THIS FILE MUST NOT BE CHANGED !!!*/\n\n")
+
+		if err := t.Execute(generatedFile, entity); err != nil {
+			check(err)
+		} else {
+			if verbose {
+				log.Printf("%s successfully written", outputFileName)
+			}
 		}
 	}
 }
@@ -255,7 +280,31 @@ func run(file string) error {
 			}
 		}
 	}
-	var duration = time.Now().Sub(start).Seconds()
+
+	if len(bundles) > 0 {
+		for k := range bundles {
+			var content string
+			var body string
+			var tail string
+			for key, value := range bundles[k] {
+				_, exists := bundleTail[key]
+				if exists {
+					tail += value + "\n"
+				} else {
+					body += value + "\n"
+				}
+			}
+			content += body + tail
+			var metaData = project.MetaData[k]
+			generatedFile, err := os.Create(outputFolder + metaData.OutputBasePath + "bundled_" + k + "_script." + metaData.FileSuffix)
+			check(err)
+			generatedFile.WriteString("/* !!! CAUTION - THIS FILE MUST NOT BE CHANGED !!!*/\n\n")
+			generatedFile.WriteString(content)
+
+		}
+	}
+
+	var duration = time.Since(start).Seconds()
 	log.Printf("parsing %d entities and wrote %d files in %f seconds.", len(project.Entities), templateCount, duration)
 	return nil
 }
