@@ -1,4 +1,3 @@
-{{- $pkList := getPrimaryAttributes}}
 {{- $attributeList := getAttributes}}
 if object_id(N'[{{getNameSpace}}].[{{getCamelCaseName $.Name}}]','U') is null
 BEGIN

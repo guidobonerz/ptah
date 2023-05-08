@@ -337,16 +337,16 @@
                     "primaryKey": true,
                     "dataTypeKey": "long",
                     "allowNull": false,
-                    "refEntity": "musician",
-                    "refAttribute": "id"
+                    "refEntityName": "musician",
+                    "refAttributeName": "id"
                 },
                 {
                     "name": "bandId",
                     "primaryKey": true,
                     "dataTypeKey": "long",
                     "allowNull": false,
-                    "refEntity": "band",
-                    "refAttribute": "id"
+                    "refEntityName": "band",
+                    "refAttributeName": "id"
                 }
             ]
         }
