@@ -76,7 +76,7 @@
                 "index"
             ],
             "templateBasePath": "database/mssql/",
-            "outputBasePath": "resources/dbscripts/",
+            "outputBasePath": "src/main/resources/dbscripts/",
             "fileSuffix": "sql",
             "writeSeparateFile": false,
             "argumentSeparator": ",",
@@ -105,7 +105,7 @@
             }
         },
         "java": {
-            "baseNameSpace": "de.drazil.test.generated",
+            "baseNameSpace": "com.thyssenkrupp.ptahtest.generated",
             "templateBasePath": "spring/",
             "outputBasePath": "src/main/java/",
             "fileSuffix": "java",
@@ -141,7 +141,7 @@
         },
         "js": {
             "templateBasePath": "js/",
-            "outputBasePath": "resources/static/assets/gen/js/",
+            "outputBasePath": "src/main/resources/static/assets/gen/js/",
             "fileSuffix": "js",
             "writeSeparateFile": true,
             "argumentSeparator": ",",

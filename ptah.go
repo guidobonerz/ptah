@@ -28,7 +28,7 @@ func main() {
 
 	flag.StringVar(&configFile, "cf", "default-config.json", "project config file")
 	flag.StringVar(&inputFolder, "in", "templates/", "template base path")
-	flag.StringVar(&outputFolder, "out", "results/", "generated file base path")
+	flag.StringVar(&outputFolder, "out", "c:/Users/10035120/git/ptah_test_project/", "generated file base path")
 	flag.BoolVar(&purgeOutputFolders, "p", true, "purge all output folders before writing")
 	flag.BoolVar(&verbose, "v", true, "verbose mode")
 
@@ -86,7 +86,6 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 		fullNameSpace += metaData.BaseNameSpace + "."
 	}
 	fullNameSpace += templateDefinition.NameSpace
-
 	var nameSpacePath = outputFolder + metaData.OutputBasePath + strings.Replace(fullNameSpace+".", ".", "/", -1)
 	var objectName = fmt.Sprintf(templateDefinition.NamePattern, strings.Title(entity.Name))
 	var outputFileName = nameSpacePath + objectName + "." + metaData.FileSuffix
@@ -224,6 +223,7 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 		}
 
 	} else {
+
 		generatedFile, err := os.Create(outputFileName)
 		check(err)
 		generatedFile.WriteString(caution)
@@ -246,16 +246,23 @@ func run(file string) error {
 	fmt.Println("successfully opened project file")
 	defer controlFile.Close()
 
-	if purgeOutputFolders {
-		err := os.RemoveAll(outputFolder)
-		log.Printf("purge folder [ %s ]", outputFolder)
-		check(err)
-	}
 	byteValue, _ := ioutil.ReadAll(controlFile)
 
 	var project structure.Project
 	json.Unmarshal(byteValue, &project)
 	var templateCount int = 0
+
+	if purgeOutputFolders {
+		for _, metaData := range project.MetaData {
+			var path = strings.Replace(outputFolder+metaData.OutputBasePath+metaData.BaseNameSpace, ".", "/", -1) + "/"
+			err := os.RemoveAll(path)
+			log.Printf("purge folder [ %s ]", path)
+			if err != nil {
+				fmt.Println("no need to remove folder")
+			}
+		}
+	}
+
 	for _, entity := range project.Entities {
 		var primaryAttributes = getPrimaryAttributes(entity.Attributes)
 		var multiAttributeIdOptionUsed = false
