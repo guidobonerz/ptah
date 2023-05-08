@@ -85,9 +85,9 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 	if metaData.BaseNameSpace != "" {
 		fullNameSpace += metaData.BaseNameSpace + "."
 	}
-	fullNameSpace += templateDefinition.NameSpace + "."
+	fullNameSpace += templateDefinition.NameSpace
 
-	var nameSpacePath = outputFolder + metaData.OutputBasePath + strings.Replace(fullNameSpace, ".", "/", -1)
+	var nameSpacePath = outputFolder + metaData.OutputBasePath + strings.Replace(fullNameSpace+".", ".", "/", -1)
 	var objectName = fmt.Sprintf(templateDefinition.NamePattern, strings.Title(entity.Name))
 	var outputFileName = nameSpacePath + objectName + "." + metaData.FileSuffix
 	var templateFileName = templateName + ".go.tpl"

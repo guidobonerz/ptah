@@ -204,7 +204,7 @@
             "defaultValue": "0"
         },
         {
-            "name": "phanton",
+            "name": "phantom",
             "dataType": "boolean",
             "allowNull": false,
             "defaultValue": "0"
