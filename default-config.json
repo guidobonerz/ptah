@@ -87,7 +87,7 @@
                     "hasSize": true,
                     "maxSize": "MAX"
                 },
-                "integer": {
+                "long": {
                     "dataType": "bigint",
                     "nonNullDataType": "bigint",
                     "hasSize": false
@@ -258,8 +258,8 @@
             "attributes": [
                 {
                     "name": "id",
-                    "dataTypeKey": true,
-                    "dataType": "long",
+                    "primaryKey": true,
+                    "dataTypeKey": "long",
                     "allowNull": false,
                     "autoId": true
                 },
@@ -274,11 +274,6 @@
                     "dataTypeKey": "string",
                     "allowNull": true,
                     "size": -1
-                },
-                {
-                    "name": "nummer",
-                    "dataTypeKey": "int",
-                    "allowNull": true
                 }
             ]
         },

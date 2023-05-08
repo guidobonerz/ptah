@@ -1,1 +1,2 @@
-here are the {{$.Name}} indexes
+
+-- {{$.Name}} indexes goes here
