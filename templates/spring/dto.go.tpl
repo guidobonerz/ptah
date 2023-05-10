@@ -10,7 +10,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+{{- if hasMultiplePrimaryAttriutes}}
+import javax.persistence.EmbeddedId;
+{{- else}}
 import javax.persistence.Id;
+{{- end}}
 import javax.persistence.Table;
 import java.io.Serializable;
 
@@ -31,7 +35,7 @@ public class {{getObjectName "dto"}} implements Serializable {
     {{- range $index,$attribute := $attributeList }}
     {{ if $attribute.PrimaryKey}}@Id{{- end}}
     @JsonProperty("{{$attribute.Name}}")
-    @Column(name = "[{{$attribute.Name}}]", nullable = {{- if $attribute.AllowNull}} true{{- else}} false{{- end}})
+    @Column(name = "[{{$attribute.Name}}]", nullable = {{ if $attribute.AllowNull}}true{{- else}}false{{- end}} {{- if needSize $attribute false}}, length={{getSize $attribute}} {{- end}})
     private {{ getDataType $attribute }} {{$attribute.Name}};
     {{- end}}
     {{- end}}

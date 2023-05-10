@@ -7,6 +7,7 @@ package {{getFullNameSpace}};
 
 import java.util.List;
 import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -96,7 +97,7 @@ public class {{$daoName}} {
     }
 
     public List<{{$dtoName}}> list(int start, int limit, java.lang.String searchText, List<Sorter> sorterList, List<Filter> filterList){
-        return null;List
+        return null;
     }
 
     public long count(){
@@ -138,7 +139,7 @@ public class {{$daoName}} {
     }
 
     public int add({{$dtoName}} item){
-        return add({{- range $index,$attribute := $attributeList }}item.get{{getCamelCaseName $attribute.Name}}(){{getArgumentSeparator $index $attributeList}}{{- end}})
+        return add({{- range $index,$attribute := $attributeList }}item.get{{getCamelCaseName $attribute.Name}}(){{getArgumentSeparator $index $attributeList}}{{- end}});
     }
 
     public int add({{- range $index,$attribute := $attributeList }}{{getDataType $attribute}} {{$attribute.Name}}{{getArgumentSeparator $index $attributeList}}{{- end}}){

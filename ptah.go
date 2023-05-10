@@ -122,8 +122,13 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 		"getCamelCaseName": func(name string) string {
 			return strings.Title(name)
 		},
-		"hasSize": func(attribute structure.Attribute) bool {
-			return metaData.DataTypes[attribute.DataTypeKey].HasSize
+
+		"needSize": func(attribute structure.Attribute, includeMaxSize bool) bool {
+			var needSize bool = false
+			if metaData.DataTypes[attribute.DataTypeKey].HasSize && (attribute.Size > 0 || (attribute.Size == -1 && includeMaxSize)) {
+				needSize = true
+			}
+			return needSize
 		},
 		"getSize": func(attribute structure.Attribute) string {
 			var size = ""
@@ -254,7 +259,7 @@ func run(file string) error {
 
 	if purgeOutputFolders {
 		for _, metaData := range project.MetaData {
-			var path = strings.Replace(outputFolder+metaData.OutputBasePath+metaData.BaseNameSpace, ".", "/", -1) + "/"
+			var path = strings.Replace(outputFolder+metaData.OutputBasePath+metaData.BaseNameSpace, ".", "/", -1)
 			err := os.RemoveAll(path)
 			log.Printf("purge folder [ %s ]", path)
 			if err != nil {

@@ -9,9 +9,11 @@ package {{getFullNameSpace}};
 
 import {{getFullObjectName "dao"}};
 import {{getFullObjectName "dto"}};
+import {{getFullObjectName "service"}};
 
 import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class {{$implName}}  implements {{$serviceName}}{
@@ -104,7 +106,7 @@ public class {{$implName}}  implements {{$serviceName}}{
     }
 
     public long count(int start, int limit){
-        return dao.count(int start, int limit);
+        return dao.count(start, limit);
     }
 
     public long count(int start, int limit, java.lang.String searchText){

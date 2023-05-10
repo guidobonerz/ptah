@@ -5,7 +5,7 @@ CREATE PROCEDURE HANDLE_PROJECT
 (
 	@action nvarchar(30),
     {{- range $index,$attribute := $.Attributes }}
-	@{{ $attribute.Name }} {{getDataType $attribute }}{{- if hasSize $attribute}}({{getSize $attribute}}){{- end}}{{- getArgumentSeparator $index $.Attributes}}
+	@{{ $attribute.Name }} {{getDataType $attribute }}{{- if needSize $attribute true}}({{getSize $attribute}}){{- end}}{{- getArgumentSeparator $index $.Attributes}}
 	{{- end}}
 )
 AS

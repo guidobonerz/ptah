@@ -2,6 +2,7 @@ package structure
 
 type Project struct {
 	Entities           []Entity                      `json:"entities"`
+	VirtualEntities    []VirtualEntity               `json:"virtualEntities"`
 	CommonAttributes   []Attribute                   `json:"commonAttributes"`
 	TemplateDefinition map[string]TemplateDefinition `json:"templateDefinition"`
 	MetaData           map[string]MetaData           `json:"metaData"`
@@ -49,6 +50,17 @@ type Entity struct {
 	FakeDataRendererKey     string      `json:"fakeDataRendererKey"`
 	Attributes              []Attribute `json:"attributes"`
 	Index                   []Index     `json:"index"`
+}
+
+type VirtualEntity struct {
+	Name             string      `json:"name"`
+	TemplateNames    []string    `json:"templateNames"`
+	EnableSort       bool        `json:"enableSort"`
+	EnableFilter     bool        `json:"enableFilter"`
+	EnableSearch     bool        `json:"enableSearch"`
+	EnablePagination bool        `json:"enablePagination"`
+	Attributes       []Attribute `json:"attributes"`
+	Source           string      `json:"source"`
 }
 
 type Attribute struct {

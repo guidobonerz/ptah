@@ -31,7 +31,7 @@ import {{getFullObjectName "dto"}};
 @Controller
 @Slf4j
 @RequestMapping("api/{{$name}}")
-public class {{$controllerName}} extends BaseController {
+public class {{$controllerName}} {
    
     @Autowired
     private MessageSource messageSource;

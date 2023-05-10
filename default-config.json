@@ -105,7 +105,7 @@
             }
         },
         "java": {
-            "baseNameSpace": "com.thyssenkrupp.ptahtest.generated",
+            "baseNameSpace": "de.drazil.ptahtest.generated",
             "templateBasePath": "spring/",
             "outputBasePath": "src/main/java/",
             "fileSuffix": "java",
@@ -115,7 +115,8 @@
             "dataTypes": {
                 "string": {
                     "dataType": "java.lang.String",
-                    "nonNullDataType": "java.lang.String"
+                    "nonNullDataType": "java.lang.String",
+                    "hasSize": true
                 },
                 "int": {
                     "dataType": "java.lang.Integer",
@@ -177,41 +178,41 @@
     "commonAttributes": [
         {
             "name": "createUser",
-            "dataType": "long",
+            "dataTypeKey": "long",
             "allowNull": false
         },
         {
             "name": "createDate",
-            "dataType": "date",
+            "dataTypeKey": "date",
             "allowNull": false,
             "defaultValue": "getdate()"
         },
         {
             "name": "editUser",
-            "dataType": "long",
+            "dataTypeKey": "long",
             "allowNull": false
         },
         {
             "name": "editDate",
-            "dataType": "date",
+            "dataTypeKey": "date",
             "allowNull": false,
             "defaultValue": "getdate()"
         },
         {
             "name": "version",
-            "dataType": "long",
+            "dataTypeKey": "long",
             "allowNull": false,
             "defaultValue": "0"
         },
         {
             "name": "phantom",
-            "dataType": "boolean",
+            "dataTypeKey": "boolean",
             "allowNull": false,
             "defaultValue": "0"
         },
         {
             "name": "deleted",
-            "dataType": "boolean",
+            "dataTypeKey": "boolean",
             "allowNull": false,
             "defaultValue": "0"
         }
