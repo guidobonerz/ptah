@@ -64,6 +64,26 @@
             "nameSpace": "controller",
             "namePattern": "%sController",
             "metaData": "js"
+        },
+        "filter": {
+            "nameSpace": "util",
+            "namePattern": "Filter",
+            "metaData": "java"
+        },
+        "sorter": {
+            "nameSpace": "util",
+            "namePattern": "Sorter",
+            "metaData": "java"
+        },
+        "ajaxResponse": {
+            "nameSpace": "util",
+            "namePattern": "AjaxResponse",
+            "metaData": "js"
+        },
+        "result": {
+            "nameSpace": "util",
+            "namePattern": "Result",
+            "metaData": "java"
         }
     },
     "metaData": {
@@ -175,6 +195,10 @@
             }
         }
     },
+    "commonTemplateNames": [
+        "filter",
+        "sorter"
+    ],
     "commonAttributes": [
         {
             "name": "createUser",

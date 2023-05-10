@@ -1,12 +1,13 @@
 package structure
 
 type Project struct {
-	Entities           []Entity                      `json:"entities"`
-	VirtualEntities    []VirtualEntity               `json:"virtualEntities"`
-	CommonAttributes   []Attribute                   `json:"commonAttributes"`
-	TemplateDefinition map[string]TemplateDefinition `json:"templateDefinition"`
-	MetaData           map[string]MetaData           `json:"metaData"`
-	DataGenerator      map[string]interface{}        `json:"dataGenerator"`
+	Entities            []Entity                      `json:"entities"`
+	VirtualEntities     []VirtualEntity               `json:"virtualEntities"`
+	CommonAttributes    []Attribute                   `json:"commonAttributes"`
+	TemplateDefinition  map[string]TemplateDefinition `json:"templateDefinition"`
+	MetaData            map[string]MetaData           `json:"metaData"`
+	DataGenerator       map[string]interface{}        `json:"dataGenerator"`
+	StaticTemplateNames []string                      `json:"staticTemplateNames"`
 }
 
 type TemplateDefinition struct {
