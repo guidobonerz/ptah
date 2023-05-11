@@ -45,7 +45,7 @@ func main() {
 	flag.Parse()
 
 	if configFile == "" {
-		fmt.Printf("ERROR: config file should NOT be empty")
+		fmt.Printf("ERROR: config file MUST NOT be empty")
 		flag.Usage()
 		os.Exit(1)
 	}
@@ -58,7 +58,7 @@ func check(e error) {
 	}
 }
 
-func getPrimaryAttributes(attributes []structure.Attribute) []structure.Attribute {
+func collectPrimaryAttributes(attributes []structure.Attribute) []structure.Attribute {
 	var pkAttribute []structure.Attribute
 	var list []structure.Attribute = attributes
 	for i := 0; i < len(list); i++ {
@@ -79,7 +79,7 @@ func getCommonAttributes(attributes []structure.Attribute) []structure.Attribute
 }
 
 func processTemplate(project structure.Project, entity structure.Entity, templateName string, templateDefinition structure.TemplateDefinition, metaData structure.MetaData) {
-	var primaryAttributes = getPrimaryAttributes(entity.Attributes)
+	var primaryAttributes = collectPrimaryAttributes(entity.Attributes)
 	var fullNameSpace = ""
 
 	if metaData.BaseNameSpace != "" {
@@ -141,10 +141,10 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 			}
 			return size
 		},
-		"getArgumentSeparator": func(index int, attributes []structure.Attribute) string {
+		"getAttributeSeparator": func(index int, attributes []structure.Attribute) string {
 			var separator = ""
 			if len(attributes)-1 != index {
-				separator = metaData.ArgumentSeparator + " "
+				separator = metaData.AttributeSeparator + " "
 			}
 			return separator
 		},
@@ -268,10 +268,55 @@ func run(file string) error {
 		}
 	}
 
+	var templateDefinition structure.TemplateDefinition
+
+	for _, commonTemplateName := range project.CommonTemplateNames {
+		templateDefinition = project.TemplateDefinition[commonTemplateName]
+		var metaData = project.MetaData[templateDefinition.MetaData]
+		var fullNameSpace = ""
+
+		if metaData.BaseNameSpace != "" {
+			fullNameSpace += metaData.BaseNameSpace + "."
+		}
+		fullNameSpace += templateDefinition.NameSpace
+		var nameSpacePath = outputFolder + metaData.OutputBasePath + strings.Replace(fullNameSpace+".", ".", "/", -1)
+		var objectName = templateDefinition.NamePattern
+		var outputFileName = nameSpacePath + objectName + "." + metaData.FileSuffix
+		var templateFileName = commonTemplateName + ".go.tpl"
+		var templatePathName = inputFolder + metaData.TemplateBasePath + templateFileName
+		t, err := template.New(templateFileName).Funcs(template.FuncMap{
+			"getFullNameSpace": func() string {
+				return fullNameSpace
+			},
+			"getObjectName": func(templateName string) string {
+				templateDefinition = project.TemplateDefinition[templateName]
+				return templateDefinition.NamePattern
+			},
+			"getUid": func() uint32 {
+				algorithm := fnv.New32()
+				algorithm.Write([]byte(objectName))
+				return algorithm.Sum32()
+			}}).ParseFiles(templatePathName)
+		check(err)
+		if err := os.MkdirAll(nameSpacePath, os.ModePerm); err != nil {
+			check(err)
+		}
+		generatedFile, err := os.Create(outputFileName)
+		check(err)
+		generatedFile.WriteString(caution)
+
+		if err := t.Execute(generatedFile, nil); err != nil {
+			check(err)
+		} else {
+			if verbose {
+				log.Printf("%s successfully written", outputFileName)
+			}
+		}
+	}
+
 	for _, entity := range project.Entities {
-		var primaryAttributes = getPrimaryAttributes(entity.Attributes)
+		var primaryAttributes = collectPrimaryAttributes(entity.Attributes)
 		var multiAttributeIdOptionUsed = false
-		var templateDefinition structure.TemplateDefinition
 		var metaData structure.MetaData
 		for _, templateName := range entity.TemplateNames {
 			templateDefinition = project.TemplateDefinition[templateName]

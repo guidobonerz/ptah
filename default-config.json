@@ -66,19 +66,19 @@
             "metaData": "js"
         },
         "filter": {
-            "nameSpace": "util",
+            "nameSpace": "model",
             "namePattern": "Filter",
             "metaData": "java"
         },
         "sorter": {
-            "nameSpace": "util",
+            "nameSpace": "model",
             "namePattern": "Sorter",
             "metaData": "java"
         },
-        "ajaxResponse": {
-            "nameSpace": "util",
+        "ajaxresponse": {
+            "nameSpace": "model",
             "namePattern": "AjaxResponse",
-            "metaData": "js"
+            "metaData": "java"
         },
         "result": {
             "nameSpace": "util",
@@ -99,7 +99,7 @@
             "outputBasePath": "src/main/resources/dbscripts/",
             "fileSuffix": "sql",
             "writeSeparateFile": false,
-            "argumentSeparator": ",",
+            "attributeSeparator": ",",
             "dataTypes": {
                 "string": {
                     "dataType": "nvarchar",
@@ -130,24 +130,24 @@
             "outputBasePath": "src/main/java/",
             "fileSuffix": "java",
             "writeSeparateFile": true,
-            "argumentSeparator": ",",
+            "attributeSeparator": ",",
             "enableMultiAttributeIdOption": true,
             "dataTypes": {
                 "string": {
-                    "dataType": "java.lang.String",
-                    "nonNullDataType": "java.lang.String",
+                    "dataType": "String",
+                    "nonNullDataType": "String",
                     "hasSize": true
                 },
                 "int": {
-                    "dataType": "java.lang.Integer",
+                    "dataType": "Integer",
                     "nonNullDataType": "int"
                 },
                 "long": {
-                    "dataType": "java.lang.Long",
+                    "dataType": "Long",
                     "nonNullDataType": "long"
                 },
                 "double": {
-                    "dataType": "java.lang.Double",
+                    "dataType": "Double",
                     "nonNullDataType": "double"
                 },
                 "date": {
@@ -155,7 +155,7 @@
                     "nonNullDataType": "java.util.Date"
                 },
                 "boolean": {
-                    "dataType": "java.lang.Boolean",
+                    "dataType": "Boolean",
                     "nonNullDataType": "boolean"
                 }
             }
@@ -165,39 +165,40 @@
             "outputBasePath": "src/main/resources/static/assets/gen/js/",
             "fileSuffix": "js",
             "writeSeparateFile": true,
-            "argumentSeparator": ",",
+            "attributeSeparator": ",",
             "enableMultiAttributeIdOption": true,
             "dataTypes": {
                 "string": {
-                    "dataType": "java.lang.String",
-                    "nonNullDataType": "java.lang.String"
+                    "dataType": "",
+                    "nonNullDataType": ""
                 },
                 "int": {
-                    "dataType": "java.lang.Integer",
-                    "nonNullDataType": "int"
+                    "dataType": "",
+                    "nonNullDataType": ""
                 },
                 "long": {
-                    "dataType": "java.lang.Long",
-                    "nonNullDataType": "long"
+                    "dataType": "",
+                    "nonNullDataType": ""
                 },
                 "double": {
-                    "dataType": "java.lang.Double",
-                    "nonNullDataType": "double"
+                    "dataType": "",
+                    "nonNullDataType": ""
                 },
                 "date": {
-                    "dataType": "java.util.Date",
-                    "nonNullDataType": "java.util.Date"
+                    "dataType": "",
+                    "nonNullDataType": ""
                 },
                 "boolean": {
-                    "dataType": "java.lang.Boolean",
-                    "nonNullDataType": "boolean"
+                    "dataType": "",
+                    "nonNullDataType": ""
                 }
             }
         }
     },
     "commonTemplateNames": [
         "filter",
-        "sorter"
+        "sorter",
+        "ajaxresponse"
     ],
     "commonAttributes": [
         {

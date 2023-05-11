@@ -5,7 +5,7 @@ CREATE PROCEDURE HANDLE_PROJECT
 (
 	@action nvarchar(30),
     {{- range $index,$attribute := $.Attributes }}
-	@{{ $attribute.Name }} {{getDataType $attribute }}{{- if needSize $attribute true}}({{getSize $attribute}}){{- end}}{{- getArgumentSeparator $index $.Attributes}}
+	@{{ $attribute.Name }} {{getDataType $attribute }}{{- if needSize $attribute true}}({{getSize $attribute}}){{- end}}{{- getAttributeSeparator $index $.Attributes}}
 	{{- end}}
 )
 AS
@@ -20,14 +20,14 @@ BEGIN
 	if  (@action ='ADD')
 		begin
 			
-			insert into [{{getNameSpace}}].[{{getObjectName "table"}}]({{- range $index,$attribute := $.Attributes }}{{ $attribute.Name }}{{- getArgumentSeparator $index $.Attributes}}{{- end}}) 
-			values ({{- range $index,$attribute := $.Attributes }}@{{ $attribute.Name }}{{- getArgumentSeparator $index $.Attributes}}{{- end}}) 
+			insert into [{{getNameSpace}}].[{{getObjectName "table"}}]({{- range $index,$attribute := $.Attributes }}{{ $attribute.Name }}{{- getAttributeSeparator $index $.Attributes}}{{- end}}) 
+			values ({{- range $index,$attribute := $.Attributes }}@{{ $attribute.Name }}{{- getAttributeSeparator $index $.Attributes}}{{- end}}) 
 			set @newId=@@IDENTITY
 		end
 	else
 	if (@action ='UPDATE')
 		begin
-		update [{{getNameSpace}}].[{{getObjectName "table"}}] set {{ range $index,$attribute := $.Attributes }}[{{ $attribute.Name }}]=@{{ $attribute.Name }}{{- getArgumentSeparator $index $.Attributes}}{{- end}}
+		update [{{getNameSpace}}].[{{getObjectName "table"}}] set {{ range $index,$attribute := $.Attributes }}[{{ $attribute.Name }}]=@{{ $attribute.Name }}{{- getAttributeSeparator $index $.Attributes}}{{- end}}
 		where id=@id;
 		set @newId=@id
 		end

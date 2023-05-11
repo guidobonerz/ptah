@@ -27,10 +27,11 @@ import lombok.extern.slf4j.Slf4j;
 
 import {{getFullObjectName "service"}};
 import {{getFullObjectName "dto"}};
+import {{getFullObjectName "ajaxresponse"}};
 
-@Controller
+@RestController
 @Slf4j
-@RequestMapping("api/{{$name}}")
+@RequestMapping("rest/{{$name}}")
 public class {{$controllerName}} {
    
     @Autowired
@@ -41,7 +42,7 @@ public class {{$controllerName}} {
 
     @GetMapping("get/{id}")
     @ResponseBody
-    public AjaxResponse<String, {{$dtoName}}> get(@PathVariable(required = false) Long id) {
+    public AjaxResponse<String, {{$dtoName}}> get(final @PathVariable(required = false) Long id) {
         log.info("call get:{{$name}}");
         AjaxResponse<String, {{$dtoName}}> response = new AjaxResponse<>(false, "failed to get {{$name}}");
         Result<{{$dtoName}}> result = null;

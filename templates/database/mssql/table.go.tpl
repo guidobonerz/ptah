@@ -7,7 +7,7 @@ CREATE TABLE [{{getNameSpace}}].[{{getCamelCaseName $.Name}}](
 		{{- if $attribute.AutoId}} IDENTITY(1,1){{- end}}
 		{{- if $attribute.AllowNull}} NULL{{- else}} NOT NULL{{- end}}
 		{{- if $attribute.DefaultValue}} DEFAULT ({{$attribute.DefaultValue}}){{- end}}
-		{{- getArgumentSeparator $index $attributeList}}
+		{{- getAttributeSeparator $index $attributeList}}
 	{{- end}}
 ) ON [PRIMARY]
 END
@@ -21,7 +21,7 @@ CREATE TABLE [{{getNameSpace}}].[{{getCamelCaseName $.Name}}History](
 	{{- range $index,$attribute := $attributeList }}
 		[{{ $attribute.Name }}] {{ getDataType $attribute }}{{- if needSize $attribute true}}({{getSize $attribute}}){{- end}}
 		{{- if $attribute.PrimaryKey}} NOT NULL{{- else}} NULL{{- end}}
-		{{- getArgumentSeparator $index $attributeList}}
+		{{- getAttributeSeparator $index $attributeList}}
 	{{- end}}
 ) ON [PRIMARY]
 END

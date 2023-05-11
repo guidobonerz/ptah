@@ -7,7 +7,7 @@ type Project struct {
 	TemplateDefinition  map[string]TemplateDefinition `json:"templateDefinition"`
 	MetaData            map[string]MetaData           `json:"metaData"`
 	DataGenerator       map[string]interface{}        `json:"dataGenerator"`
-	StaticTemplateNames []string                      `json:"staticTemplateNames"`
+	CommonTemplateNames []string                      `json:"commonTemplateNames"`
 }
 
 type TemplateDefinition struct {
@@ -20,7 +20,7 @@ type MetaData struct {
 	BaseNameSpace                string                        `json:"baseNameSpace"`
 	TemplateBasePath             string                        `json:"templateBasepath"`
 	OutputBasePath               string                        `json:"outputBasepath"`
-	ArgumentSeparator            string                        `json:"argumentSeparator"`
+	AttributeSeparator           string                        `json:"attributeSeparator"`
 	FileSuffix                   string                        `json:"fileSuffix"`
 	WriteSeparateFile            bool                          `json:"writeSeparateFile"`
 	EnableMultiAttributeIdOption bool                          `json:"enableMultiAttributeIdOption"`
