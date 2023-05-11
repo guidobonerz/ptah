@@ -73,8 +73,8 @@ public class {{$controllerName}} {
             final Result<{{$dtoName}}> result = service.list(search, start, length);
             response.setData(result.getResultList());
             response.setTotal(result.getTotal());
-        } catch (final Exception e) {
-            log.error("failed to list {{$name}}", e);
+        } catch (final Exception ex) {
+            log.error("failed to list {{$name}}", ex);
             response.setTotal(0);
             response.setSuccess(false);
             response.setMessage("failed to list {{$name}}");
@@ -89,8 +89,8 @@ public class {{$controllerName}} {
         final AjaxResponse<String, String> response = new AjaxResponse<>(true, "{{$name}} successfully added");
         try {
             service.add(item);
-        } catch (final Exception e) {
-            log.error("failed to add {{$name}}", e);
+        } catch (final Exception ex) {
+            log.error("failed to add {{$name}}", ex);
             response.setTotal(0);
             response.setSuccess(false);
             response.setMessage("failed to add {{$name}}");
@@ -105,8 +105,8 @@ public class {{$controllerName}} {
         final AjaxResponse<String, String> response = new AjaxResponse<>(true, "{{$name}} successfully updated");
         try {
             service.update(item);
-        } catch (final Exception e) {
-            log.error("failed to update {{$name}}", e);
+        } catch (final Exception ex) {
+            log.error("failed to update {{$name}}", ex);
             response.setTotal(0);
             response.setSuccess(false);
             response.setMessage("failed to update {{$name}}");
@@ -121,8 +121,8 @@ public class {{$controllerName}} {
         final AjaxResponse<String, String> response = new AjaxResponse<>(true, "{{$name}} successfully deleted");
         try {
             service.delete(item);
-        } catch (final Exception e) {
-            log.error("failed to delete {{$name}}", e);
+        } catch (final Exception ex) {
+            log.error("failed to delete {{$name}}", ex);
             response.setTotal(0);
             response.setSuccess(false);
             response.setMessage("failed to delete {{$name}}");

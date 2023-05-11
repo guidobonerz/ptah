@@ -376,5 +376,36 @@
                 }
             ]
         }
+    ],
+    "virtualEntities": [
+        {
+            "name": "musicianoverview",
+            "templateNames": [
+                "view"
+            ],
+            
+            
+            "attributes": [
+                {
+                    "name": "id",
+                    "primaryKey": true,
+                    "dataTypeKey": "long",
+                    "allowNull": false,
+                    "autoId": true
+                },
+                {
+                    "name": "firstName",
+                    "dataTypeKey": "string",
+                    "allowNull": false,
+                    "size": 50
+                },
+                {
+                    "name": "lastName",
+                    "dataTypeKey": "string",
+                    "allowNull": true,
+                    "size": -1
+                }
+            ]
+        }
     ]
 }

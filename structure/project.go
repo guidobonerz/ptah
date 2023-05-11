@@ -62,6 +62,7 @@ type VirtualEntity struct {
 	EnablePagination bool        `json:"enablePagination"`
 	Attributes       []Attribute `json:"attributes"`
 	Source           string      `json:"source"`
+	SourceType       int         `json:"sourceType"` // 0:string content ; 1:filename
 }
 
 type Attribute struct {
