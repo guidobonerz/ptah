@@ -54,15 +54,7 @@ public interface {{$serviceName}} {
     public long count(final List<Filter> filterList);    
 
     public long count(final String searchText, final List<Filter> filterList);
-
-    public long count(final int start, final int limit);
-
-    public long count(final int start, final int limit, final String searchText);    
-
-    public long count(final int start, final int limit, final List<Filter> filterList);    
-
-    public long count(final int start, final int limit, final String searchText, final List<Filter> filterList);   
-
+    
     public void add(final List<{{$dtoName}}> list) ;
 
     public int add(final {{$dtoName}} item) ;

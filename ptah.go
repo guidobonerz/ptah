@@ -120,7 +120,13 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 		},
 		"getObjectName": func(templateName string) string {
 			templateDefinition = project.TemplateDefinition[templateName]
-			return fmt.Sprintf(templateDefinition.NamePattern, strings.Title(entity.Name))
+			var name string
+			if strings.Contains(templateDefinition.NamePattern, "%s") {
+				name = fmt.Sprintf(templateDefinition.NamePattern, strings.Title(entity.Name))
+			} else {
+				name = templateDefinition.NamePattern
+			}
+			return name
 		},
 		"getUpperCaseName": func(name string) string {
 			return strings.ToUpper(name)

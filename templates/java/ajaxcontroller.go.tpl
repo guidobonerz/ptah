@@ -6,6 +6,9 @@ package {{getFullNameSpace}};
 {{- $controllerName := getObjectName "ajaxcontroller"}}
 {{- $dtoName := getObjectName "dto"}}
 {{- $serviceName := getObjectName "service"}}
+{{- $sorter := getObjectName "sorter"}}
+{{- $filter := getObjectName "filter"}}
+
 
 import java.util.List;
 import java.util.Locale;
@@ -28,6 +31,8 @@ import lombok.extern.slf4j.Slf4j;
 import {{getFullObjectName "service"}};
 import {{getFullObjectName "dto"}};
 import {{getFullObjectName "ajaxresponse"}};
+import {{getFullObjectName "sorter"}};
+import {{getFullObjectName "filter"}};
 
 @RestController
 @Slf4j
@@ -44,7 +49,7 @@ public class {{$controllerName}} {
     @ResponseBody
     public AjaxResponse<String, {{$dtoName}}> get(final @PathVariable(required = false) Long id) {
         log.info("call get:{{$name}}");
-        AjaxResponse<String, {{$dtoName}}> response = new AjaxResponse<>(false, "failed to get {{$name}}");
+        AjaxResponse<String, {{$dtoName}}> response = new AjaxResponse<>(true, "{{$name}} get successfully");
         Result<{{$dtoName}}> result = null;
         try {
             result = service.get(id);
@@ -52,7 +57,7 @@ public class {{$controllerName}} {
             response.setData(result.getResultList().get(0));
             response.setTotal(1);
         } catch (Exception ex) {
-            log.error("error get {{$name}}", ex);
+            log.error("failed to get {{$name}}", ex);
             response.setTotal(0);
             response.setSuccess(false);
             response.setMessage("failed to get {{$name}}");
@@ -68,9 +73,14 @@ public class {{$controllerName}} {
             @RequestParam(name = "sort", required = false) final String sort,
             @RequestParam(name = "filter", required = false) final String filter) {
         log.info("call list:{{$name}}");
-        final AjaxResponse<String, List<{{$dtoName}}>> response = new AjaxResponse<>(false,"{{$name}} successfully listet");
+        final AjaxResponse<String, List<{{$dtoName}}>> response = new AjaxResponse<>(true,"{{$name}} successfully listet");
         try {
-            final Result<{{$dtoName}}> result = service.list(search, start, length);
+
+            List<{{$sorter}}> sorterList = null;
+            List<{{$filter}}> filterList = null;
+
+            final List<{{$dtoName}}> list = service.list(start, length, search, sorterList, filterList);
+            int = service.count(start, length, search, sorter, filter);
             response.setData(result.getResultList());
             response.setTotal(result.getTotal());
         } catch (final Exception ex) {

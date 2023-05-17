@@ -106,23 +106,7 @@ public class {{$implName}}  implements {{$serviceName}}{
     public long count(final String searchText, final List<Filter> filterList){
         return dao.count(searchText, filterList);
     }
-
-    public long count(final int start, final int limit){
-        return dao.count(start, limit);
-    }
-
-    public long count(final int start, final int limit, final String searchText){
-        return dao.count(start, limit, searchText);
-    }
-
-    public long count(final int start, final int limit, final List<Filter> filterList){
-        return dao.count(start, limit, filterList);
-    }
-
-    public long count(final int start, final int limit, final String searchText, final List<Filter> filterList){
-        return dao.count(start, limit, searchText, filterList);
-    }
-
+    
     public void add(final List<{{$dtoName}}> list){
         dao.add(list);
     }
