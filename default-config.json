@@ -45,6 +45,11 @@
             "namePattern": "%sServiceImpl",
             "metaData": "java"
         },
+        "basedao": {
+            "nameSpace": "service.dao",
+            "namePattern": "BaseDAO",
+            "metaData": "java"
+        },
         "dao": {
             "nameSpace": "service.dao",
             "namePattern": "%sDAO",
@@ -126,7 +131,7 @@
         },
         "java": {
             "baseNameSpace": "de.drazil.ptahtest.generated",
-            "templateBasePath": "spring/",
+            "templateBasePath": "java/",
             "outputBasePath": "src/main/java/",
             "fileSuffix": "java",
             "writeSeparateFile": true,
@@ -198,7 +203,8 @@
     "commonTemplateNames": [
         "filter",
         "sorter",
-        "ajaxresponse"
+        "ajaxresponse",
+        "basedao"
     ],
     "commonAttributes": [
         {
@@ -293,13 +299,25 @@
                     "name": "firstName",
                     "dataTypeKey": "string",
                     "allowNull": false,
+                    "searchable": true,
                     "size": 50
                 },
                 {
                     "name": "lastName",
                     "dataTypeKey": "string",
                     "allowNull": true,
+                    "searchable": true,
                     "size": -1
+                }
+            ],
+            "index": [
+                {
+                    "name": "MusicianIndex",
+                    "attributeNames": [
+                        "firstName",
+                        "lastName"
+                    ],
+                    "unique": true
                 }
             ]
         },
@@ -334,6 +352,7 @@
                     "name": "name",
                     "dataTypeKey": "string",
                     "allowNull": false,
+                    "searchable": true,
                     "size": 40
                 }
             ]
@@ -383,8 +402,6 @@
             "templateNames": [
                 "view"
             ],
-            
-            
             "attributes": [
                 {
                     "name": "id",

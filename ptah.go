@@ -26,9 +26,9 @@ var caution = "/* !!! CAUTION - THIS FILE MUST NOT BE CHANGED !!!*/\n\n"
 
 func main() {
 
-	flag.StringVar(&configFile, "cf", "default-config.json", "project config file")
-	flag.StringVar(&inputFolder, "in", "templates/", "template base path")
-	flag.StringVar(&outputFolder, "out", "c:/Users/10035120/git/ptah_test_project/", "generated file base path")
+	flag.StringVar(&configFile, "cf", "", "project config file")
+	flag.StringVar(&inputFolder, "in", "", "template base path")
+	flag.StringVar(&outputFolder, "out", "", "generated file base path")
 	flag.BoolVar(&purgeOutputFolders, "p", true, "purge all output folders before writing")
 	flag.BoolVar(&verbose, "v", true, "verbose mode")
 
@@ -109,7 +109,13 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 		},
 		"getFullObjectName": func(templateName string) string {
 			templateDefinition = project.TemplateDefinition[templateName]
-			var name = fmt.Sprintf(templateDefinition.NamePattern, strings.Title(entity.Name))
+			var name string
+			if strings.Contains(templateDefinition.NamePattern, "%s") {
+				name = fmt.Sprintf(templateDefinition.NamePattern, strings.Title(entity.Name))
+			} else {
+				name = templateDefinition.NamePattern
+			}
+
 			return fmt.Sprintf("%s.%s.%s", metaData.BaseNameSpace, templateDefinition.NameSpace, name)
 		},
 		"getObjectName": func(templateName string) string {
@@ -173,10 +179,10 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 			}
 			return dt
 		},
-		"getUid": func() uint32 {
-			algorithm := fnv.New32()
+		"getUid": func() int64 {
+			algorithm := fnv.New64a()
 			algorithm.Write([]byte(objectName))
-			return algorithm.Sum32()
+			return int64(algorithm.Sum64())
 		},
 		"getReferences": func() map[string][]structure.Attribute {
 			var attribute structure.Attribute
@@ -291,6 +297,11 @@ func run(file string) error {
 			"getObjectName": func(templateName string) string {
 				templateDefinition = project.TemplateDefinition[templateName]
 				return templateDefinition.NamePattern
+			},
+			"getFullObjectName": func(templateName string) string {
+				templateDefinition = project.TemplateDefinition[templateName]
+				var name = templateDefinition.NamePattern
+				return fmt.Sprintf("%s.%s.%s", metaData.BaseNameSpace, templateDefinition.NameSpace, name)
 			},
 			"getUid": func() uint32 {
 				algorithm := fnv.New32()

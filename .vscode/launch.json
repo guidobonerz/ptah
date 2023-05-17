@@ -6,7 +6,12 @@
     "configurations": [
         {
             "name": "Debug ptah",
-            "mode": "debug"
+            "mode": "debug",
+            "args": [
+                "-cf","default-config.json",
+                "-in","templates/",
+                "-out","c:/Users/drazil/git/ptah_test_project/"
+            ]
         }
     ]
 }

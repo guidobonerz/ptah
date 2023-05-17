@@ -19,15 +19,15 @@ import {{getFullObjectName "sorter"}};
 
 @Repository
 
-public class {{$daoName}} {
+public class {{$daoName}} extends BaseDao{
 
     @Autowired
     private EntityManager entityManager;
 
-    private final static String LIST   = "SELECT o from {{$dtoName}} o";
-    private final static String GET    = "SELECT o from {{$dtoName}} o where {{ range $index,$attribute := $primaryAttributes }}{{ $attribute.Name }}=:{{ $attribute.Name }}{{getAttributeSeparator $index $primaryAttributes}}{{- end}}";
-    private final static String COUNT  = "SELECT count(o) from {{$dtoName}} o";
-    private final static String HANDLE = "EXEC HANDLE_{{ getUpperCaseName $.Name}} :action, {{ range $index,$attribute := $attributeList }}:{{ $attribute.Name }}{{getAttributeSeparator $index $attributeList}}{{- end}}";
+    private final static String LIST      = "SELECT o from {{$dtoName}} o";
+    private final static String GET       = "SELECT o from {{$dtoName}} o where {{ range $index,$attribute := $primaryAttributes }}{{ $attribute.Name }}=:{{ $attribute.Name }}{{getAttributeSeparator $index $primaryAttributes}}{{- end}}";
+    private final static String COUNT     = "SELECT count(o) from {{$dtoName}} o";
+    private final static String EXEC_PROC = "EXEC HANDLE_{{ getUpperCaseName $.Name}} :action, {{ range $index,$attribute := $attributeList }}:{{ $attribute.Name }}{{getAttributeSeparator $index $attributeList}}{{- end}}";
     
     public {{$dtoName}} get({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getAttributeSeparator $index $primaryAttributes}}{{- end}}){
         final Query query = entityManager.createQuery(GET,{{$dtoName}}.class);
@@ -98,6 +98,12 @@ public class {{$daoName}} {
     }
 
     public List<{{$dtoName}}> list(final int start, final int limit, final String searchText, final List<Sorter> sorterList, final List<Filter> filterList){
+        final Query query = entityManager.createQuery(LIST);
+        final StringBuilder sorter = new StringBuilder();
+        final StringBuilder filter = new StringBuilder();
+
+        long count = (Long) query.getSingleResult();
+        return count;
         return null;
     }
 
@@ -131,6 +137,8 @@ public class {{$daoName}} {
 
     public long count(final int start, final int limit, final String searchText, final List<Filter> filterList){
         final Query query = entityManager.createQuery(COUNT);
+        final StringBuilder filter = new StringBuilder();
+
         long count = (Long) query.getSingleResult();
         return count;
     }
@@ -146,7 +154,7 @@ public class {{$daoName}} {
     }
 
     public int add({{- range $index,$attribute := $attributeList }}final {{getDataType $attribute}} {{$attribute.Name}}{{getAttributeSeparator $index $attributeList}}{{- end}}){
-        final Query query = entityManager.createNativeQuery(HANDLE);
+        final Query query = entityManager.createNativeQuery(EXEC_PROC);
         query.setParameter("action","ADD");
         {{- range $index,$attribute := $attributeList }}
         query.setParameter("{{ $attribute.Name }}",{{$attribute.Name}});
@@ -169,7 +177,7 @@ public class {{$daoName}} {
     }
 
     public int update(final {{$dtoName}} item){
-        final Query query = entityManager.createNativeQuery(HANDLE);
+        final Query query = entityManager.createNativeQuery(EXEC_PROC);
         query.setParameter("action","UPDATE");
         {{- range $index,$attribute := $attributeList }}
         query.setParameter("{{ $attribute.Name }}",item.get{{getCamelCaseName $attribute.Name}}());
@@ -189,7 +197,7 @@ public class {{$daoName}} {
     }
 
     public void delete({{- range $index,$attribute := $primaryAttributes }}final {{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getAttributeSeparator $index $primaryAttributes}}{{- end}}){
-        final Query query = entityManager.createNativeQuery(HANDLE);
+        final Query query = entityManager.createNativeQuery(EXEC_PROC);
         query.setParameter("action","DELETE");
         {{- range $index,$attribute := $primaryAttributes }}
         query.setParameter("{{ $attribute.Name }}",{{$attribute.Name}});

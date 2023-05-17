@@ -72,6 +72,8 @@ type Attribute struct {
 	DefaultValue     string `json:"defaultValue"`
 	PrimaryKey       bool   `json:"primaryKey"`
 	AllowNull        bool   `json:"allowNull"`
+	Searchable       bool   `json:"searchable"`
+	Filterable       bool   `json:"filterable"`
 	AutoId           bool   `json:"autoId"`
 	RefEntityName    string `json:"refEntityName"`
 	RefAttributeName string `json:"refAttributeName"`
