@@ -100,8 +100,8 @@
                 "constraint",
                 "index"
             ],
-            "templateBasePath": "database/mssql/",
-            "outputBasePath": "src/main/resources/dbscripts/",
+            "templatePath": "database/mssql/",
+            "outputPath": "src/main/resources_generated/dbscripts/",
             "fileSuffix": "sql",
             "writeSeparateFile": false,
             "attributeSeparator": ",",
@@ -131,8 +131,8 @@
         },
         "java": {
             "baseNameSpace": "de.drazil.ptahtest.generated",
-            "templateBasePath": "java/",
-            "outputBasePath": "src/main/java/",
+            "templatePath": "java/",
+            "outputPath": "src/main/java_generated/",
             "fileSuffix": "java",
             "writeSeparateFile": true,
             "attributeSeparator": ",",
@@ -166,8 +166,8 @@
             }
         },
         "js": {
-            "templateBasePath": "js/",
-            "outputBasePath": "src/main/resources/static/assets/gen/js/",
+            "templatePath": "js/",
+            "outputPath": "src/main/resources_generated/static/js/",
             "fileSuffix": "js",
             "writeSeparateFile": true,
             "attributeSeparator": ",",

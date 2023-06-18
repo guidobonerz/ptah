@@ -18,8 +18,8 @@ type TemplateDefinition struct {
 
 type MetaData struct {
 	BaseNameSpace                string                        `json:"baseNameSpace"`
-	TemplateBasePath             string                        `json:"templateBasepath"`
-	OutputBasePath               string                        `json:"outputBasepath"`
+	TemplatePath                 string                        `json:"templatePath"`
+	OutputPath                   string                        `json:"outputPath"`
 	AttributeSeparator           string                        `json:"attributeSeparator"`
 	FileSuffix                   string                        `json:"fileSuffix"`
 	WriteSeparateFile            bool                          `json:"writeSeparateFile"`

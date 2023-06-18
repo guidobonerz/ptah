@@ -17,8 +17,8 @@ import (
 )
 
 var configFile string
-var inputFolder string
-var outputFolder string
+var inputBaseFolder string
+var outputBaseFolder string
 var purgeOutputFolders bool
 var verbose bool = false
 var bundles = make(map[string]map[string]string)
@@ -27,8 +27,8 @@ var caution = "/* !!! CAUTION - THIS FILE MUST NOT BE CHANGED !!!*/\n\n"
 func main() {
 
 	flag.StringVar(&configFile, "cf", "", "project config file")
-	flag.StringVar(&inputFolder, "in", "", "template base path")
-	flag.StringVar(&outputFolder, "out", "", "generated file base path")
+	flag.StringVar(&inputBaseFolder, "ibf", "", "template base path")
+	flag.StringVar(&outputBaseFolder, "obf", "", "generated file base path")
 	flag.BoolVar(&purgeOutputFolders, "p", true, "purge all output folders before writing")
 	flag.BoolVar(&verbose, "v", true, "verbose mode")
 
@@ -37,8 +37,8 @@ func main() {
 		fmt.Printf("./ptah.exe -in <inputfolder>\n")
 		fmt.Printf("\nAvailable options  :\n")
 		fmt.Printf("-cf  <config file>   : path to json project config file\n")
-		fmt.Printf("-in  <inputFolder>   : folder of the template file(s)\n")
-		fmt.Printf("-out <outputFolder>  : folder of the generated file(s)\n")
+		fmt.Printf("-ibf  <inputBaseFolder>   : template base folder\n")
+		fmt.Printf("-obf <outputBaseFolder>  : output base folder\n")
 		fmt.Printf("-p   <true*|false>   : purge all output folders before writing\n")
 		fmt.Printf("-v   <true*|false>   : verbose mode\n")
 	}
@@ -86,11 +86,11 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 		fullNameSpace += metaData.BaseNameSpace + "."
 	}
 	fullNameSpace += templateDefinition.NameSpace
-	var nameSpacePath = outputFolder + metaData.OutputBasePath + strings.Replace(fullNameSpace+".", ".", "/", -1)
+	var nameSpacePath = outputBaseFolder + metaData.OutputPath + strings.Replace(fullNameSpace+".", ".", "/", -1)
 	var objectName = fmt.Sprintf(templateDefinition.NamePattern, strings.Title(entity.Name))
 	var outputFileName = nameSpacePath + objectName + "." + metaData.FileSuffix
 	var templateFileName = templateName + ".go.tpl"
-	var templatePathName = inputFolder + metaData.TemplateBasePath + templateFileName
+	var templatePathName = inputBaseFolder + metaData.TemplatePath + templateFileName
 	t, err := template.New(templateFileName).Funcs(template.FuncMap{
 		"getBaseNameSpace": func() string {
 			return metaData.BaseNameSpace
@@ -271,7 +271,7 @@ func run(file string) error {
 
 	if purgeOutputFolders {
 		for _, metaData := range project.MetaData {
-			var path = strings.Replace(outputFolder+metaData.OutputBasePath+metaData.BaseNameSpace, ".", "/", -1)
+			var path = strings.Replace(outputBaseFolder+metaData.OutputPath+metaData.BaseNameSpace, ".", "/", -1)
 			err := os.RemoveAll(path)
 			log.Printf("purge folder [ %s ]", path)
 			if err != nil {
@@ -291,11 +291,11 @@ func run(file string) error {
 			fullNameSpace += metaData.BaseNameSpace + "."
 		}
 		fullNameSpace += templateDefinition.NameSpace
-		var nameSpacePath = outputFolder + metaData.OutputBasePath + strings.Replace(fullNameSpace+".", ".", "/", -1)
+		var nameSpacePath = outputBaseFolder + metaData.OutputPath + strings.Replace(fullNameSpace+".", ".", "/", -1)
 		var objectName = templateDefinition.NamePattern
 		var outputFileName = nameSpacePath + objectName + "." + metaData.FileSuffix
 		var templateFileName = commonTemplateName + ".go.tpl"
-		var templatePathName = inputFolder + metaData.TemplateBasePath + templateFileName
+		var templatePathName = inputBaseFolder + metaData.TemplatePath + templateFileName
 		t, err := template.New(templateFileName).Funcs(template.FuncMap{
 			"getFullNameSpace": func() string {
 				return fullNameSpace
@@ -360,7 +360,7 @@ func run(file string) error {
 				content += bundles[k][templateName]
 			}
 
-			generatedFile, err := os.Create(outputFolder + metaData.OutputBasePath + "bundled_" + k + "_script." + metaData.FileSuffix)
+			generatedFile, err := os.Create(outputBaseFolder + metaData.OutputPath + "bundled_" + k + "_script." + metaData.FileSuffix)
 			check(err)
 			generatedFile.WriteString(caution)
 			generatedFile.WriteString(content)
