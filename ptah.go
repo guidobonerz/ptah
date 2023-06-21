@@ -19,7 +19,7 @@ import (
 var configFile string
 var inputBaseFolder string
 var outputBaseFolder string
-var purgeOutputFolders bool
+var purgeOutputFolders bool = false
 var verbose bool = false
 var bundles = make(map[string]map[string]string)
 var caution = "/* !!! CAUTION - THIS FILE MUST NOT BE CHANGED !!!*/\n\n"
@@ -29,7 +29,7 @@ func main() {
 	flag.StringVar(&configFile, "cf", "", "project config file")
 	flag.StringVar(&inputBaseFolder, "ibf", "", "template base path")
 	flag.StringVar(&outputBaseFolder, "obf", "", "generated file base path")
-	flag.BoolVar(&purgeOutputFolders, "p", true, "purge all output folders before writing")
+	flag.BoolVar(&purgeOutputFolders, "p", false, "purge all output folders before writing")
 	flag.BoolVar(&verbose, "v", true, "verbose mode")
 
 	flag.Usage = func() {
@@ -39,22 +39,26 @@ func main() {
 		fmt.Printf("-cf  <config file>   : path to json project config file\n")
 		fmt.Printf("-ibf  <inputBaseFolder>   : template base folder\n")
 		fmt.Printf("-obf <outputBaseFolder>  : output base folder\n")
-		fmt.Printf("-p   <true*|false>   : purge all output folders before writing\n")
-		fmt.Printf("-v   <true*|false>   : verbose mode\n")
+		fmt.Printf("-p : purge all output folders before writing\n")
+		fmt.Printf("-v : verbose mode\n")
 	}
 	flag.Parse()
 
 	if configFile == "" {
-		fmt.Printf("ERROR: config file MUST NOT be empty")
-		flag.Usage()
-		os.Exit(1)
+
+		fmt.Printf("ABORT: config file MUST NOT be empty")
+		//flag.Usage()
+		os.Exit(0)
 	}
+	fmt.Printf("read config file from \"%s\"", configFile)
 	run(configFile)
+	os.Exit(0)
 }
 
 func check(e error) {
 	if e != nil {
-		panic(e)
+		//panic(e)
+		os.Exit(0)
 	}
 }
 
@@ -185,6 +189,15 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 			}
 			return dt
 		},
+		"getGetterPrefix": func(attribute structure.Attribute) string {
+
+			if attribute.DataTypeKey == "boolean" {
+				return "is"
+			} else {
+				return "get"
+			}
+
+		},
 		"getUid": func() int64 {
 			algorithm := fnv.New64a()
 			algorithm.Write([]byte(objectName))
@@ -268,6 +281,10 @@ func run(file string) error {
 	var project structure.Project
 	json.Unmarshal(byteValue, &project)
 	var templateCount int = 0
+
+	if !strings.HasSuffix(outputBaseFolder, "/") {
+		outputBaseFolder += "/"
+	}
 
 	if purgeOutputFolders {
 		for _, metaData := range project.MetaData {

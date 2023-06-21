@@ -164,7 +164,7 @@ public class {{$daoName}} extends BaseDao{
 
     public List<{{$dtoName}}> copy(final {{$dtoName}} item, int copies){
         {{- range $index,$attribute := $attributeList }}
-        query.setParameter("{{ $attribute.Name }}",item.get{{getCamelCaseName $attribute.Name}}());
+        query.setParameter("{{ $attribute.Name }}",item.{{getGetterPrefix $attribute.Name}}{{getCamelCaseName $attribute.Name}}());
         {{- end}}
     }
 
@@ -180,7 +180,7 @@ public class {{$daoName}} extends BaseDao{
         final Query query = entityManager.createNativeQuery(EXEC_PROC);
         query.setParameter("action","UPDATE");
         {{- range $index,$attribute := $attributeList }}
-        query.setParameter("{{ $attribute.Name }}",item.get{{getCamelCaseName $attribute.Name}}());
+        query.setParameter("{{ $attribute.Name }}",item.{{getGetterPrefix $attribute.Name}}{{getCamelCaseName $attribute.Name}}());
         {{- end}}
         final Object result = query.getSingleResult();
         return 0;
