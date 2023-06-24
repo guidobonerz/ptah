@@ -57,8 +57,8 @@ func main() {
 
 func check(e error) {
 	if e != nil {
-		//panic(e)
-		os.Exit(0)
+		panic(e)
+		//os.Exit(1)
 	}
 }
 

@@ -4,48 +4,36 @@ package {{getFullNameSpace}};
 {{- $primaryAttributeTypes := getDataTypes $primaryAttributes }}
 {{- $serviceName := getObjectName "service"}}
 {{- $dtoName := getObjectName "dto"}}
+{{- $daoName := getObjectName "dao"}}
 
 import {{getFullObjectName "dto"}};
 import {{getFullObjectName "filter"}};
 import {{getFullObjectName "sorter"}};
+import {{getFullObjectName "result"}};
 
 import java.util.List;
 
 public interface {{$serviceName}} {
 
-    public {{$dtoName}} get({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getAttributeSeparator $index $primaryAttributes}}{{- end}});
+    public {{$dtoName}} get({{- range $index,$attribute := $primaryAttributes }}final {{ index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getAttributeSeparator $index $primaryAttributes}}{{- end}});
 
-    public List<{{$dtoName}}> list();
+    public Result<{{$dtoName}}> list();
 
-    public List<{{$dtoName}}> list(final String searchText);
-    
-    public List<{{$dtoName}}> list(final List<Sorter> sorterList);
+    public Result<{{$dtoName}}> list(final String searchText);
 
-    public List<{{$dtoName}}> list(final String searchText, final List<Sorter> sorterList);
+    public Result<{{$dtoName}}> list(final String searchText, final List<Sorter> sorterList);
 
-    public List<{{$dtoName}}> list(final List<Filter> filterList);
-
-    public List<{{$dtoName}}> list(final String searchText, final List<Filter> filterList);
-
-    public List<{{$dtoName}}> list(final List<Sorter> sorterList, final List<Filter> filterList);
-
-    public List<{{$dtoName}}> list(final String searchText, final List<Sorter> sorterList, final List<Filter> filterList);
+    public Result<{{$dtoName}}> list(final List<Filter> filterList, final List<Sorter> sorterList);
         
-    public List<{{$dtoName}}> list(final int start, final int limit);
+    public Result<{{$dtoName}}> list(final int start, final int limit);
     
-    public List<{{$dtoName}}> list(final int start, final int limit, final String searchText);
-    
-    public List<{{$dtoName}}> list(final int start, final int limit, final List<Sorter> sorterList);
+    public Result<{{$dtoName}}> list(final int start, final int limit, final String searchText);
 
-    public List<{{$dtoName}}> list(final int start, final int limit, final String searchText, final List<Sorter> sorterList);
+    public Result<{{$dtoName}}> list(final int start, final int limit, final String searchText, final List<Sorter> sorterList);
 
-    public List<{{$dtoName}}> list(final int start, final int limit, final List<Filter> filterList);
+    public Result<{{$dtoName}}> list(final int start, final int limit, final List<Filter> filterList, final List<Sorter> sorterList);
 
-    public List<{{$dtoName}}> list(final int start, final int limit, final String searchText, final List<Filter> filterList);
-
-    public List<{{$dtoName}}> list(final int start, final int limit, final List<Sorter> sorterList, final List<Filter> filterList);
-
-    public List<{{$dtoName}}> list(final int start, final int limit, final String searchText, final List<Sorter> sorterList, final List<Filter> filterList);
+    public Result<{{$dtoName}}> list(final int start, final int limit, final String searchText, final List<Filter> filterList, final List<Sorter> sorterList);
 
     public long count();
 
@@ -73,5 +61,5 @@ public interface {{$serviceName}} {
 
     public void delete(final List<{{$dtoName}}> list);
 
-    public void delete({{- range $index,$attribute := $primaryAttributes }}final {{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getAttributeSeparator $index $primaryAttributes}}{{- end}});
+    public void delete({{- range $index,$attribute := $primaryAttributes }}final {{ index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getAttributeSeparator $index $primaryAttributes}}{{- end}});
 }

@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class {{getObjectName "sorter"}} {
 
-    public static final enum Direction {
-        ASCENDING, DESCENDING;
+    public enum Direction {
+        ASCENDING("asc"), DESCENDING("desc");
     }
 
     private String attribute;

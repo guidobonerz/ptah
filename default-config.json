@@ -1,428 +1,429 @@
 {
-    "templateDefinition": {
-        "table": {
-            "nameSpace": "dbo",
-            "namePattern": "%s",
-            "metaData": "sql"
-        },
-        "constraint": {
-            "nameSpace": "dbo",
-            "namePattern": "%s",
-            "metaData": "sql"
-        },
-        "index": {
-            "nameSpace": "dbo",
-            "namePattern": "%s",
-            "metaData": "sql"
-        },
-        "view": {
-            "nameSpace": "dbo",
-            "namePattern": "%sView",
-            "metaData": "sql"
-        },
-        "procedure": {
-            "nameSpace": "dbo",
-            "namePattern": "Handle%s",
-            "metaData": "sql"
-        },
-        "dto": {
-            "nameSpace": "dto",
-            "namePattern": "%sDTO",
-            "metaData": "java"
-        },
-        "id": {
-            "nameSpace": "dto",
-            "namePattern": "%sId",
-            "metaData": "java"
-        },
-        "service": {
-            "nameSpace": "service",
-            "namePattern": "I%sService",
-            "metaData": "java"
-        },
-        "impl": {
-            "nameSpace": "service.impl",
-            "namePattern": "%sServiceImpl",
-            "metaData": "java"
-        },
-        "basedao": {
-            "nameSpace": "service.dao",
-            "namePattern": "BaseDAO",
-            "metaData": "java"
-        },
-        "dao": {
-            "nameSpace": "service.dao",
-            "namePattern": "%sDAO",
-            "metaData": "java"
-        },
-        "ajaxcontroller": {
-            "nameSpace": "controller",
-            "namePattern": "%sController",
-            "metaData": "java"
-        },
-        "formcontroller": {
-            "nameSpace": "controller",
-            "namePattern": "%sController",
-            "metaData": "java"
-        },
-        "jscontroller": {
-            "nameSpace": "controller",
-            "namePattern": "%sController",
-            "metaData": "js"
-        },
-        "filter": {
-            "nameSpace": "model",
-            "namePattern": "Filter",
-            "metaData": "java"
-        },
-        "sorter": {
-            "nameSpace": "model",
-            "namePattern": "Sorter",
-            "metaData": "java"
-        },
-        "ajaxresponse": {
-            "nameSpace": "model",
-            "namePattern": "AjaxResponse",
-            "metaData": "java"
-        },
-        "result": {
-            "nameSpace": "util",
-            "namePattern": "Result",
-            "metaData": "java"
-        }
+  "templateDefinition": {
+    "table": {
+      "nameSpace": "dbo",
+      "namePattern": "%s",
+      "metaData": "sql"
     },
-    "metaData": {
-        "sql": {
-            "templateProcessingOrder": [
-                "table",
-                "view",
-                "procedure",
-                "constraint",
-                "index"
-            ],
-            "templatePath": "database/mssql/",
-            "outputPath": "src/main/resources_generated/dbscripts/",
-            "fileSuffix": "sql",
-            "writeSeparateFile": false,
-            "attributeSeparator": ",",
-            "dataTypes": {
-                "string": {
-                    "dataType": "nvarchar",
-                    "nonNullDataType": "nvarchar",
-                    "hasSize": true,
-                    "maxSize": "MAX"
-                },
-                "long": {
-                    "dataType": "bigint",
-                    "nonNullDataType": "bigint",
-                    "hasSize": false
-                },
-                "date": {
-                    "dataType": "date",
-                    "nonNullDataType": "date",
-                    "hasSize": false
-                },
-                "boolean": {
-                    "dataType": "bit",
-                    "nonNullDataType": "bit",
-                    "hasSize": false
-                }
-            }
-        },
-        "java": {
-            "baseNameSpace": "de.drazil.ptahtest.generated",
-            "templatePath": "java/",
-            "outputPath": "src/main/java_generated/",
-            "fileSuffix": "java",
-            "writeSeparateFile": true,
-            "attributeSeparator": ",",
-            "enableMultiAttributeIdOption": true,
-            "dataTypes": {
-                "string": {
-                    "dataType": "String",
-                    "nonNullDataType": "String",
-                    "hasSize": true
-                },
-                "int": {
-                    "dataType": "Integer",
-                    "nonNullDataType": "int"
-                },
-                "long": {
-                    "dataType": "Long",
-                    "nonNullDataType": "long"
-                },
-                "double": {
-                    "dataType": "Double",
-                    "nonNullDataType": "double"
-                },
-                "date": {
-                    "dataType": "java.util.Date",
-                    "nonNullDataType": "java.util.Date"
-                },
-                "boolean": {
-                    "dataType": "Boolean",
-                    "nonNullDataType": "boolean"
-                }
-            }
-        },
-        "js": {
-            "templatePath": "js/",
-            "outputPath": "src/main/resources_generated/static/js/",
-            "fileSuffix": "js",
-            "writeSeparateFile": true,
-            "attributeSeparator": ",",
-            "enableMultiAttributeIdOption": true,
-            "dataTypes": {
-                "string": {
-                    "dataType": "",
-                    "nonNullDataType": ""
-                },
-                "int": {
-                    "dataType": "",
-                    "nonNullDataType": ""
-                },
-                "long": {
-                    "dataType": "",
-                    "nonNullDataType": ""
-                },
-                "double": {
-                    "dataType": "",
-                    "nonNullDataType": ""
-                },
-                "date": {
-                    "dataType": "",
-                    "nonNullDataType": ""
-                },
-                "boolean": {
-                    "dataType": "",
-                    "nonNullDataType": ""
-                }
-            }
-        }
+    "constraint": {
+      "nameSpace": "dbo",
+      "namePattern": "%s",
+      "metaData": "sql"
     },
-    "commonTemplateNames": [
-        "filter",
-        "sorter",
-        "ajaxresponse",
-        "basedao"
-    ],
-    "commonAttributes": [
-        {
-            "name": "createUser",
-            "dataTypeKey": "long",
-            "allowNull": false
-        },
-        {
-            "name": "createDate",
-            "dataTypeKey": "date",
-            "allowNull": false,
-            "defaultValue": "getdate()"
-        },
-        {
-            "name": "editUser",
-            "dataTypeKey": "long",
-            "allowNull": false
-        },
-        {
-            "name": "editDate",
-            "dataTypeKey": "date",
-            "allowNull": false,
-            "defaultValue": "getdate()"
-        },
-        {
-            "name": "version",
-            "dataTypeKey": "long",
-            "allowNull": false,
-            "defaultValue": "0"
-        },
-        {
-            "name": "phantom",
-            "dataTypeKey": "boolean",
-            "allowNull": false,
-            "defaultValue": "0"
-        },
-        {
-            "name": "deleted",
-            "dataTypeKey": "boolean",
-            "allowNull": false,
-            "defaultValue": "0"
-        }
-    ],
-    "dataGenerator": {
-        "randomInt": {
-            "from": 0,
-            "to": 100
-        },
-        "randomString": {
-            "minLength": 0,
-            "maxLength": 100
-        },
-        "randomFloat": {
-            "from": 0,
-            "to": 100.0
-        },
-        "randomDate": {
-            "from": "2023-05-01",
-            "to": "2023-10-30"
-        }
+    "index": {
+      "nameSpace": "dbo",
+      "namePattern": "%s",
+      "metaData": "sql"
     },
-    "entities": [
+    "view": {
+      "nameSpace": "dbo",
+      "namePattern": "%sView",
+      "metaData": "sql"
+    },
+    "procedure": {
+      "nameSpace": "dbo",
+      "namePattern": "Handle%s",
+      "metaData": "sql"
+    },
+    "dto": {
+      "nameSpace": "dto",
+      "namePattern": "%sDTO",
+      "metaData": "java"
+    },
+    "id": {
+      "nameSpace": "dto",
+      "namePattern": "%sId",
+      "metaData": "java"
+    },
+    "service": {
+      "nameSpace": "service",
+      "namePattern": "I%sService",
+      "metaData": "java"
+    },
+    "impl": {
+      "nameSpace": "service.impl",
+      "namePattern": "%sServiceImpl",
+      "metaData": "java"
+    },
+    "basedao": {
+      "nameSpace": "service.dao",
+      "namePattern": "BaseDAO",
+      "metaData": "java"
+    },
+    "dao": {
+      "nameSpace": "service.dao",
+      "namePattern": "%sDAO",
+      "metaData": "java"
+    },
+    "ajaxcontroller": {
+      "nameSpace": "controller",
+      "namePattern": "%sController",
+      "metaData": "java"
+    },
+    "formcontroller": {
+      "nameSpace": "controller",
+      "namePattern": "%sController",
+      "metaData": "java"
+    },
+    "jscontroller": {
+      "nameSpace": "controller",
+      "namePattern": "%sController",
+      "metaData": "js"
+    },
+    "filter": {
+      "nameSpace": "model",
+      "namePattern": "Filter",
+      "metaData": "java"
+    },
+    "sorter": {
+      "nameSpace": "model",
+      "namePattern": "Sorter",
+      "metaData": "java"
+    },
+    "ajaxresponse": {
+      "nameSpace": "model",
+      "namePattern": "AjaxResponse",
+      "metaData": "java"
+    },
+    "result": {
+      "nameSpace": "model",
+      "namePattern": "Result",
+      "metaData": "java"
+    }
+  },
+  "metaData": {
+    "sql": {
+      "templateProcessingOrder": [
+        "table",
+        "view",
+        "procedure",
+        "constraint",
+        "index"
+      ],
+      "templatePath": "database/mssql/",
+      "outputPath": "src/main/resources_generated/dbscripts/",
+      "fileSuffix": "sql",
+      "writeSeparateFile": false,
+      "attributeSeparator": ",",
+      "dataTypes": {
+        "string": {
+          "dataType": "nvarchar",
+          "nonNullDataType": "nvarchar",
+          "hasSize": true,
+          "maxSize": "MAX"
+        },
+        "long": {
+          "dataType": "bigint",
+          "nonNullDataType": "bigint",
+          "hasSize": false
+        },
+        "date": {
+          "dataType": "date",
+          "nonNullDataType": "date",
+          "hasSize": false
+        },
+        "boolean": {
+          "dataType": "bit",
+          "nonNullDataType": "bit",
+          "hasSize": false
+        }
+      }
+    },
+    "java": {
+      "baseNameSpace": "de.drazil.ptahtest.generated",
+      "templatePath": "java/",
+      "outputPath": "src/main/java_generated/",
+      "fileSuffix": "java",
+      "writeSeparateFile": true,
+      "attributeSeparator": ",",
+      "enableMultiAttributeIdOption": true,
+      "dataTypes": {
+        "string": {
+          "dataType": "String",
+          "nonNullDataType": "String",
+          "hasSize": true
+        },
+        "int": {
+          "dataType": "Integer",
+          "nonNullDataType": "int"
+        },
+        "long": {
+          "dataType": "Long",
+          "nonNullDataType": "long"
+        },
+        "double": {
+          "dataType": "Double",
+          "nonNullDataType": "double"
+        },
+        "date": {
+          "dataType": "java.util.Date",
+          "nonNullDataType": "java.util.Date"
+        },
+        "boolean": {
+          "dataType": "Boolean",
+          "nonNullDataType": "boolean"
+        }
+      }
+    },
+    "js": {
+      "templatePath": "js/",
+      "outputPath": "src/main/resources_generated/static/js/",
+      "fileSuffix": "js",
+      "writeSeparateFile": true,
+      "attributeSeparator": ",",
+      "enableMultiAttributeIdOption": true,
+      "dataTypes": {
+        "string": {
+          "dataType": "",
+          "nonNullDataType": ""
+        },
+        "int": {
+          "dataType": "",
+          "nonNullDataType": ""
+        },
+        "long": {
+          "dataType": "",
+          "nonNullDataType": ""
+        },
+        "double": {
+          "dataType": "",
+          "nonNullDataType": ""
+        },
+        "date": {
+          "dataType": "",
+          "nonNullDataType": ""
+        },
+        "boolean": {
+          "dataType": "",
+          "nonNullDataType": ""
+        }
+      }
+    }
+  },
+  "commonTemplateNames": [
+    "result",
+    "filter",
+    "sorter",
+    "ajaxresponse",
+    "basedao"
+  ],
+  "commonAttributes": [
+    {
+      "name": "createUser",
+      "dataTypeKey": "long",
+      "allowNull": false
+    },
+    {
+      "name": "createDate",
+      "dataTypeKey": "date",
+      "allowNull": false,
+      "defaultValue": "getdate()"
+    },
+    {
+      "name": "editUser",
+      "dataTypeKey": "long",
+      "allowNull": false
+    },
+    {
+      "name": "editDate",
+      "dataTypeKey": "date",
+      "allowNull": false,
+      "defaultValue": "getdate()"
+    },
+    {
+      "name": "version",
+      "dataTypeKey": "long",
+      "allowNull": false,
+      "defaultValue": "0"
+    },
+    {
+      "name": "phantom",
+      "dataTypeKey": "boolean",
+      "allowNull": false,
+      "defaultValue": "0"
+    },
+    {
+      "name": "deleted",
+      "dataTypeKey": "boolean",
+      "allowNull": false,
+      "defaultValue": "0"
+    }
+  ],
+  "dataGenerator": {
+    "randomInt": {
+      "from": 0,
+      "to": 100
+    },
+    "randomString": {
+      "minLength": 0,
+      "maxLength": 100
+    },
+    "randomFloat": {
+      "from": 0,
+      "to": 100.0
+    },
+    "randomDate": {
+      "from": "2023-05-01",
+      "to": "2023-10-30"
+    }
+  },
+  "entities": [
+    {
+      "name": "musician",
+      "templateNames": [
+        "table",
+        "constraint",
+        "index",
+        "procedure",
+        "ajaxcontroller",
+        "jscontroller",
+        "dto",
+        "service",
+        "impl",
+        "dao"
+      ],
+      "enableAdd": true,
+      "enableList": true,
+      "enableUpdate": true,
+      "enableDelete": true,
+      "generateHistoryEntity": true,
+      "disableCommonAttributes": false,
+      "attributes": [
         {
-            "name": "musician",
-            "templateNames": [
-                "table",
-                "constraint",
-                "index",
-                "procedure",
-                "ajaxcontroller",
-                "jscontroller",
-                "dto",
-                "service",
-                "impl",
-                "dao"
-            ],
-            "enableAdd": true,
-            "enableList": true,
-            "enableUpdate": true,
-            "enableDelete": true,
-            "generateHistoryEntity": true,
-            "disableCommonAttributes": false,
-            "attributes": [
-                {
-                    "name": "id",
-                    "primaryKey": true,
-                    "dataTypeKey": "long",
-                    "allowNull": false,
-                    "autoId": true
-                },
-                {
-                    "name": "firstName",
-                    "dataTypeKey": "string",
-                    "allowNull": false,
-                    "searchable": true,
-                    "size": 50
-                },
-                {
-                    "name": "lastName",
-                    "dataTypeKey": "string",
-                    "allowNull": true,
-                    "searchable": true,
-                    "size": -1
-                }
-            ],
-            "index": [
-                {
-                    "name": "MusicianIndex",
-                    "attributeNames": [
-                        "firstName",
-                        "lastName"
-                    ],
-                    "unique": true
-                }
-            ]
+          "name": "id",
+          "primaryKey": true,
+          "dataTypeKey": "long",
+          "allowNull": false,
+          "autoId": true
         },
         {
-            "name": "band",
-            "templateNames": [
-                "table",
-                "constraint",
-                "index",
-                "procedure",
-                "ajaxcontroller",
-                "dto",
-                "impl",
-                "service",
-                "dao"
-            ],
-            "enableAdd": true,
-            "enableList": true,
-            "enableUpdate": true,
-            "enableDelete": true,
-            "generateHistoryEntity": true,
-            "disableCommonAttributes": true,
-            "attributes": [
-                {
-                    "name": "id",
-                    "primaryKey": true,
-                    "dataTypeKey": "long",
-                    "allowNull": false,
-                    "autoId": true
-                },
-                {
-                    "name": "name",
-                    "dataTypeKey": "string",
-                    "allowNull": false,
-                    "searchable": true,
-                    "size": 40
-                }
-            ]
+          "name": "firstName",
+          "dataTypeKey": "string",
+          "allowNull": false,
+          "searchable": true,
+          "size": 50
         },
         {
-            "name": "bandmember",
-            "templateNames": [
-                "table",
-                "procedure",
-                "constraint",
-                "index",
-                "ajaxcontroller",
-                "dto",
-                "impl",
-                "service",
-                "dao"
-            ],
-            "enableAdd": true,
-            "enableList": true,
-            "enableUpdate": true,
-            "enableDelete": true,
-            "generateHistoryEntity": true,
-            "disableCommonAttributes": true,
-            "attributes": [
-                {
-                    "name": "musicianId",
-                    "primaryKey": true,
-                    "dataTypeKey": "long",
-                    "allowNull": false,
-                    "refEntityName": "musician",
-                    "refAttributeName": "id"
-                },
-                {
-                    "name": "bandId",
-                    "primaryKey": true,
-                    "dataTypeKey": "long",
-                    "allowNull": false,
-                    "refEntityName": "band",
-                    "refAttributeName": "id"
-                }
-            ]
+          "name": "lastName",
+          "dataTypeKey": "string",
+          "allowNull": true,
+          "searchable": true,
+          "size": -1
         }
-    ],
-    "virtualEntities": [
+      ],
+      "index": [
         {
-            "name": "musicianoverview",
-            "templateNames": [
-                "view"
-            ],
-            "attributes": [
-                {
-                    "name": "id",
-                    "primaryKey": true,
-                    "dataTypeKey": "long",
-                    "allowNull": false,
-                    "autoId": true
-                },
-                {
-                    "name": "firstName",
-                    "dataTypeKey": "string",
-                    "allowNull": false,
-                    "size": 50
-                },
-                {
-                    "name": "lastName",
-                    "dataTypeKey": "string",
-                    "allowNull": true,
-                    "size": -1
-                }
-            ]
+          "name": "MusicianIndex",
+          "attributeNames": [
+            "firstName",
+            "lastName"
+          ],
+          "unique": true
         }
-    ]
+      ]
+    },
+    {
+      "name": "band",
+      "templateNames": [
+        "table",
+        "constraint",
+        "index",
+        "procedure",
+        "ajaxcontroller",
+        "dto",
+        "impl",
+        "service",
+        "dao"
+      ],
+      "enableAdd": true,
+      "enableList": true,
+      "enableUpdate": true,
+      "enableDelete": true,
+      "generateHistoryEntity": true,
+      "disableCommonAttributes": true,
+      "attributes": [
+        {
+          "name": "id",
+          "primaryKey": true,
+          "dataTypeKey": "long",
+          "allowNull": false,
+          "autoId": true
+        },
+        {
+          "name": "name",
+          "dataTypeKey": "string",
+          "allowNull": false,
+          "searchable": true,
+          "size": 40
+        }
+      ]
+    },
+    {
+      "name": "bandmember",
+      "templateNames": [
+        "table",
+        "procedure",
+        "constraint",
+        "index",
+        "ajaxcontroller",
+        "dto",
+        "impl",
+        "service",
+        "dao"
+      ],
+      "enableAdd": true,
+      "enableList": true,
+      "enableUpdate": true,
+      "enableDelete": true,
+      "generateHistoryEntity": true,
+      "disableCommonAttributes": true,
+      "attributes": [
+        {
+          "name": "musicianId",
+          "primaryKey": true,
+          "dataTypeKey": "long",
+          "allowNull": false,
+          "refEntityName": "musician",
+          "refAttributeName": "id"
+        },
+        {
+          "name": "bandId",
+          "primaryKey": true,
+          "dataTypeKey": "long",
+          "allowNull": false,
+          "refEntityName": "band",
+          "refAttributeName": "id"
+        }
+      ]
+    }
+  ],
+  "virtualEntities": [
+    {
+      "name": "musicianoverview",
+      "templateNames": [
+        "view"
+      ],
+      "attributes": [
+        {
+          "name": "id",
+          "primaryKey": true,
+          "dataTypeKey": "long",
+          "allowNull": false,
+          "autoId": true
+        },
+        {
+          "name": "firstName",
+          "dataTypeKey": "string",
+          "allowNull": false,
+          "size": 50
+        },
+        {
+          "name": "lastName",
+          "dataTypeKey": "string",
+          "allowNull": true,
+          "size": -1
+        }
+      ]
+    }
+  ]
 }

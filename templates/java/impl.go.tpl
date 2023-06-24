@@ -12,6 +12,7 @@ import {{getFullObjectName "dto"}};
 import {{getFullObjectName "service"}};
 import {{getFullObjectName "filter"}};
 import {{getFullObjectName "sorter"}};
+import {{getFullObjectName "result"}};
 
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -23,72 +24,48 @@ public class {{$implName}}  implements {{$serviceName}}{
     @Autowired
     private {{$daoName}} dao;
 
-    public {{$dtoName}} get({{- range $index,$attribute := $primaryAttributes }}final {{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getAttributeSeparator $index $primaryAttributes}}{{- end}}){
+    public {{$dtoName}} get({{- range $index,$attribute := $primaryAttributes }}final {{ index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getAttributeSeparator $index $primaryAttributes}}{{- end}}){
         return dao.get({{- range $index,$attribute := $primaryAttributes }}{{ $attribute.Name }}{{getAttributeSeparator $index $primaryAttributes}}{{- end}});
     }
 
-    public List<{{$dtoName}}> list(){
+    public Result<{{$dtoName}}> list(){
         return dao.list();
     }
 
-    public List<{{$dtoName}}> list(final String searchText){
+    public Result<{{$dtoName}}> list(final String searchText){
         return dao.list(searchText);
     }
-    
-    public List<{{$dtoName}}> list(final List<Sorter> sorterList){
-        return dao.list(sorterList);
-    }
 
-    public List<{{$dtoName}}> list(final String searchText, final List<Sorter> sorterList){
+    public Result<{{$dtoName}}> list(final String searchText, final List<Sorter> sorterList){
         return dao.list(searchText, sorterList);
     }
 
-    public List<{{$dtoName}}> list(final List<Filter> filterList){
-        return dao.list(filterList);
+    public Result<{{$dtoName}}> list(final List<Filter> filterList, final List<Sorter> sorterList){
+        return dao.list(filterList, sorterList);
     }
 
-    public List<{{$dtoName}}> list(final String searchText, final List<Filter> filterList){
-        return dao.list(searchText, filterList);
-    }
-
-    public List<{{$dtoName}}> list(final List<Sorter> sorterList, final List<Filter> filterList){
-        return dao.list(sorterList, filterList);
-    }
-
-    public List<{{$dtoName}}> list(final String searchText, final List<Sorter> sorterList, final List<Filter> filterList){
-        return dao.list(searchText, sorterList, filterList);
+    public Result<{{$dtoName}}> list(final String searchText, final List<Filter> filterList, final List<Sorter> sorterList){
+        return dao.list(searchText, filterList, sorterList);
     }
         
-    public List<{{$dtoName}}> list(final int start, final int limit){
+    public Result<{{$dtoName}}> list(final int start, final int limit){
         return dao.list(start, limit);
     }
     
-    public List<{{$dtoName}}> list(final int start, final int limit, final String searchText){
+    public Result<{{$dtoName}}> list(final int start, final int limit, final String searchText){
         return dao.list(start, limit, searchText);
     }
-    
-    public List<{{$dtoName}}> list(final int start, final int limit, final List<Sorter> sorterList){
-        return dao.list(start, limit, sorterList);
-    }
 
-    public List<{{$dtoName}}> list(final int start, final int limit, final String searchText, final List<Sorter> sorterList){
+    public Result<{{$dtoName}}> list(final int start, final int limit, final String searchText, final List<Sorter> sorterList){
         return dao.list(start, limit, searchText, sorterList);
     }
 
-    public List<{{$dtoName}}> list(final int start, final int limit, final List<Filter> filterList){
-        return dao.list(start, limit, filterList);
+    public Result<{{$dtoName}}> list(final int start, final int limit, final List<Filter> filterList, final List<Sorter> sorterList){
+        return dao.list(start, limit, filterList, sorterList);
     }
 
-    public List<{{$dtoName}}> list(final int start, final int limit, final String searchText, final List<Filter> filterList){
-        return dao.list(start, limit, searchText, filterList);
-    }
-
-    public List<{{$dtoName}}> list(final int start, final int limit, final List<Sorter> sorterList, final List<Filter> filterList){
-        return dao.list(start, limit, sorterList, filterList);
-    }
-
-    public List<{{$dtoName}}> list(final int start, final int limit, final String searchText, final List<Sorter> sorterList, final List<Filter> filterList){
-        return dao.list(start, limit, searchText, sorterList, filterList);
+    public Result<{{$dtoName}}> list(final int start, final int limit, final String searchText, final List<Filter> filterList, final List<Sorter> sorterList){
+        return dao.list(start, limit, searchText, filterList, sorterList);
     }
 
     public long count(){
@@ -120,11 +97,11 @@ public class {{$implName}}  implements {{$serviceName}}{
     }
 
     public {{$dtoName}} copy(final {{$dtoName}} item){
-        dao.copy(item, 1);
+        return dao.copy(item, 1).get(0);
     }
 
     public List<{{$dtoName}}> copy(final {{$dtoName}} item, final int copies){
-        dao.copy(item, copies);
+        return dao.copy(item, copies);
     }
 
     public int update(final List<{{$dtoName}}> list){
@@ -135,7 +112,7 @@ public class {{$implName}}  implements {{$serviceName}}{
         return dao.update(item);
     }
 
-    public int delete(final List<{{$dtoName}}> list){
+    public void delete(final List<{{$dtoName}}> list){
         dao.delete(list);
     }
 
@@ -143,7 +120,7 @@ public class {{$implName}}  implements {{$serviceName}}{
         dao.delete(item);
     }
 
-    public void delete({{- range $index,$attribute := $primaryAttributes }}final {{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getAttributeSeparator $index $primaryAttributes}}{{- end}}){
+    public void delete({{- range $index,$attribute := $primaryAttributes }}final {{ index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getAttributeSeparator $index $primaryAttributes}}{{- end}}){
         dao.delete({{- range $index,$attribute := $primaryAttributes }}{{ $attribute.Name }}{{getAttributeSeparator $index $primaryAttributes}}{{- end}});
     }
 }

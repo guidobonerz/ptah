@@ -16,10 +16,11 @@ import javax.persistence.TypedQuery;
 import {{getFullObjectName "dto"}};
 import {{getFullObjectName "filter"}};
 import {{getFullObjectName "sorter"}};
+import {{getFullObjectName "result"}};
 
 @Repository
 
-public class {{$daoName}} extends BaseDao{
+public class {{$daoName}} extends BaseDAO{
 
     @Autowired
     private EntityManager entityManager;
@@ -29,81 +30,61 @@ public class {{$daoName}} extends BaseDao{
     private final static String COUNT     = "SELECT count(o) from {{$dtoName}} o";
     private final static String EXEC_PROC = "EXEC HANDLE_{{ getUpperCaseName $.Name}} :action, {{ range $index,$attribute := $attributeList }}:{{ $attribute.Name }}{{getAttributeSeparator $index $attributeList}}{{- end}}";
     
-    public {{$dtoName}} get({{- range $index,$attribute := $primaryAttributes }}{{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getAttributeSeparator $index $primaryAttributes}}{{- end}}){
-        final Query query = entityManager.createQuery(GET,{{$dtoName}}.class);
+    public {{$dtoName}} get({{- range $index,$attribute := $primaryAttributes }}final {{ index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getAttributeSeparator $index $primaryAttributes}}{{- end}}){
+        final TypedQuery query = entityManager.createQuery(GET,{{$dtoName}}.class);
         {{- range $index,$attribute := $primaryAttributes }}
         query.setParameter("{{ $attribute.Name }}",{{$attribute.Name}});
         {{- end}}
-        return query.getSingleResult();
+        return ({{$dtoName}})query.getSingleResult();
     }
 
-    public List<{{$dtoName}}> list(){
-        return list(-1, -1, (String)null, (List<Sorter>)null, (List<Filter>)null);
+    public Result<{{$dtoName}}> list(){
+        return list(-1, -1, (String)null, (List<Filter>)null, (List<Sorter>)null);
     }
 
-    public List<{{$dtoName}}> list(final String searchText){
-        return list(searchText, (List<Sorter>)null, (List<Filter>)null);
-    }
-    
-    public List<{{$dtoName}}> list(final List<Sorter> sorterList){
-        return list((String)null, sorterList, (List<Filter>)null);
+    public Result<{{$dtoName}}> list(final String searchText){
+        return list(searchText, (List<Filter>)null, (List<Sorter>)null);
     }
 
-    public List<{{$dtoName}}> list(final String searchText, final List<Sorter> sorterList){
-        return list(searchText, sorterList, (List<Filter>)null);
+    public Result<{{$dtoName}}> list(final String searchText, final List<Sorter> sorterList){
+        return list(searchText, (List<Filter>)null, sorterList);
     }
 
-    public List<{{$dtoName}}> list(final List<Filter> filterList){
-        return list((String)null, (List<Sorter>)null, filterList);
+    public Result<{{$dtoName}}> list(final List<Filter> filterList, final List<Sorter> sorterList){
+        return list((String)null, filterList, sorterList);
     }
 
-    public List<{{$dtoName}}> list(final String searchText, final List<Filter> filterList){
-        return list(searchText, (List<Sorter>)null, filterList);
-    }
-
-    public List<{{$dtoName}}> list(final List<Sorter> sorterList, final List<Filter> filterList){
-        return list((String)null, sorterList, filterList);
-    }
-
-    public List<{{$dtoName}}> list(final String searchText, final List<Sorter> sorterList, final List<Filter> filterList){
-         return list(-1, -1, searchText, sorterList, filterList);
+    public Result<{{$dtoName}}> list(final String searchText, final List<Filter> filterList, final List<Sorter> sorterList){
+         return list(-1, -1, searchText, filterList, sorterList);
     }
         
-    public List<{{$dtoName}}> list(final int start, final int limit){
-        return list(start, limit, (String)null, (List<Sorter>)null, (List<Filter>)null);
-    }
-    
-    public List<{{$dtoName}}> list(final int start, final int limit, final String searchText){
-        return list(start, limit, searchText, (List<Sorter>)null, (List<Filter>)null);
-    }
-    
-    public List<{{$dtoName}}> list(final int start, final int limit, final List<Sorter> sorterList){
-        return list(start, limit, (String)null, sorterList, (List<Filter>)null);
+    public Result<{{$dtoName}}> list(final int start, final int limit){
+        return list(start, limit, (String)null, (List<Filter>)null, (List<Sorter>)null);
     }
 
-    public List<{{$dtoName}}> list(final int start, final int limit, final String searchText, final List<Sorter> sorterList){
-        return list(start, limit, searchText, sorterList, (List<Filter>)null);
+    public Result<{{$dtoName}}> list(final int start, final int limit, final String searchText){
+        return list(start, limit, searchText, (List<Filter>)null, (List<Sorter>)null);
     }
 
-    public List<{{$dtoName}}> list(final int start, final int limit, final List<Filter> filterList){
-        return list(start, limit, (String)null, (List<Sorter>)null, filterList);
+    public Result<{{$dtoName}}> list(final int start, final int limit, final String searchText, final List<Sorter> sorterList){
+        return list(start, limit, searchText, (List<Filter>)null, sorterList);
     }
 
-    public List<{{$dtoName}}> list(final int start, final int limit, final String searchText, final List<Filter> filterList){
-        return list(start, limit, searchText, (List<Sorter>)null, filterList);
+    public Result<{{$dtoName}}> list(final int start, final int limit, final List<Filter> filterList, final List<Sorter> sorterList){
+        return list(start, limit, (String)null, filterList, sorterList);
     }
 
-    public List<{{$dtoName}}> list(final int start, final int limit, final List<Sorter> sorterList, final List<Filter> filterList){
-        return list(start, limit, (String)null, sorterList, filterList);
-    }
-
-    public List<{{$dtoName}}> list(final int start, final int limit, final String searchText, final List<Sorter> sorterList, final List<Filter> filterList){
-        final Query query = entityManager.createQuery(LIST);
+    public Result<{{$dtoName}}> list(final int start, final int limit, final String searchText, final List<Filter> filterList, final List<Sorter> sorterList){
+        final Result<{{$dtoName}}> result = new Result<>();
+        final TypedQuery listQuery = entityManager.createQuery(LIST, {{$dtoName}}.class);
+        final Query countQuery = entityManager.createQuery(COUNT);
         final StringBuilder sorter = new StringBuilder();
         final StringBuilder filter = new StringBuilder();
 
-        long count = (Long) query.getSingleResult();
-        return count;
+        List<{{$dtoName}}> list = listQuery.getResultList();
+        long count = (Long) countQuery.getSingleResult();
+        result.setTotal(count);
+        result.setResultList(list);
         return null;
     }
 
@@ -150,7 +131,7 @@ public class {{$daoName}} extends BaseDao{
     }
 
     public int add(final {{$dtoName}} item){
-        return add({{- range $index,$attribute := $attributeList }}item.get{{getCamelCaseName $attribute.Name}}(){{getAttributeSeparator $index $attributeList}}{{- end}});
+        return add({{- range $index,$attribute := $attributeList }}item.{{getGetterPrefix $attribute}}{{getCamelCaseName $attribute.Name}}(){{getAttributeSeparator $index $attributeList}}{{- end}});
     }
 
     public int add({{- range $index,$attribute := $attributeList }}final {{getDataType $attribute}} {{$attribute.Name}}{{getAttributeSeparator $index $attributeList}}{{- end}}){
@@ -160,12 +141,15 @@ public class {{$daoName}} extends BaseDao{
         query.setParameter("{{ $attribute.Name }}",{{$attribute.Name}});
         {{- end}}
         final Object result = query.getSingleResult();
+        return -1;
     }
 
     public List<{{$dtoName}}> copy(final {{$dtoName}} item, int copies){
+        final Query query = entityManager.createNativeQuery(EXEC_PROC);
         {{- range $index,$attribute := $attributeList }}
-        query.setParameter("{{ $attribute.Name }}",item.{{getGetterPrefix $attribute.Name}}{{getCamelCaseName $attribute.Name}}());
+        query.setParameter("{{ $attribute.Name }}",item.{{getGetterPrefix $attribute}}{{getCamelCaseName $attribute.Name}}());
         {{- end}}
+        return null;
     }
 
     public int update(final List<{{$dtoName}}> list){
@@ -180,7 +164,7 @@ public class {{$daoName}} extends BaseDao{
         final Query query = entityManager.createNativeQuery(EXEC_PROC);
         query.setParameter("action","UPDATE");
         {{- range $index,$attribute := $attributeList }}
-        query.setParameter("{{ $attribute.Name }}",item.{{getGetterPrefix $attribute.Name}}{{getCamelCaseName $attribute.Name}}());
+        query.setParameter("{{ $attribute.Name }}",item.{{getGetterPrefix $attribute}}{{getCamelCaseName $attribute.Name}}());
         {{- end}}
         final Object result = query.getSingleResult();
         return 0;
@@ -193,10 +177,10 @@ public class {{$daoName}} extends BaseDao{
     }
 
     public void delete(final {{$dtoName}} item){
-        deleteById({{- range $index,$attribute := $primaryAttributes }}item.get{{getCamelCaseName $attribute.Name}}(){{getAttributeSeparator $index $primaryAttributes}}{{- end}});
+        delete({{- range $index,$attribute := $primaryAttributes }}item.get{{getCamelCaseName $attribute.Name}}(){{getAttributeSeparator $index $primaryAttributes}}{{- end}});
     }
 
-    public void delete({{- range $index,$attribute := $primaryAttributes }}final {{- index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getAttributeSeparator $index $primaryAttributes}}{{- end}}){
+    public void delete({{- range $index,$attribute := $primaryAttributes }}final {{ index $primaryAttributeTypes $index}} {{ $attribute.Name }}{{getAttributeSeparator $index $primaryAttributes}}{{- end}}){
         final Query query = entityManager.createNativeQuery(EXEC_PROC);
         query.setParameter("action","DELETE");
         {{- range $index,$attribute := $primaryAttributes }}

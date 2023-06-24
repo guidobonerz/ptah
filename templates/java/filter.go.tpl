@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class {{getObjectName "filter"}} {
 
-    public static final enum Operator {
+    public enum Operator {
         EQ, GT, LT, GTE, LTE, CONTAINS, STARTS_WITH, ENDS_ON;
     }
 

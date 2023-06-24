@@ -15,7 +15,6 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,6 +33,7 @@ import {{getFullObjectName "dto"}};
 import {{getFullObjectName "ajaxresponse"}};
 import {{getFullObjectName "sorter"}};
 import {{getFullObjectName "filter"}};
+import {{getFullObjectName "result"}};
 
 @RestController
 @Slf4j
@@ -50,11 +51,10 @@ public class {{$controllerName}} {
     public AjaxResponse<String, {{$dtoName}}> get(final @PathVariable(required = false) Long id) {
         log.info("call get:{{$name}}");
         AjaxResponse<String, {{$dtoName}}> response = new AjaxResponse<>(true, "{{$name}} get successfully");
-        Result<{{$dtoName}}> result = null;
+        {{$dtoName}} item = null;
         try {
-            result = service.get(id);
-            result.getResultList().get(0);
-            response.setData(result.getResultList().get(0));
+            item = service.get(id);
+            response.setData(item);
             response.setTotal(1);
         } catch (Exception ex) {
             log.error("failed to get {{$name}}", ex);
@@ -79,8 +79,7 @@ public class {{$controllerName}} {
             List<{{$sorter}}> sorterList = null;
             List<{{$filter}}> filterList = null;
 
-            final List<{{$dtoName}}> list = service.list(start, length, search, sorterList, filterList);
-            int = service.count(start, length, search, sorter, filter);
+            final Result<{{$dtoName}}> result = service.list(start, length, search, filterList, sorterList);
             response.setData(result.getResultList());
             response.setTotal(result.getTotal());
         } catch (final Exception ex) {

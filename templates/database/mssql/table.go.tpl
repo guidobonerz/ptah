@@ -1,4 +1,4 @@
-{{- $attributeList := getAttributes}}
+{{- $attributeList := getAtt  ributes}}
 if object_id(N'[{{getNameSpace}}].[{{getCamelCaseName $.Name}}]','U') is null
 BEGIN
 CREATE TABLE [{{getNameSpace}}].[{{getCamelCaseName $.Name}}](
