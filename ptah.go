@@ -33,7 +33,7 @@ func main() {
 	flag.BoolVar(&verbose, "v", true, "verbose mode")
 
 	flag.Usage = func() {
-		fmt.Printf("\nptah - Pretty Template Automation Hooligan\na template based code generator\n\ndrazil 2023\n\n")
+		fmt.Printf("\nptah - Petite Template Automation Handler\na template based code generator\n\ndrazil 2023\n\n")
 		fmt.Printf("./ptah.exe -in <inputfolder>\n")
 		fmt.Printf("\nAvailable options  :\n")
 		fmt.Printf("-cf  <config file>   : path to json project config file\n")
