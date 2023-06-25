@@ -37,7 +37,7 @@ func main() {
 		fmt.Printf("./ptah.exe -in <inputfolder>\n")
 		fmt.Printf("\nAvailable options  :\n")
 		fmt.Printf("-cf  <config file>   : path to json project config file\n")
-		fmt.Printf("-ibf  <inputBaseFolder>   : template base folder\n")
+		fmt.Printf("-ibf <inputBaseFolder>   : template base folder\n")
 		fmt.Printf("-obf <outputBaseFolder>  : output base folder\n")
 		fmt.Printf("-p : purge all output folders before writing\n")
 		fmt.Printf("-v : verbose mode\n")
