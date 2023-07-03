@@ -28,5 +28,5 @@ Generator functions for use in templates
 - getPrimaryAttributes > return attributes[]
 - hasMultiplePrimaryAttriutes > return bool
 
-A documentation of the general GOLANG templates can be found [here](https://pkg.go.dev/text/template) 
+A documentation of the general GO templates can be found [here](https://pkg.go.dev/text/template) 
 
