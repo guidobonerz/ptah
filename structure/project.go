@@ -1,86 +1,86 @@
 package structure
 
 type Project struct {
-	Entities            []Entity                      `json:"entities"`
-	VirtualEntities     []VirtualEntity               `json:"virtualEntities"`
-	CommonAttributes    []Attribute                   `json:"commonAttributes"`
-	TemplateDefinition  map[string]TemplateDefinition `json:"templateDefinition"`
-	MetaData            map[string]MetaData           `json:"metaData"`
-	DataGenerator       map[string]interface{}        `json:"dataGenerator"`
-	CommonTemplateNames []string                      `json:"commonTemplateNames"`
+	Entities            []Entity                      `yaml:"entities"`
+	VirtualEntities     []VirtualEntity               `yaml:"virtualEntities"`
+	CommonAttributes    []Attribute                   `yaml:"commonAttributes"`
+	TemplateDefinition  map[string]TemplateDefinition `yaml:"templateDefinition"`
+	MetaData            map[string]MetaData           `yaml:"metaData"`
+	DataGenerator       map[string]interface{}        `yaml:"dataGenerator"`
+	CommonTemplateNames []string                      `yaml:"commonTemplateNames"`
 }
 
 type TemplateDefinition struct {
-	NameSpace   string `json:"nameSpace"`
-	NamePattern string `json:"namePattern"`
-	MetaData    string `json:"metaData"`
+	NameSpace   string `yaml:"nameSpace"`
+	NamePattern string `yaml:"namePattern"`
+	MetaData    string `yaml:"metaData"`
 }
 
 type MetaData struct {
-	BaseNameSpace                string                        `json:"baseNameSpace"`
-	TemplatePath                 string                        `json:"templatePath"`
-	OutputPath                   string                        `json:"outputPath"`
-	AttributeSeparator           string                        `json:"attributeSeparator"`
-	FileSuffix                   string                        `json:"fileSuffix"`
-	WriteSeparateFile            bool                          `json:"writeSeparateFile"`
-	EnableMultiAttributeIdOption bool                          `json:"enableMultiAttributeIdOption"`
-	TemplateProcessingOrder      []string                      `json:"templateProcessingOrder"`
-	DataTypes                    map[string]DataTypeDefinition `json:"dataTypes"`
+	BaseNameSpace                string                        `yaml:"baseNameSpace"`
+	TemplatePath                 string                        `yaml:"templatePath"`
+	OutputPath                   string                        `yaml:"outputPath"`
+	AttributeSeparator           string                        `yaml:"attributeSeparator"`
+	FileSuffix                   string                        `yaml:"fileSuffix"`
+	WriteSeparateFile            bool                          `yaml:"writeSeparateFile"`
+	EnableMultiAttributeIdOption bool                          `yaml:"enableMultiAttributeIdOption"`
+	TemplateProcessingOrder      []string                      `yaml:"templateProcessingOrder"`
+	DataTypes                    map[string]DataTypeDefinition `yaml:"dataTypes"`
 }
 
 type DataTypeDefinition struct {
-	DataType        string `json:"dataType"`
-	NonNullDataType string `json:"nonNullDataType"`
-	HasSize         bool   `json:"hasSize"`
-	MaxSize         string `json:"maxSize"`
+	DataType        string `yaml:"dataType"`
+	NonNullDataType string `yaml:"nonNullDataType"`
+	HasSize         bool   `yaml:"hasSize"`
+	MaxSize         string `yaml:"maxSize"`
 }
 
 type Entity struct {
-	Name                    string      `json:"name"`
-	TemplateNames           []string    `json:"templateNames"`
-	EnableAdd               bool        `json:"enableAdd"`
-	EnableList              bool        `json:"enableList"`
-	EnableUpdate            bool        `json:"enableUpdate"`
-	EnableDelete            bool        `json:"enableDelete"`
-	EnableSort              bool        `json:"enableSort"`
-	EnableFilter            bool        `json:"enableFilter"`
-	EnableSearch            bool        `json:"enableSearch"`
-	EnablePagination        bool        `json:"enablePagination"`
-	GenerateHistoryEntity   bool        `json:"generateHistoryEntity"`
-	DisableCommonAttributes bool        `json:"disableCommonAttributes"`
-	FakeDataRendererKey     string      `json:"fakeDataRendererKey"`
-	Attributes              []Attribute `json:"attributes"`
-	Index                   []Index     `json:"index"`
+	Name                    string      `yaml:"name"`
+	TemplateNames           []string    `yaml:"templateNames"`
+	EnableAdd               bool        `yaml:"enableAdd"`
+	EnableList              bool        `yaml:"enableList"`
+	EnableUpdate            bool        `yaml:"enableUpdate"`
+	EnableDelete            bool        `yaml:"enableDelete"`
+	EnableSort              bool        `yaml:"enableSort"`
+	EnableFilter            bool        `yaml:"enableFilter"`
+	EnableSearch            bool        `yaml:"enableSearch"`
+	EnablePagination        bool        `yaml:"enablePagination"`
+	GenerateHistoryEntity   bool        `yaml:"generateHistoryEntity"`
+	DisableCommonAttributes bool        `yaml:"disableCommonAttributes"`
+	FakeDataRendererKey     string      `yaml:"fakeDataRendererKey"`
+	Attributes              []Attribute `yaml:"attributes"`
+	Index                   []Index     `yaml:"index"`
 }
 
 type VirtualEntity struct {
-	Name             string      `json:"name"`
-	TemplateNames    []string    `json:"templateNames"`
-	EnableSort       bool        `json:"enableSort"`
-	EnableFilter     bool        `json:"enableFilter"`
-	EnableSearch     bool        `json:"enableSearch"`
-	EnablePagination bool        `json:"enablePagination"`
-	Attributes       []Attribute `json:"attributes"`
-	Source           string      `json:"source"`
-	SourceType       int         `json:"sourceType"` // 0:string content ; 1:filename
+	Name             string      `yaml:"name"`
+	TemplateNames    []string    `yaml:"templateNames"`
+	EnableSort       bool        `yaml:"enableSort"`
+	EnableFilter     bool        `yaml:"enableFilter"`
+	EnableSearch     bool        `yaml:"enableSearch"`
+	EnablePagination bool        `yaml:"enablePagination"`
+	Attributes       []Attribute `yaml:"attributes"`
+	Source           string      `yaml:"source"`
+	SourceType       string      `yaml:"sourceType"` // 'text' or 'file'
 }
 
 type Attribute struct {
-	Name             string `json:"name"`
-	DataTypeKey      string `json:"dataTypeKey"`
-	Size             int    `json:"size"`
-	DefaultValue     string `json:"defaultValue"`
-	PrimaryKey       bool   `json:"primaryKey"`
-	AllowNull        bool   `json:"allowNull"`
-	Searchable       bool   `json:"searchable"`
-	Filterable       bool   `json:"filterable"`
-	AutoId           bool   `json:"autoId"`
-	RefEntityName    string `json:"refEntityName"`
-	RefAttributeName string `json:"refAttributeName"`
+	Name             string `yaml:"name"`
+	DataTypeKey      string `yaml:"dataTypeKey"`
+	Size             int    `yaml:"size"`
+	DefaultValue     string `yaml:"defaultValue"`
+	PrimaryKey       bool   `yaml:"primaryKey"`
+	AllowNull        bool   `yaml:"allowNull"`
+	Searchable       bool   `yaml:"searchable"`
+	Filterable       bool   `yaml:"filterable"`
+	AutoId           bool   `yaml:"autoId"`
+	RefEntityName    string `yaml:"refEntityName"`
+	RefAttributeName string `yaml:"refAttributeName"`
 }
 
 type Index struct {
-	Name           string   `json:"name"`
-	AttributeNames []string `json:"attributeNames"`
-	Unique         bool     `json:"unique"`
+	Name           string   `yaml:"name"`
+	AttributeNames []string `yaml:"attributeNames"`
+	Unique         bool     `yaml:"unique"`
 }

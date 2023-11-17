@@ -8,9 +8,10 @@
             "name": "Debug ptah",
             "mode": "debug",
             "args": [
-                "-cf","default-config.json",
+                "-cf","default-config.yaml",
                 "-ibf","templates/",
-                "-obf","c:/Users/drazil/git/ptah_test_project/"
+                "-obf","c:/Users/drazil/git/ptah_test_project/",
+                "-v"
             ]
         }
     ]

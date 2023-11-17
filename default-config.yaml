@@ -1,394 +1,327 @@
-templateDefinition: 
-    table: 
-        nameSpace: dbo
-        namePattern: '%s'
-        metaData: sql
-    
-    constraint: 
-        nameSpace: dbo
-        namePattern: '%s'
-        metaData: sql
-    
-    index: 
-        nameSpace: dbo
-        namePattern: '%s'
-        metaData: sql
-    
-    view: 
-        nameSpace: dbo
-        namePattern: '%sView'
-        metaData: sql
-    
-    procedure: 
-        nameSpace: dbo
-        namePattern: 'Handle%s'
-        metaData: sql
-    
-    dto: 
-        nameSpace: dto
-        namePattern: '%sDTO'
-        metaData: java
-    
-    id: 
-        nameSpace: dto
-        namePattern: '%sId'
-        metaData: java
-    
-    service: 
-        nameSpace: service
-        namePattern: 'I%sService'
-        metaData: java
-    
-    impl: 
-        nameSpace: service.impl
-        namePattern: '%sServiceImpl'
-        metaData: java
-    
-    basedao: 
-        nameSpace: service.dao
-        namePattern: 'BaseDAO'
-        metaData: java
-    
-    dao: 
-        nameSpace: service.dao
-        namePattern: '%sDAO'
-        metaData: java
-    
-    ajaxcontroller: 
-        nameSpace: controller
-        namePattern: '%sController'
-        metaData: java
-    
-    formcontroller: 
-        nameSpace: controller
-        namePattern: '%sController'
-        metaData: java
-    
-    jscontroller: 
-        nameSpace: controller
-        namePattern: '%sController'
-        metaData: js
-    
-    filter: 
-        nameSpace: model
-        namePattern: 'Filter'
-        metaData: java
-    
-    sorter: 
-        nameSpace: model
-        namePattern: 'Sorter'
-        metaData: java
-    
-    ajaxresponse: 
-        nameSpace: model
-        namePattern: 'AjaxResponse'
-        metaData: java
-    
-    result: 
-        nameSpace: model
-        namePattern: 'Result'
-        metaData: java
-   
-metaData: 
-    sql: 
-        templateProcessingOrder: 
-            - table
-            - view
-            - procedure
-            - constraint
-            - index
-      
-        templatePath: database/mssql/
-        outputPath: src/main/resources_generated/dbscripts/
-        fileSuffix: sql
-        writeSeparateFile: false
-        attributeSeparator: ','
-        dataTypes: 
-            string: 
-                dataType: nvarchar
-                nonNullDataType: nvarchar
-                hasSize: true
-                maxSize: MAX
-        
-            long: 
-                dataType: bigint
-                nonNullDataType: bigint
-                hasSize: false
-        
-            date: 
-                dataType: date
-                nonNullDataType: date
-                hasSize: false
-        
-            boolean: 
-                dataType: bit
-                nonNullDataType: bit
-                hasSize: false
-        
-      
-    
-    java: 
-        baseNameSpace: de.drazil.ptahtest.generated
-        templatePath: java/
-        outputPath: src/main/java_generated/
-        fileSuffix: java
-        writeSeparateFile: true
-        attributeSeparator: ','
-        enableMultiAttributeIdOption: true
-        dataTypes: 
-            string: 
-                dataType: String
-                nonNullDataType: String
-                hasSize: true
-        
-            int: 
-                dataType: Integer
-                nonNullDataType: int
-        
-            long: 
-                dataType: Long
-                nonNullDataType: long
-        
-            double: 
-                dataType: Double
-                nonNullDataType: double
-        
-            date: 
-                dataType: java.util.Date
-                nonNullDataType: java.util.Date
-        
-            boolean: 
-                dataType: Boolean
-                nonNullDataType: boolean
-             
-    js: 
-        templatePath: js/
-        outputPath: src/main/resources_generated/static/js/
-        fileSuffix: js
-        writeSeparateFile: true
-        attributeSeparator: ','
-        enableMultiAttributeIdOption: true
-        dataTypes: 
-            string: 
-                dataType: 
-                nonNullDataType: 
-        
-            int: 
-                dataType: 
-                nonNullDataType: 
-        
-            long: 
-                dataType: 
-                nonNullDataType: 
-        
-            double: 
-                dataType: 
-                nonNullDataType: 
-        
-            date: 
-                dataType: 
-                nonNullDataType: 
-        
-            boolean: 
-                dataType: 
-                nonNullDataType: 
-         
-    
-  
-commonTemplateNames: 
-    - result
-    - filter
-    - sorter
-    - ajaxresponse
-    - basedao
-  
-commonAttributes: 
-    - name: createUser
-      dataTypeKey: long
-      allowNull: false
-        
-    - name: createDate
-      dataTypeKey: date
-      allowNull: false
-      defaultValue: getdate()
-    
-    
-    - name: editUser
-      dataTypeKey: long
-      allowNull: false
-        
-    - name: editDate
-      dataTypeKey: date
-      allowNull: false
-      defaultValue: getdate()
-       
-    - name: version
-      dataTypeKey: long
-      allowNull: false
-      defaultValue: 0
-        
-    - name: phantom
-      dataTypeKey: boolean
-      allowNull: false
-      defaultValue: 0
-        
-    - name: deleted
-      dataTypeKey: boolean
-      allowNull: false
-      defaultValue: 0
-      
-dataGenerator: 
-    randomInt: 
-        from: 0
-        to: 100
-    
-    randomString: 
-        minLength: 0
-        maxLength: 100
-    
-    randomFloat: 
-        from: 0
-        to: 100.0
-    
-    randomDate: 
-        from: 2023-05-01
-        to: 2023-10-30
-    
-  
-entities: 
-    - name: musician
-      templateNames: 
-        - table
-        - constraint
-        - index
-        - procedure
-        - ajaxcontroller
-        - jscontroller
-        - dto
-        - service
-        - impl
-        - dao
-      
-      enableAdd: true
-      enableList: true
-      enableUpdate: true
-      enableDelete: true
-      generateHistoryEntity: true
-      disableCommonAttributes: false
-      attributes: 
-        - name: id
-          primaryKey: true
-          dataTypeKey: long
-          allowNull: false
-          autoId: true
-               
-        - name: firstName
-          dataTypeKey: string
-          allowNull: false
-          searchable: true
-          size: 50
-               
-        - name: lastName
-          dataTypeKey: string
-          allowNull: true
-          searchable: true
-          size: -1
-              
-      index: 
-        - name: MusicianIndex
-          attributeNames: 
+---
+commonAttributes:
+  - allowNull: false
+    dataTypeKey: long
+    name: createUser
+  - allowNull: false
+    dataTypeKey: date
+    defaultValue: getdate()
+    name: createDate
+  - allowNull: false
+    dataTypeKey: long
+    name: editUser
+  - allowNull: false
+    dataTypeKey: date
+    defaultValue: getdate()
+    name: editDate
+  - allowNull: false
+    dataTypeKey: long
+    defaultValue: 0
+    name: version
+  - allowNull: false
+    dataTypeKey: boolean
+    defaultValue: 0
+    name: phantom
+  - allowNull: false
+    dataTypeKey: boolean
+    defaultValue: 0
+    name: deleted
+commonTemplateNames:
+  - result
+  - filter
+  - sorter
+  - ajaxresponse
+  - basedao
+dataGenerator:
+  randomDate:
+    from: 2023-05-01T00:00:00.000Z
+    to: 2023-10-30T00:00:00.000Z
+  randomFloat:
+    from: 0
+    to: 100
+  randomInt:
+    from: 0
+    to: 100
+  randomString:
+    maxLength: 100
+    minLength: 0
+entities:
+  - attributes:
+      - allowNull: false
+        autoId: true
+        dataTypeKey: long
+        name: id
+        primaryKey: true
+      - allowNull: false
+        dataTypeKey: string
+        name: firstName
+        searchable: true
+        size: 50
+      - allowNull: true
+        dataTypeKey: string
+        name: lastName
+        searchable: true
+        size: -1
+    disableCommonAttributes: false
+    enableAdd: true
+    enableDelete: true
+    enableList: true
+    enableUpdate: true
+    generateHistoryEntity: true
+    index:
+      - attributeNames:
           - firstName
           - lastName
-          unique: true
-      
-    - name: band
-      templateNames: 
-        - table
-        - constraint
-        - index
-        - procedure
-        - ajaxcontroller
-        - dto
-        - impl
-        - service
-        - dao
-      
-      enableAdd: true
-      enableList: true
-      enableUpdate: true
-      enableDelete: true
-      generateHistoryEntity: true
-      disableCommonAttributes: true
-      attributes: 
-        - name: id
-          primaryKey: true
-          dataTypeKey: long
-          allowNull: false
-          autoId: true
-              
-        - name: name
-          dataTypeKey: string
-          allowNull: false
-          searchable: true
-          size: 40
-             
-    - name: bandmember
-      templateNames: 
-        - table
-        - procedure
-        - constraint
-        - index
-        - ajaxcontroller
-        - dto
-        - impl
-        - service
-        - dao
-      
-      enableAdd: true
-      enableList: true
-      enableUpdate: true
-      enableDelete: true
-      generateHistoryEntity: true
-      disableCommonAttributes: true
-      attributes: 
-        
-        - name: musicianId
-          primaryKey: true
-          dataTypeKey: long
-          allowNull: false
-          refEntityName: musician
-          refAttributeName: id
-        
-        
-        - name: bandId
-          primaryKey: true
-          dataTypeKey: long
-          allowNull: false
-          refEntityName: band
-          refAttributeName: id
-        
-virtualEntities: 
-    
-    - name: musicianoverview
-      templateNames: 
-        - view
-      attributes: 
-        - name: id
-          primaryKey: true
-          dataTypeKey: long
-          allowNull: false
-          autoId: true
-                
-        - name: firstName
-          dataTypeKey: string
-          allowNull: false
-          size: 50
-                
-        - name: lastName
-          dataTypeKey: string
-          allowNull: true
-          size: -1
-      source : | guido
-                 bonerz
-                 dflgk
-                 dfgdfg
+        name: MusicianIndex
+        unique: true
+    name: musician
+    templateNames:
+      - table
+      - constraint
+      - index
+      - procedure
+      - ajaxcontroller
+      - jscontroller
+      - dto
+      - service
+      - impl
+      - dao
+  - attributes:
+      - allowNull: false
+        autoId: true
+        dataTypeKey: long
+        name: id
+        primaryKey: true
+      - allowNull: false
+        dataTypeKey: string
+        name: name
+        searchable: true
+        size: 40
+    disableCommonAttributes: true
+    enableAdd: true
+    enableDelete: true
+    enableList: true
+    enableUpdate: true
+    generateHistoryEntity: true
+    name: band
+    templateNames:
+      - table
+      - constraint
+      - index
+      - procedure
+      - ajaxcontroller
+      - dto
+      - impl
+      - service
+      - dao
+  - attributes:
+      - allowNull: false
+        dataTypeKey: long
+        name: musicianId
+        primaryKey: true
+        refAttributeName: id
+        refEntityName: musician
+      - allowNull: false
+        dataTypeKey: long
+        name: bandId
+        primaryKey: true
+        refAttributeName: id
+        refEntityName: band
+    disableCommonAttributes: true
+    enableAdd: true
+    enableDelete: true
+    enableList: true
+    enableUpdate: true
+    generateHistoryEntity: true
+    name: bandmember
+    templateNames:
+      - table
+      - procedure
+      - constraint
+      - index
+      - ajaxcontroller
+      - dto
+      - impl
+      - service
+      - dao
+metaData:
+  java:
+    attributeSeparator: ','
+    baseNameSpace: de.drazil.ptahtest.generated
+    dataTypes:
+      boolean:
+        dataType: Boolean
+        nonNullDataType: boolean
+      date:
+        dataType: java.util.Date
+        nonNullDataType: java.util.Date
+      double:
+        dataType: Double
+        nonNullDataType: double
+      int:
+        dataType: Integer
+        nonNullDataType: int
+      long:
+        dataType: Long
+        nonNullDataType: long
+      string:
+        dataType: String
+        hasSize: true
+        nonNullDataType: String
+    enableMultiAttributeIdOption: true
+    fileSuffix: java
+    outputPath: src/main/java_generated/
+    templatePath: java/
+    writeSeparateFile: true
+  js:
+    attributeSeparator: ','
+    dataTypes:
+      boolean:
+        dataType: null
+        nonNullDataType: null
+      date:
+        dataType: null
+        nonNullDataType: null
+      double:
+        dataType: null
+        nonNullDataType: null
+      int:
+        dataType: null
+        nonNullDataType: null
+      long:
+        dataType: null
+        nonNullDataType: null
+      string:
+        dataType: null
+        nonNullDataType: null
+    enableMultiAttributeIdOption: true
+    fileSuffix: js
+    outputPath: src/main/resources_generated/static/js/
+    templatePath: js/
+    writeSeparateFile: true
+  sql:
+    attributeSeparator: ','
+    dataTypes:
+      boolean:
+        dataType: bit
+        hasSize: false
+        nonNullDataType: bit
+      date:
+        dataType: date
+        hasSize: false
+        nonNullDataType: date
+      long:
+        dataType: bigint
+        hasSize: false
+        nonNullDataType: bigint
+      string:
+        dataType: nvarchar
+        hasSize: true
+        maxSize: MAX
+        nonNullDataType: nvarchar
+    fileSuffix: sql
+    outputPath: src/main/resources_generated/dbscripts/
+    templatePath: database/mssql/
+    templateProcessingOrder:
+      - table
+      - view
+      - procedure
+      - constraint
+      - index
+    writeSeparateFile: false
+templateDefinition:
+  ajaxcontroller:
+    metaData: java
+    namePattern: '%sController'
+    nameSpace: controller
+  ajaxresponse:
+    metaData: java
+    namePattern: AjaxResponse
+    nameSpace: model
+  basedao:
+    metaData: java
+    namePattern: BaseDAO
+    nameSpace: service.dao
+  constraint:
+    metaData: sql
+    namePattern: '%s'
+    nameSpace: dbo
+  dao:
+    metaData: java
+    namePattern: '%sDAO'
+    nameSpace: service.dao
+  dto:
+    metaData: java
+    namePattern: '%sDTO'
+    nameSpace: dto
+  filter:
+    metaData: java
+    namePattern: Filter
+    nameSpace: model
+  formcontroller:
+    metaData: java
+    namePattern: '%sController'
+    nameSpace: controller
+  id:
+    metaData: java
+    namePattern: '%sId'
+    nameSpace: dto
+  impl:
+    metaData: java
+    namePattern: '%sServiceImpl'
+    nameSpace: service.impl
+  index:
+    metaData: sql
+    namePattern: '%s'
+    nameSpace: dbo
+  jscontroller:
+    metaData: js
+    namePattern: '%sController'
+    nameSpace: controller
+  procedure:
+    metaData: sql
+    namePattern: Handle%s
+    nameSpace: dbo
+  result:
+    metaData: java
+    namePattern: Result
+    nameSpace: model
+  service:
+    metaData: java
+    namePattern: I%sService
+    nameSpace: service
+  sorter:
+    metaData: java
+    namePattern: Sorter
+    nameSpace: model
+  table:
+    metaData: sql
+    namePattern: '%s'
+    nameSpace: dbo
+  view:
+    metaData: sql
+    namePattern: '%sView'
+    nameSpace: dbo
+virtualEntities:
+  - attributes:
+      - allowNull: false
+        autoId: true
+        dataTypeKey: long
+        name: id
+        primaryKey: true
+      - allowNull: false
+        dataTypeKey: string
+        name: firstName
+        size: 50
+      - allowNull: true
+        dataTypeKey: string
+        name: lastName
+        size: -1
+    name: musicianoverview
+    source: |-
+      select * from table 
+      where x=1
+      and y=2
+    sourceType: text
+    templateNames:
+      - view

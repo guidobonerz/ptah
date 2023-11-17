@@ -3,17 +3,19 @@ package main
 import (
 	"bytes"
 	"de/drazil/ptah/structure"
-	"encoding/json"
 	"flag"
 	"fmt"
 	"hash/fnv"
-	"io/ioutil"
 	"log"
 	"os"
 	"strconv"
 	"strings"
 	"text/template"
 	"time"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
+	"gopkg.in/yaml.v3"
 )
 
 var configFile string
@@ -23,6 +25,8 @@ var purgeOutputFolders bool = false
 var verbose bool = false
 var bundles = make(map[string]map[string]string)
 var caution = "/* !!! CAUTION - THIS FILE MUST NOT BE CHANGED !!!*/\n\n"
+var caserTitle = cases.Title(language.English)
+var caserUpper = cases.Upper(language.English)
 
 func main() {
 
@@ -90,8 +94,9 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 		fullNameSpace += metaData.BaseNameSpace + "."
 	}
 	fullNameSpace += templateDefinition.NameSpace
+	caserTitle.Reset()
 	var nameSpacePath = outputBaseFolder + metaData.OutputPath + strings.Replace(fullNameSpace+".", ".", "/", -1)
-	var objectName = fmt.Sprintf(templateDefinition.NamePattern, strings.Title(entity.Name))
+	var objectName = fmt.Sprintf(templateDefinition.NamePattern, caserTitle.String(entity.Name))
 	var outputFileName = nameSpacePath + objectName + "." + metaData.FileSuffix
 	var templateFileName = templateName + ".go.tpl"
 	var templatePathName = inputBaseFolder + metaData.TemplatePath + templateFileName
@@ -115,7 +120,8 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 			templateDefinition = project.TemplateDefinition[templateName]
 			var name string
 			if strings.Contains(templateDefinition.NamePattern, "%s") {
-				name = fmt.Sprintf(templateDefinition.NamePattern, strings.Title(entity.Name))
+				caserTitle.Reset()
+				name = fmt.Sprintf(templateDefinition.NamePattern, caserTitle.String(entity.Name))
 			} else {
 				name = templateDefinition.NamePattern
 			}
@@ -126,17 +132,20 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 			templateDefinition = project.TemplateDefinition[templateName]
 			var name string
 			if strings.Contains(templateDefinition.NamePattern, "%s") {
-				name = fmt.Sprintf(templateDefinition.NamePattern, strings.Title(entity.Name))
+				caserTitle.Reset()
+				name = fmt.Sprintf(templateDefinition.NamePattern, caserTitle.String(entity.Name))
 			} else {
 				name = templateDefinition.NamePattern
 			}
 			return name
 		},
 		"getUpperCaseName": func(name string) string {
-			return strings.ToUpper(name)
+			caserUpper.Reset()
+			return caserUpper.String(name)
 		},
 		"getCamelCaseName": func(name string) string {
-			return strings.Title(name)
+			caserTitle.Reset()
+			return caserTitle.String(name)
 		},
 
 		"needSize": func(attribute structure.Attribute, includeMaxSize bool) bool {
@@ -270,16 +279,11 @@ func processTemplate(project structure.Project, entity structure.Entity, templat
 
 func run(file string) error {
 	start := time.Now()
-	controlFile, err := os.Open(file)
-	check(err)
 
-	fmt.Println("successfully opened project file")
-	defer controlFile.Close()
-
-	byteValue, _ := ioutil.ReadAll(controlFile)
+	byteValue, _ := os.ReadFile(file)
 
 	var project structure.Project
-	json.Unmarshal(byteValue, &project)
+	yaml.Unmarshal(byteValue, &project)
 	var templateCount int = 0
 
 	if !strings.HasSuffix(outputBaseFolder, "/") {
